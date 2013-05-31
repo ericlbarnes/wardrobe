@@ -44,7 +44,7 @@ class ApiPostController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		return Response::json($this->seed[$id-1]);
+		return Post::findOrFail($id);
 	}
 
 	/**

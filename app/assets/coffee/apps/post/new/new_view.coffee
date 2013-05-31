@@ -1,14 +1,11 @@
-@Wardrobe.module "PostApp.Edit", (Edit, App, Backbone, Marionette, $, _) ->
+@Wardrobe.module "PostApp.New", (New, App, Backbone, Marionette, $, _) ->
 
-  class Edit.Post extends App.Views.ItemView
+  class New.Post extends App.Views.ItemView
     template: "post/templates/form"
 
     events:
       "click .preview" : "preview"
       "click .publish" : "save"
-
-    onRender: ->
-      @fillJSON()
 
     preview: (e) ->
       e.preventDefault()

@@ -20,3 +20,10 @@
     itemView: List.PostItem
     emptyView: List.Empty
     itemViewContainer: "tbody"
+
+    events:
+      "click .js-add": "newPost"
+
+    newPost: (e) ->
+      e.preventDefault()
+      App.vent.trigger "post:new:clicked"
