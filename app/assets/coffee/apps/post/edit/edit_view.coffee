@@ -17,5 +17,13 @@
 
     save: (e) ->
       e.preventDefault()
-      alert "Sorry can't save it today"
+      @model.save
+        title: @$('#title').val()
+        content: @$('#content').val()
+      ,
+        success: (model, response) =>
+          console.log "IT SAVED"
+        error: (model, error) =>
+          console.log "IT ERRORED"
+
       return @

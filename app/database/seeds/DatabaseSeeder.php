@@ -11,7 +11,17 @@ class DatabaseSeeder extends Seeder {
 	{
 		Eloquent::unguard();
 
-		// $this->call('UserTableSeeder');
+		$this->call('PostTableSeeder');
 	}
+
+}
+
+class PostTableSeeder extends Seeder {
+
+    public function run()
+    {
+        DB::table('posts')->delete();
+        Post::create(array('title' => 'Seeded', 'content' => 'Some example content'));
+    }
 
 }

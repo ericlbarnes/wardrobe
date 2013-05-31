@@ -11,9 +11,7 @@
 |
 */
 Route::get('/admin', 'AdminController@getIndex');
-Route::get('/api/post/{id}', 'ApiPostController@getDetails');
-
-Route::controller('api/post', 'ApiPostController');
+Route::resource('api/post', 'ApiPostController');
 
 Route::get('/', function()
 {
