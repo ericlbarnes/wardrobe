@@ -1,11 +1,11 @@
-@import url(http://fonts.googleapis.com/css?family=Crimson+Text:400,700,400italic,600,600italic,700italic);
+@import url(http://fonts.googleapis.com/css?family=Old+Standard+TT:400,400italic,700);
 
 body {
 	margin: 0;
 	padding: 0;
 	position: relative;
 	background: url(../themes/grey_wash_wall/grey_wash_wall_@2X.png);
-	font-family: "Crimson Text", "Times New Roman", Georgia, serif;
+	font-family: 'Old Standard TT', "Crimson Text", "Times New Roman", Georgia, serif;
 	color: #ebebeb;
 }
 
@@ -16,9 +16,15 @@ body {
 
 header {
 	border-bottom: 1px solid #555;
-	margin-bottom: 20px;
+	margin: 20px 0;
+	padding-bottom: 10px;
 	h1 {
+		font-weight: 400;
+		font-size: 28px;
+		line-height: 28px;
+		text-transform: uppercase;
 		margin: 0;
+		color: #ccc;
 	}
 }
 
@@ -44,14 +50,18 @@ h2 {
 	border: 1px dashed #111;
 	input,
 	textarea {
+		font-family: 'Old Standard TT', "Crimson Text", "Times New Roman", Georgia, serif;
 		font-weight: 400;
-  	font-size: 22px;
-  	line-height: 1.3em;
+  	font-size: 14px;
+  	line-height: 21px;
 		width: 100%;
 		padding: 20px;
 		color: #fff;
 		background: none;
 		border: none;
+		&:focus {
+			outline: none;
+		}
 	}
 	textarea {
 		height: 50%;
