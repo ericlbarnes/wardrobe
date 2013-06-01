@@ -2,7 +2,7 @@
 /vendor
 /app/assets/src
 /app/config/local
-/app/config/database/local.sqlite
+/app/database/local.sqlite
 /node_modules
 composer.phar
 composer.lock
