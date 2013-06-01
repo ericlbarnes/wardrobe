@@ -2,6 +2,8 @@
 
 class ApiPostController extends \BaseController {
 
+	// @todo - Secure this with auth before filter.
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -29,6 +31,7 @@ class ApiPostController extends \BaseController {
 	 */
 	public function store()
 	{
+		// @todo - Validate the slug is unique
 		$post = new Post();
 		$post->title = Input::get("title");
 		$post->content = Input::get("content");

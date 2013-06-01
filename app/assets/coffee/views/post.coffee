@@ -18,14 +18,15 @@
         'undo', 'redo'
         # {name: 'info', action: 'http://lab.lepture.com/editor/markdown'}
       ]
-      editor = new Editor(toolbar: toolbar)
-      editor.render()
+      @editor = new Editor(toolbar: toolbar)
+      @editor.render(document.getElementById("content"))
 
     save: (e) ->
       e.preventDefault()
       @model.save
         title: @$('#title').val()
-        content: @$('#content').val()
+        slug: @$('#slug').val()
+        content: @editor.codemirror.getValue()
       ,
         success: (model, response) =>
           console.log "IT SAVED"

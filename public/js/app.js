@@ -529,12 +529,12 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
     };
 
     PostView.prototype.setUpEditor = function() {
-      var editor, toolbar;
+      var toolbar;
       toolbar = ['bold', 'italic', '|', 'quote', 'unordered-list', 'ordered-list', '|', 'link', 'image', '|', 'undo', 'redo'];
-      editor = new Editor({
+      this.editor = new Editor({
         toolbar: toolbar
       });
-      return editor.render();
+      return this.editor.render(document.getElementById("content"));
     };
 
     PostView.prototype.save = function(e) {
@@ -542,7 +542,8 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
       e.preventDefault();
       this.model.save({
         title: this.$('#title').val(),
-        content: this.$('#content').val()
+        slug: this.$('#slug').val(),
+        content: this.editor.codemirror.getValue()
       }, {
         success: function(model, response) {
           console.log("IT SAVED");
