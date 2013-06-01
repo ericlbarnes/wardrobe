@@ -1,6 +1,7 @@
 /bootstrap/compiled.php
 /vendor
 /app/assets/src
+/app/config/local
 /node_modules
 composer.phar
 composer.lock

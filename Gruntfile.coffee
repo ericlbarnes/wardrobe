@@ -39,13 +39,13 @@ module.exports = (grunt) ->
         options:
           paths: ["app/assets/less"]
         files:
-          "public/css/style.css": "app/assets/less/style.less"
+          "public/admin/style.css": "app/assets/less/style.less"
       production:
         options:
           paths: ["app/assets/less"]
           yuicompress: true
         files:
-          "public/css/style.min.css": "app/assets/less/style.less"
+          "public/admin/style.min.css": "app/assets/less/style.less"
 
     # Concat all our src files
     concat:
@@ -88,17 +88,17 @@ module.exports = (grunt) ->
     regarde:
       coffee:
         files: 'app/assets/coffee/**/*.coffee'
-        tasks: ["clean", "jst", "coffee", "concat", "livereload", "uglify:app"]
+        tasks: ["clean", "jst", "coffee", "concat", "uglify:app"]
         options:
           interrupt: true
       html:
         files: 'app/assets/coffee/**/*.html'
-        tasks: ["jst", "concat", "livereload"]
+        tasks: ["jst", "concat"]
         options:
           interrupt: true
       less:
         files: 'app/assets/**/*.less'
-        tasks: ["less", "livereload"]
+        tasks: ["less"]
         options:
           interrupt: true
       src:
@@ -119,5 +119,6 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks "grunt-contrib-livereload"
 
   # Default task(s).
-  grunt.registerTask('watch', ['livereload-start', 'regarde']);
+  # grunt.registerTask('watch', ['livereload-start', 'regarde']);
+  grunt.registerTask('watch', ['regarde']);
   grunt.registerTask "default", ["clean", "less", "coffee", "jst", "concat", "uglify"]

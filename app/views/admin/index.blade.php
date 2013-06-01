@@ -3,8 +3,10 @@
 	<title>Wardrobe</title>
 	<meta name="env" content="{{ App::environment() }}">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" type="text/css" href="/css/style.css">
-	<link rel="stylesheet" type="text/css" href="/admin/bedge_grunge/style.css">
+	<link rel="stylesheet" type="text/css" href="/admin/style.css">
+	<!-- <link rel="stylesheet" type="text/css" href="/admin/bedge_grunge/style.css"> -->
+	<link rel="stylesheet" href="http://lab.lepture.com/editor/css/editor.css" />
+	<link rel="stylesheet" type="text/css" href="/admin/muted/style.css">
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script type="text/javascript" src="/js/structure.js"></script>
 	<script type="text/javascript" src="/js/app.js"></script>
