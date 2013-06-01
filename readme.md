@@ -10,7 +10,7 @@ Run the following commands:
     php artisan migrate --seed
     php artisan serve
 
-Then visit http://localhost:8000/admin#post
+Then visit http://localhost:8000/wardrobe#post
 
 ### License
 
