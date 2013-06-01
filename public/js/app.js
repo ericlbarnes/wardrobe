@@ -4,7 +4,7 @@ this["JST"]["header/list/templates/header.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div class="navbar navbar-inverse navbar-fixed-top">\n  <div class="navbar-inner">\n    <div class="container">\n\n      <!-- .btn-navbar is used as the toggle for collapsed navbar content -->\n      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">\n        <span class="icon-bar"></span>\n        <span class="icon-bar"></span>\n        <span class="icon-bar"></span>\n      </a>\n\n      <!-- Be sure to leave the brand out there if you want it shown -->\n      <a class="brand" href="#">Wardrobe</a>\n\n      <!-- Everything you want hidden at 940px or less, place within here -->\n      <div class="nav-collapse collapse">\n      \t<ul class="nav">\n          <li class="active"><a class="write" href="#">Write</a></li>\n          <li><a  class="posts" href="#post">Posts</a></li>\n        </ul>\n        <!-- .nav, .navbar-search, .navbar-form, etc -->\n      </div>\n\n    </div>\n  </div>\n</div>';
+__p += '<div class="navbar navbar-inverse navbar-fixed-top">\n  <div class="navbar-inner">\n    <div class="container">\n\n      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">\n        <span class="icon-bar"></span>\n        <span class="icon-bar"></span>\n        <span class="icon-bar"></span>\n      </a>\n\n      <a class="brand" href="#">Wardrobe</a>\n\n      <ul class="nav">\n        <li class="active"><a class="write" href="#">Write</a></li>\n        <li><a  class="posts" href="#post">Posts</a></li>\n      </ul>\n\n      <!-- Everything you want hidden at 940px or less, place within here -->\n      <div class="nav-collapse collapse">\n      \t<!--\n        <ul class="nav">\n          <li class="active"><a class="write" href="#">Write</a></li>\n          <li><a  class="posts" href="#post">Posts</a></li>\n        </ul>\n        -->\n      </div>\n\n    </div>\n  </div>\n</div>';
 
 }
 return __p
@@ -52,7 +52,7 @@ this["JST"]["post/templates/form.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<form>\n\t<div id="write">\n\t\t<button class="btn large publish pull-right">Publish Post</button>\n\t\t<input type="text" class="input-xxlarge" name="title" id="title" value="" placeholder="Title">\n\t\t<input type="hidden" id="slug" name="slug">\n\t\t<textarea name="content" id="content" placeholder="Content Goes Here..."></textarea>\n\t</div>\n</form>';
+__p += '<form>\n\t<div id="write">\n\t\t<button class="btn large publish pull-right">Publish Post</button>\n\t\t<input type="text" style="width: 50%" name="title" id="title" value="" placeholder="Title">\n\t\t<input type="hidden" id="slug" name="slug">\n\t\t<textarea name="content" id="content" placeholder="Content Goes Here..."></textarea>\n\t</div>\n</form>';
 
 }
 return __p
