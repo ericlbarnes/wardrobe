@@ -13,8 +13,6 @@
 
   App.addInitializer ->
     App.module("HeaderApp").start()
-    # App.module("TopNavApp").start()
-    # App.module("FooterApp").start()
 
   App.reqres.setHandler "default:region", ->
     App.mainRegion

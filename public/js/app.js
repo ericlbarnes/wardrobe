@@ -4,7 +4,7 @@ this["JST"]["header/list/templates/header.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div class="navbar navbar-inverse navbar-fixed-top">\n  <div class="navbar-inner">\n    <div class="container">\n\n      <!-- .btn-navbar is used as the toggle for collapsed navbar content -->\n      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">\n        <span class="icon-bar"></span>\n        <span class="icon-bar"></span>\n        <span class="icon-bar"></span>\n      </a>\n\n      <!-- Be sure to leave the brand out there if you want it shown -->\n      <a class="brand" href="#">Wardrobe</a>\n\n      <!-- Everything you want hidden at 940px or less, place within here -->\n      <div class="nav-collapse collapse">\n      \t<ul class="nav">\n          <li><a href="/wardrobe">Home</a></li>\n          <li class="active"><a href="#post">Posts</a></li>\n        </ul>\n        <!-- .nav, .navbar-search, .navbar-form, etc -->\n      </div>\n\n    </div>\n  </div>\n</div>';
+__p += '<div class="navbar navbar-inverse navbar-fixed-top">\n  <div class="navbar-inner">\n    <div class="container">\n\n      <!-- .btn-navbar is used as the toggle for collapsed navbar content -->\n      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">\n        <span class="icon-bar"></span>\n        <span class="icon-bar"></span>\n        <span class="icon-bar"></span>\n      </a>\n\n      <!-- Be sure to leave the brand out there if you want it shown -->\n      <a class="brand" href="#">Wardrobe</a>\n\n      <!-- Everything you want hidden at 940px or less, place within here -->\n      <div class="nav-collapse collapse">\n      \t<ul class="nav">\n          <li class="active"><a class="write" href="#">Write</a></li>\n          <li><a  class="posts" href="#post">Posts</a></li>\n        </ul>\n        <!-- .nav, .navbar-search, .navbar-form, etc -->\n      </div>\n\n    </div>\n  </div>\n</div>';
 
 }
 return __p
@@ -24,7 +24,7 @@ this["JST"]["post/list/templates/grid.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<table class="table">\n\t<thead>\n\t\t<tr>\n\t\t\t<th>ID</th>\n\t\t\t<th>Title</th>\n\t\t\t<th>Created</th>\n\t\t\t<th>Updated</th>\n\t\t</tr>\n\t</thead>\n\t<tbody></tbody>\n\t<tfoot>\n\t\t<tr>\n\t\t\t<td colspan="4">\n\t\t\t\t<button class="btn js-add">Add Post</button>\n\t\t\t</td>\n\t\t</tr>\n\t</tfoot>\n</table>';
+__p += '<table class="table">\n\t<thead>\n\t\t<tr>\n\t\t\t<th>ID</th>\n\t\t\t<th>Title</th>\n\t\t\t<th>Created</th>\n\t\t\t<th>Updated</th>\n\t\t</tr>\n\t</thead>\n\t<tbody></tbody>\n</table>';
 
 }
 return __p
@@ -620,6 +620,15 @@ this.Wardrobe.module("HeaderApp.List", function(List, App, Backbone, Marionette,
 
     Header.prototype.tagName = "header";
 
+    Header.prototype.events = {
+      "click .write": "newPost"
+    };
+
+    Header.prototype.newPost = function(e) {
+      e.preventDefault();
+      return App.vent.trigger("post:new:clicked");
+    };
+
     return Header;
 
   })(App.Views.ItemView);
@@ -779,15 +788,6 @@ this.Wardrobe.module("PostApp.List", function(List, App, Backbone, Marionette, $
 
     Posts.prototype.itemViewContainer = "tbody";
 
-    Posts.prototype.events = {
-      "click .js-add": "newPost"
-    };
-
-    Posts.prototype.newPost = function(e) {
-      e.preventDefault();
-      return App.vent.trigger("post:new:clicked");
-    };
-
     return Posts;
 
   })(App.Views.CompositeView);
@@ -857,6 +857,7 @@ this.Wardrobe.module("PostApp", function(PostApp, App, Backbone, Marionette, $, 
     }
 
     Router.prototype.appRoutes = {
+      "": "add",
       "post": "list",
       "post/add": "add",
       "post/edit/:id": "edit"
@@ -867,16 +868,25 @@ this.Wardrobe.module("PostApp", function(PostApp, App, Backbone, Marionette, $, 
   })(Marionette.AppRouter);
   API = {
     list: function() {
+      this.setActive();
       return new PostApp.List.Controller;
     },
     add: function() {
+      this.setActive(".write");
       return new PostApp.New.Controller;
     },
     edit: function(id, item) {
+      this.setActive();
       return new PostApp.Edit.Controller({
         id: id,
         post: item
       });
+    },
+    setActive: function(type) {
+      if (type == null) {
+        type = ".posts";
+      }
+      return $('ul.nav li').removeClass("active").find(type).parent().addClass("active");
     }
   };
   App.vent.on("post:load", function() {
@@ -884,7 +894,7 @@ this.Wardrobe.module("PostApp", function(PostApp, App, Backbone, Marionette, $, 
     return API.list();
   });
   App.vent.on("post:new:clicked", function() {
-    App.navigate("post/add");
+    App.navigate("/");
     return API.add();
   });
   App.vent.on("post:item:clicked", function(item) {

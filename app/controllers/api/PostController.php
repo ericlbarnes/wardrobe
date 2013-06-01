@@ -15,16 +15,6 @@ class ApiPostController extends \BaseController {
 	}
 
 	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
-	}
-
-	/**
 	 * Store a newly created resource in storage.
 	 *
 	 * @return Response
@@ -58,7 +48,7 @@ class ApiPostController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		return Response::json($this->seed[$id-1]);
+		return Post::findOrFail($id);
 	}
 
 	/**
