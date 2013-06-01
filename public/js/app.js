@@ -14,7 +14,7 @@ this["JST"]["post/list/templates/empty.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<td colspan="2">No Records</td>';
+__p += '<td colspan="4">No Posts</td>';
 
 }
 return __p
@@ -24,7 +24,7 @@ this["JST"]["post/list/templates/grid.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<table>\n\t<thead>\n\t\t<tr>\n\t\t\t<th>ID</th>\n\t\t\t<th>Title</th>\n\t\t</tr>\n\t</thead>\n\t<tbody></tbody>\n\t<tfoot>\n\t\t<tr>\n\t\t\t<td colspan="2">\n\t\t\t\t<button class="btn js-add">Add Post</button>\n\t\t\t</td>\n\t\t</tr>\n\t</tfoot>\n</table>';
+__p += '<table class="table">\n\t<thead>\n\t\t<tr>\n\t\t\t<th>ID</th>\n\t\t\t<th>Title</th>\n\t\t\t<th>Created</th>\n\t\t\t<th>Updated</th>\n\t\t</tr>\n\t</thead>\n\t<tbody></tbody>\n\t<tfoot>\n\t\t<tr>\n\t\t\t<td colspan="4">\n\t\t\t\t<button class="btn js-add">Add Post</button>\n\t\t\t</td>\n\t\t</tr>\n\t</tfoot>\n</table>';
 
 }
 return __p
@@ -34,11 +34,15 @@ this["JST"]["post/list/templates/item.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<td>' +
+__p += '<td class="id">' +
 ((__t = ( id )) == null ? '' : __t) +
-'</td>\n<td><a href="#" class="details">' +
+'</td>\n<td class="title"><a href="#" class="details">' +
 ((__t = ( title )) == null ? '' : __t) +
-'</a></td>';
+'</a></td>\n<td class="date">' +
+((__t = ( created_at )) == null ? '' : __t) +
+'</td>\n<td class="date">' +
+((__t = ( updated_at )) == null ? '' : __t) +
+'</td>';
 
 }
 return __p
@@ -48,7 +52,7 @@ this["JST"]["post/templates/form.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<form>\n\t<div id="write">\n\t\t<button class="btn large publish pull-right">Publish Post</button>\n\t\t<input type="text" class="input-xxlarge" name="title" id="title" value="" placeholder="Title">\n\t\t<textarea name="content" id="content" placeholder="Content Goes Here..."></textarea>\n\t</div>\n</form>';
+__p += '<form>\n\t<div id="write">\n\t\t<button class="btn large publish pull-right">Publish Post</button>\n\t\t<input type="text" class="input-xxlarge" name="title" id="title" value="" placeholder="Title">\n\t\t<input type="hidden" id="slug" name="slug">\n\t\t<textarea name="content" id="content" placeholder="Content Goes Here..."></textarea>\n\t</div>\n</form>';
 
 }
 return __p
@@ -518,6 +522,13 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
     };
 
     PostView.prototype.onShow = function() {
+      this.setUpEditor();
+      if (this.model.isNew) {
+        return $('#slug').slugify('#title');
+      }
+    };
+
+    PostView.prototype.setUpEditor = function() {
       var editor, toolbar;
       toolbar = ['bold', 'italic', '|', 'quote', 'unordered-list', 'ordered-list', '|', 'link', 'image', '|', 'undo', 'redo'];
       editor = new Editor({

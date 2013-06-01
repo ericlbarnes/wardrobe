@@ -5943,6 +5943,9 @@ body {
   padding: 70px 0 0 0;
   position: relative;
 }
+td.title {
+  width: 50%;
+}
 #write {
   padding: 20px;
   margin-bottom: 20px;

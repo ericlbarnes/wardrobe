@@ -7,6 +7,10 @@
       "click .publish" : "save"
 
     onShow: ->
+      @setUpEditor()
+      $('#slug').slugify('#title') if @model.isNew
+
+    setUpEditor: ->
       toolbar = [
         'bold', 'italic', '|'
         'quote', 'unordered-list', 'ordered-list', '|'

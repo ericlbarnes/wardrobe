@@ -21,7 +21,7 @@ class PostTableSeeder extends Seeder {
     public function run()
     {
         DB::table('posts')->delete();
-        Post::create(array('title' => 'Seeded', 'content' => 'Some example content'));
+        Post::create(array('title' => 'Seeded', 'slug' => 'seeded', 'content' => 'Some example content'));
     }
 
 }
