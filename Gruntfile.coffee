@@ -16,11 +16,11 @@ module.exports = (grunt) ->
 
       structure:
         files:
-          "public/js/structure.min.js": ["public/js/structure.js"]
+          "public/admin/js/structure.min.js": ["public/admin/js/structure.js"]
 
       app:
         files:
-          "public/js/app.min.js": ["public/js/app.js"]
+          "public/admin/js/app.min.js": ["public/admin/js/app.js"]
 
     # Compile coffee files to src/json
     coffee:
@@ -57,7 +57,7 @@ module.exports = (grunt) ->
           'app/assets/vendor/backbone-plugins/backbone.marionette.js'
           'app/assets/vendor/plugins/*.js'
         ]
-        dest: 'public/js/structure.js'
+        dest: 'public/admin/js/structure.js'
 
       app:
         src: [
@@ -73,7 +73,7 @@ module.exports = (grunt) ->
           'app/assets/src/js/helpers/*.js'
           'app/assets/src/js/**/*.js'
         ]
-        dest: 'public/js/app.js'
+        dest: 'public/admin/js/app.js'
 
     jst:
       compile:
