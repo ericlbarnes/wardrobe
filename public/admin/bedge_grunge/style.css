@@ -1,0 +1,33 @@
+@import url(http://fonts.googleapis.com/css?family=Old+Standard+TT:400,400italic,700);
+
+body {
+	background: url(bedge_grunge_@2X.png);
+	font-family: 'Old Standard TT', "Crimson Text", "Times New Roman", Georgia, serif;
+	color: #555;
+}
+
+#write {
+	border: 2px dashed #fff;
+}
+#write input, #write textarea {
+	font-family: 'Old Standard TT', "Crimson Text", "Times New Roman", Georgia, serif;
+	font-weight: 400;
+	font-size: 22px;
+  line-height: 1.3em;
+	width: 100%;
+	padding: 20px;
+	color: #555;
+	background: none;
+	border: none;
+}
+
+#write input:focus, #write textarea:focus {
+	outline: none;
+	box-shadow: none;
+	color: #111;
+}
+
+#write textarea {
+	height: 50%;
+	border-top: 2px dashed #fff;
+}

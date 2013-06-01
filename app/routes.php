@@ -10,7 +10,7 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
-Route::get('/admin', 'AdminController@getIndex');
+Route::get('wardrobe', 'AdminController@getIndex');
 Route::resource('api/post', 'ApiPostController');
 
 Route::get('/', function()

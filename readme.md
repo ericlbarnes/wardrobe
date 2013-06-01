@@ -7,6 +7,7 @@ Run the following commands:
     composer install
     npm install
     grunt
+    php artisan migrate --seed
     php artisan serve
 
 Then visit http://localhost:8000/admin#post

@@ -14,7 +14,7 @@
       new PostApp.New.Controller
 
     edit: (id, item) ->
-      new PostApp.Form.Controller
+      new PostApp.Edit.Controller
         id: id
         post: item
 
