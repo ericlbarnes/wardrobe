@@ -43,7 +43,10 @@ class ApiPostController extends BaseController {
 	 */
 	public function store()
 	{
-		// @todo validate the slug is unique...
+		if ($messages = $this->validatePost(Input::get(), $id))
+		{
+			return Response::make(json_encode($messages->all()), 500, array('Content-Type' => 'application/json'));
+		}
 
 		return (string) $this->posts->create(Input::get('title'), Input::get('content'));
 	}
@@ -78,6 +81,11 @@ class ApiPostController extends BaseController {
 	 */
 	public function update($id)
 	{
+		if ($messages = $this->validatePost(Input::get(), $id))
+		{
+			return Response::make(json_encode($messages->all()), 500, array('Content-Type' => 'application/json'));
+		}
+
 		return (string) $this->posts->update($id, Input::get('title'), Input::get('content'));
 	}
 
@@ -90,6 +98,30 @@ class ApiPostController extends BaseController {
 	public function destroy($id)
 	{
 		$this->posts->delete($id);
+	}
+
+		/**
+	 * Validate the post.
+	 *
+	 * @param  array  $data
+	 * @return MessageBag|null
+	 */
+	protected function validatePost($data, $id = null)
+	{
+		$rules['title'] = 'required';
+		$rules['slug'] = 'required|alpha_dash|unique:posts,slug';
+
+		if ($id)
+		{
+			$rules['slug'] .= ','.$id;
+		}
+
+		$validator = Validator::make($data, $rules);
+
+		if ($validator->fails())
+		{
+			return $validator->errors();
+		}
 	}
 
 }
