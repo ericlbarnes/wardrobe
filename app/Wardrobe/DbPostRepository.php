@@ -30,9 +30,9 @@ class DbPostRepository implements PostRepositoryInterface {
 	 * @param  string  $content
 	 * @return Post
 	 */
-	public function create($title, $content)
+	public function create($title, $content, $slug)
 	{
-		return Post::create(compact('title', 'content'));
+		return Post::create(compact('title', 'content', 'slug'));
 	}
 
 	/**
@@ -43,11 +43,11 @@ class DbPostRepository implements PostRepositoryInterface {
 	 * @param  string  $content
 	 * @return Post
 	 */
-	public function update($id, $title, $content)
+	public function update($id, $title, $content, $slug)
 	{
 		$post = $this->find($id);
 
-		$post->fill(compact('title', 'content'))->save();
+		$post->fill(compact('title', 'content', 'slug'))->save();
 
 		return $post;
 	}

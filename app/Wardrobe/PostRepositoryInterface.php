@@ -24,7 +24,7 @@ interface PostRepositoryInterface {
 	 * @param  string  $content
 	 * @return Post
 	 */
-	public function create($title, $content);
+	public function create($title, $content, $slug);
 
 	/**
 	 * Update a post's title and content.
@@ -34,7 +34,7 @@ interface PostRepositoryInterface {
 	 * @param  string  $content
 	 * @return Post
 	 */
-	public function update($id, $title, $content);
+	public function update($id, $title, $content, $slug);
 
 	/**
 	 * Delete the post with the given ID.

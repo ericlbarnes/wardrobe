@@ -43,12 +43,12 @@ class ApiPostController extends BaseController {
 	 */
 	public function store()
 	{
-		if ($messages = $this->validatePost(Input::get(), $id))
+		if ($messages = $this->validatePost(Input::get()))
 		{
 			return Response::make(json_encode($messages->all()), 500, array('Content-Type' => 'application/json'));
 		}
 
-		return (string) $this->posts->create(Input::get('title'), Input::get('content'));
+		return (string) $this->posts->create(Input::get('title'), Input::get('content'), Input::get('slug'));
 	}
 
 	/**
@@ -86,7 +86,7 @@ class ApiPostController extends BaseController {
 			return Response::make(json_encode($messages->all()), 500, array('Content-Type' => 'application/json'));
 		}
 
-		return (string) $this->posts->update($id, Input::get('title'), Input::get('content'));
+		return (string) $this->posts->update($id, Input::get('title'), Input::get('content'), Input::get('slug'));
 	}
 
 	/**
