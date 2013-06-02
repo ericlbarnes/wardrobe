@@ -2,6 +2,13 @@
 
 class BaseController extends Controller {
 
+	protected $theme = 'default';
+
+	public function __construct()
+	{
+		$this->theme = Config::get('app.theme');
+	}
+
 	/**
 	 * Setup the layout used by the controller.
 	 *

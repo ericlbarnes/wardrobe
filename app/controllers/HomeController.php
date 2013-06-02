@@ -15,9 +15,11 @@ class HomeController extends BaseController {
 	|
 	*/
 
-	public function showWelcome()
+	public function getIndex()
 	{
-		return View::make('hello');
+		$posts = Post::orderBy('id', 'desc')->get();
+		return View::make('themes.'.$this->theme.'.index')
+			->with('posts', $posts);
 	}
 
 }

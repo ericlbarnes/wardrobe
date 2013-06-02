@@ -10,10 +10,6 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
+Route::get('/', 'HomeController@getIndex');
 Route::get('wardrobe', 'AdminController@getIndex');
 Route::resource('api/post', 'ApiPostController');
-
-Route::get('/', function()
-{
-	return View::make('hello');
-});
