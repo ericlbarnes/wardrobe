@@ -2,6 +2,15 @@
 
   class Entities.Model extends Backbone.Model
 
+    initialize: (attributes, options) ->
+      options or (options = {})
+      @bind "error", @defaultErrorHandler
+      @init and @init(attributes, options)
+
+    defaultErrorHandler: (model, error) ->
+      switch error.status
+        when 401 then document.location.href = "/wardrobe/login"
+
     destroy: (options = {}) ->
       _.defaults options,
         wait: true

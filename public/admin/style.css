@@ -8610,3 +8610,17 @@ td.title {
   box-shadow: none;
   color: #111;
 }
+#login-region {
+  width: 300px;
+  margin: 0 auto;
+  padding: 10px;
+  background: #fff;
+  text-align: center;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+}
+#login-region .checkbox input[type="checkbox"] {
+  float: none;
+  margin-top: -2px;
+}

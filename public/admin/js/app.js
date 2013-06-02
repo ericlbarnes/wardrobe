@@ -304,6 +304,19 @@ this.Wardrobe.module("Entities", function(Entities, App, Backbone, Marionette, $
       return Collection.__super__.constructor.apply(this, arguments);
     }
 
+    Collection.prototype.initialize = function(attributes, options) {
+      options || (options = {});
+      this.bind("error", this.defaultErrorHandler);
+      return this.init && this.init(attributes, options);
+    };
+
+    Collection.prototype.defaultErrorHandler = function(model, error) {
+      switch (error.status) {
+        case 401:
+          return document.location.href = "/wardrobe/login";
+      }
+    };
+
     return Collection;
 
   })(Backbone.Collection);
@@ -324,6 +337,19 @@ this.Wardrobe.module("Entities", function(Entities, App, Backbone, Marionette, $
       this.saveSuccess = __bind(this.saveSuccess, this);
       return Model.__super__.constructor.apply(this, arguments);
     }
+
+    Model.prototype.initialize = function(attributes, options) {
+      options || (options = {});
+      this.bind("error", this.defaultErrorHandler);
+      return this.init && this.init(attributes, options);
+    };
+
+    Model.prototype.defaultErrorHandler = function(model, error) {
+      switch (error.status) {
+        case 401:
+          return document.location.href = "/wardrobe/login";
+      }
+    };
 
     Model.prototype.destroy = function(options) {
       if (options == null) {

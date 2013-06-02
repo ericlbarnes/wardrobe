@@ -4,8 +4,6 @@ use Wardrobe\PostRepositoryInterface;
 
 class ApiPostController extends BaseController {
 
-	// @todo - Secure this with auth before filter.
-
 	/**
 	 * The post repository implementation.
 	 *
@@ -22,8 +20,8 @@ class ApiPostController extends BaseController {
 	public function __construct(PostRepositoryInterface $posts)
 	{
 		parent::__construct();
-
 		$this->posts = $posts;
+		// $this->beforeFilter('auth');
 	}
 
 	/**
