@@ -4,6 +4,7 @@
     template: "post/list/templates/item"
     tagName: "tr"
     className: "post-item"
+
     events:
       "click .details" : "edit"
       "click .delete" : "deletePost"
