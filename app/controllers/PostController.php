@@ -1,6 +1,28 @@
 <?php
 
+use Wardrobe\PostRepositoryInterface;
+
 class PostController extends BaseController {
+
+	/**
+	 * The post repository implementation.
+	 *
+	 * @var Wardrobe\PostRepositoryInterface
+	 */
+	protected $posts;
+
+	/**
+	 * Create a new API Posts controller.
+	 *
+	 * @param  Wardrobe\PostRepositoryInterface  $posts
+	 * @return void
+	 */
+	public function __construct(PostRepositoryInterface $posts)
+	{
+		parent::__construct();
+
+		$this->posts = $posts;
+	}
 
 	/**
 	 * Display a listing of the resource.
@@ -9,7 +31,7 @@ class PostController extends BaseController {
 	 */
 	public function index()
 	{
-		$posts = Post::orderBy('created_at', 'desc')->get();
+		$posts = $this->posts->all();
 		return View::make('themes.'.$this->theme.'.archive')
 			->with('posts', $posts);
 	}
@@ -22,7 +44,7 @@ class PostController extends BaseController {
 	 */
 	public function show($slug)
 	{
-		$post = Post::where('slug', $slug)->first();
+		$post = $this->posts->findBySlug($slug);
 		return View::make('themes.'.$this->theme.'.post')
 			->with('post', $post);
 	}

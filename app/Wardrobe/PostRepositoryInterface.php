@@ -18,6 +18,14 @@ interface PostRepositoryInterface {
 	public function find($id);
 
 	/**
+	 * Get a Post by its slug
+	 *
+	 * @param  string   $slug
+	 * @return Post
+	 */
+	public function findBySlug($slug);
+
+	/**
 	 * Create a new post.
 	 *
 	 * @param  string  $title

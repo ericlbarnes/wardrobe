@@ -24,6 +24,17 @@ class DbPostRepository implements PostRepositoryInterface {
 	}
 
 	/**
+	 * Get a Post by its slug
+	 *
+	 * @param  string 	$slug
+	 * @return Post
+	 */
+	public function findBySlug($slug)
+	{
+		return Post::where('slug', $slug)->first();
+	}
+
+	/**
 	 * Create a new post.
 	 *
 	 * @param  string  $title
