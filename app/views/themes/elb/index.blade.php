@@ -1,5 +1,9 @@
 @extends('themes.elb.layout')
 
+@section('title')
+	Eric Barnes
+@stop
+
 @section('content')
 	<section class="home">
 		<div class="hero">

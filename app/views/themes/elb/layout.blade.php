@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Eric Barnes</title>
+    <title>@yield('title')</title>
     <meta name="author" content="Eric Barnes" />
     <meta name="description" content="My randomness." />
     <meta name="viewport" content="width=device-width">
