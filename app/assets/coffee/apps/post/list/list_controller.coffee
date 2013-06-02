@@ -12,3 +12,4 @@
     getListView: (post) ->
       new List.Posts
         collection: post
+

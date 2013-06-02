@@ -38,11 +38,15 @@ __p += '<td class="id">' +
 ((__t = ( id )) == null ? '' : __t) +
 '</td>\n<td class="title"><a href="#" class="details">' +
 ((__t = ( title )) == null ? '' : __t) +
-'</a></td>\n<td class="date">' +
+'</a></td>\n<td class="date js-format-date" data-date="' +
 ((__t = ( created_at )) == null ? '' : __t) +
-'</td>\n<td class="date">' +
+'">' +
+((__t = ( created_at )) == null ? '' : __t) +
+'</td>\n<td class="date js-format-date" data-date="' +
 ((__t = ( updated_at )) == null ? '' : __t) +
-'</td>\n<td class="actions"><button class="btn delete"><i class="icon-trash"></i></button></td>';
+'">' +
+((__t = ( updated_at )) == null ? '' : __t) +
+'</td>\n<td class="actions"><button class="btn delete"><i class="icon-trash"></i></button></td>\n';
 
 }
 return __p
@@ -84,6 +88,23 @@ return __p
     }
   };
 })(Backbone);
+
+
+$.fn.formatDates = function() {
+  var $el;
+  $el = $(this);
+  return $el.each(function(index, param) {
+    var format, item, originalDate, time;
+    item = $(this);
+    format = item.data("format");
+    originalDate = item.data("date");
+    if (typeof format === "undefined") {
+      format = "MMM Do YYYY, hh:mma";
+    }
+    time = isNaN(originalDate) ? moment.utc(originalDate, "YYYY-MM-DD HH:mm:ss") : moment.unix(originalDate);
+    return item.text(time.local().format(format));
+  });
+};
 
 
 $.fn.fillJSON = function(json) {
@@ -878,6 +899,10 @@ this.Wardrobe.module("PostApp.List", function(List, App, Backbone, Marionette, $
     PostItem.prototype.events = {
       "click .details": "edit",
       "click .delete": "deletePost"
+    };
+
+    PostItem.prototype.onShow = function() {
+      return this.$('.js-format-date').formatDates();
     };
 
     PostItem.prototype.edit = function(e) {

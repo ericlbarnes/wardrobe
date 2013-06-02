@@ -9,6 +9,9 @@
       "click .details" : "edit"
       "click .delete" : "deletePost"
 
+    onShow: ->
+      @$('.js-format-date').formatDates()
+
     edit: (e) ->
       e.preventDefault()
       App.vent.trigger "post:item:clicked", @model
