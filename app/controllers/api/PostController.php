@@ -1,8 +1,30 @@
 <?php
 
-class ApiPostController extends \BaseController {
+use Wardrobe\PostRepositoryInterface;
+
+class ApiPostController extends BaseController {
 
 	// @todo - Secure this with auth before filter.
+
+	/**
+	 * The post repository implementation.
+	 *
+	 * @var Wardrobe\PostRepositoryInterface
+	 */
+	protected $posts;
+
+	/**
+	 * Create a new API Posts controller.
+	 *
+	 * @param  Wardrobe\PostRepositoryInterface  $posts
+	 * @return void
+	 */
+	public function __construct(PostRepositoryInterface $posts)
+	{
+		parent::__construct();
+
+		$this->posts = $posts;
+	}
 
 	/**
 	 * Display a listing of the resource.
@@ -11,7 +33,7 @@ class ApiPostController extends \BaseController {
 	 */
 	public function index()
 	{
-		return Post::all();
+		return (string) $this->posts->all();
 	}
 
 	/**
@@ -21,12 +43,9 @@ class ApiPostController extends \BaseController {
 	 */
 	public function store()
 	{
-		// @todo - Validate the slug is unique
-		$post = new Post();
-		$post->title = Input::get("title");
-		$post->content = Input::get("content");
-		$post->save();
-		return $post;
+		// @todo validate the slug is unique...
+
+		return (string) $this->posts->create(Input::get('title'), Input::get('content'));
 	}
 
 	/**
@@ -37,7 +56,7 @@ class ApiPostController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		return Post::findOrFail($id);
+		return (string) $this->posts->find($id);
 	}
 
 	/**
@@ -48,7 +67,7 @@ class ApiPostController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		return Post::findOrFail($id);
+		return (string) $this->posts->find($id);
 	}
 
 	/**
@@ -59,11 +78,7 @@ class ApiPostController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		$post = Post::findOrFail($id);
-		$post->title = Input::get("title");
-		$post->content = Input::get("content");
-		$post->save();
-		return $post;
+		return (string) $this->posts->update($id, Input::get('title'), Input::get('content'));
 	}
 
 	/**
@@ -74,7 +89,7 @@ class ApiPostController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		$this->posts->delete($id);
 	}
 
 }

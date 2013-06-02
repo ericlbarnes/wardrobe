@@ -82,6 +82,8 @@ return array(
 
 	'providers' => array(
 
+		'Wardrobe\BackendServiceProvider',
+
 		'Illuminate\Foundation\Providers\ArtisanServiceProvider',
 		'Illuminate\Auth\AuthServiceProvider',
 		'Illuminate\Cache\CacheServiceProvider',

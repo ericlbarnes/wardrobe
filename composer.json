@@ -3,10 +3,12 @@
 		"laravel/framework": "4.0.*"
 	},
 	"autoload": {
+		"psr-0": {
+			"Wardrobe": "app/"
+		},
 		"classmap": [
 			"app/commands",
 			"app/controllers",
-			"app/models",
 			"app/database/migrations",
 			"app/database/seeds",
 			"app/tests/TestCase.php"
