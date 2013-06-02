@@ -576,24 +576,18 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
   var _remove;
   _remove = Marionette.View.prototype.remove;
   return _.extend(Marionette.View.prototype, {
-    setInstancePropertiesFor: function() {
-      var args, key, val, _ref, _results;
-      args = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-      _ref = _.pick.apply(_, [this.options].concat(__slice.call(args)));
-      _results = [];
-      for (key in _ref) {
-        val = _ref[key];
-        _results.push(this[key] = val);
-      }
-      return _results;
-    },
     remove: function() {
-      var args;
+      var args, _ref,
+        _this = this;
       args = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-      if (App.environment === "local") {
-        console.info("removing", this);
+      console.log("removing", this);
+      if ((_ref = this.model) != null ? _ref.isDestroyed() : void 0) {
+        return this.$el.fadeOut(400, function() {
+          return _remove.apply(_this, args);
+        });
+      } else {
+        return _remove.apply(this, args);
       }
-      return _remove.apply(this, args);
     }
   });
 });
@@ -863,7 +857,16 @@ this.Wardrobe.module("PostApp.List", function(List, App, Backbone, Marionette, $
       return App.execute("when:fetched", post, function() {
         var view;
         view = _this.getListView(post);
-        return _this.show(view);
+        _this.show(view);
+        return _this.listenTo(view, "childview:post:delete:clicked", function(child, args) {
+          var model;
+          model = args.model;
+          if (confirm("Are you sure you want to delete " + (model.get("title")) + "?")) {
+            return model.destroy();
+          } else {
+            return false;
+          }
+        });
       });
     };
 
@@ -896,9 +899,12 @@ this.Wardrobe.module("PostApp.List", function(List, App, Backbone, Marionette, $
 
     PostItem.prototype.className = "post-item";
 
+    PostItem.prototype.triggers = {
+      "click .delete": "post:delete:clicked"
+    };
+
     PostItem.prototype.events = {
-      "click .details": "edit",
-      "click .delete": "deletePost"
+      "click .details": "edit"
     };
 
     PostItem.prototype.onShow = function() {

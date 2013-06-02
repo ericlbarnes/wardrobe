@@ -5356,6 +5356,7 @@ _.extend(Marionette.Module, {
 
   return Marionette;
 })(this, Backbone, _);
+
 // https://github.com/lepture/editor
 (function(global) {
 // CodeMirror is the only global var we claim

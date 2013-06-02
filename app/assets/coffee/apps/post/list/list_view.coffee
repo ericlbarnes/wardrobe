@@ -5,9 +5,12 @@
     tagName: "tr"
     className: "post-item"
 
+    triggers:
+      "click .delete" : "post:delete:clicked"
+
     events:
       "click .details" : "edit"
-      "click .delete" : "deletePost"
+      # "click .delete" : "deletePost"
 
     onShow: ->
       @$('.js-format-date').formatDates()

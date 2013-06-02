@@ -9,6 +9,10 @@
         view = @getListView post
         @show view
 
+        @listenTo view, "childview:post:delete:clicked", (child, args) ->
+          model = args.model
+          if confirm "Are you sure you want to delete #{model.get("title")}?" then model.destroy() else false
+
     getListView: (post) ->
       new List.Posts
         collection: post
