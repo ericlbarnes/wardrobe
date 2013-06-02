@@ -13,6 +13,7 @@
 </head>
 <body>
 	<div id="header-region"></div>
+	<div id="js-alert"></div>
 	<div class="container-fluid">
 		<div class="row-fluid">
 			<div id="main-region" class="span12"></div>

@@ -5,6 +5,10 @@
 
     events:
       "click .publish" : "save"
+      "click .js-toggle" : "toggleDetails"
+
+    modelEvents:
+      "change:_errors"  : "changeErrors"
 
     onShow: ->
       @setUpEditor()
@@ -23,15 +27,43 @@
 
     save: (e) ->
       e.preventDefault()
-      @model.save
+      data =
         title: @$('#title').val()
         slug: @$('#slug').val()
         content: @editor.codemirror.getValue()
-      ,
-        success: (model, response) =>
-          console.log "IT SAVED"
-          App.vent.trigger "post:load"
-        error: (model, error) =>
-          console.log "IT ERRORED"
+      @processFormSubmit data
 
-      return @
+    processFormSubmit: (data) ->
+      @model.save data,
+        collection: @collection
+
+    # Show the errors based on validation failure.
+    changeErrors: (model, errors, options) ->
+      if _.isEmpty(errors) then @removeErrors() else @addErrors errors
+
+    addErrors: (errors = {}) ->
+      @$("#js-errors").show().find("span").html("<strong>Error</strong> Please fix the following errors")
+      for name, error of errors
+        @addError error
+
+    addError: (error) ->
+      sm = $("<li>").text(error)
+      @$("#js-errors span").append sm
+
+    removeErrors: ->
+      @$("#js-errors").hide()
+
+    collapse: (@$toggle) ->
+      @$toggle.data("dir", "up").addClass("icon-caret-right").removeClass("icon-caret-down")
+      @$(".details.hide").hide()
+
+    expand: (@$toggle) ->
+      @$toggle.data("dir", "down").addClass("icon-caret-down").removeClass("icon-caret-right")
+      @$(".details.hide").show()
+
+    toggleDetails: (e) ->
+      @$toggle = $(e.currentTarget)
+      if @$toggle.data("dir") is "up"
+        @expand @$toggle
+      else
+        @collapse @$toggle

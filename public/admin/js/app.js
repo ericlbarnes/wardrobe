@@ -14,7 +14,7 @@ this["JST"]["post/list/templates/empty.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<td colspan="4">No Posts</td>';
+__p += '<td colspan="5">No Posts</td>';
 
 }
 return __p
@@ -24,7 +24,7 @@ this["JST"]["post/list/templates/grid.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<table class="table">\n\t<thead>\n\t\t<tr>\n\t\t\t<th>ID</th>\n\t\t\t<th>Title</th>\n\t\t\t<th>Created</th>\n\t\t\t<th>Updated</th>\n\t\t</tr>\n\t</thead>\n\t<tbody></tbody>\n</table>';
+__p += '<table class="table">\n\t<thead>\n\t\t<tr>\n\t\t\t<th>ID</th>\n\t\t\t<th>Title</th>\n\t\t\t<th>Created</th>\n\t\t\t<th>Updated</th>\n\t\t\t<th>Delete</th>\n\t\t</tr>\n\t</thead>\n\t<tbody></tbody>\n</table>';
 
 }
 return __p
@@ -42,7 +42,7 @@ __p += '<td class="id">' +
 ((__t = ( created_at )) == null ? '' : __t) +
 '</td>\n<td class="date">' +
 ((__t = ( updated_at )) == null ? '' : __t) +
-'</td>';
+'</td>\n<td class="actions"><button class="btn delete"><i class="icon-trash"></i></button></td>';
 
 }
 return __p
@@ -52,7 +52,7 @@ this["JST"]["post/templates/form.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<form>\n\t<div id="write">\n\t\t<button class="btn large publish pull-right">Publish Post</button>\n\t\t<input type="text" style="width: 50%" name="title" id="title" value="" placeholder="Title">\n\t\t<input type="hidden" id="slug" name="slug">\n\t\t<textarea name="content" id="content" placeholder="Content Goes Here..."></textarea>\n\t</div>\n</form>';
+__p += '<form>\n\t<div id="js-errors" class="hide">\n\t\t<div class="alert alert-error">\n\t\t\t<button type="button" class="close" data-dismiss="alert">×</button>\n\t\t\t<span></span>\n\t\t</div>\n\t</div>\n\t<div id="write">\n\t\t<button class="btn large publish pull-right">Publish Post</button>\n\t\t<div class="info">\n\t\t\t<i data-dir="up" class="icon-caret-right js-toggle"></i>\n\t\t\t<input type="text" style="width: 50%" name="title" id="title" value="" placeholder="Title">\n\t\t\t<div class="details hide">\n\t\t\t\t<input type="text" style="width: 50%" name="slug" id="slug" value="" placeholder="URI Slug">\n\t\t\t</div>\n\t\t</div>\n\t\t<textarea name="content" id="content" placeholder="Content Goes Here..."></textarea>\n\t</div>\n</form>';
 
 }
 return __p
@@ -95,6 +95,16 @@ $.fn.fillJSON = function(json) {
     _results.push($el.find("[name='" + key + "']").val(val));
   }
   return _results;
+};
+
+$.fn.showAlert = function(title, msg, type) {
+  var $el, html;
+  $el = $(this);
+  html = "<div class='alert alert-block " + type + "'>    <button type='button' class='close' data-dismiss='alert'>×</button>    <h4 class='alert-heading'>" + title + "</h4>    <p>" + msg + "</p>  </div>";
+  $el.html(html).fadeIn();
+  if (type === "alert-success") {
+    return $(".alert").delay(3000).fadeOut(400);
+  }
 };
 
 
@@ -278,7 +288,8 @@ this.Wardrobe.module("Entities", function(Entities, App, Backbone, Marionette, $
   })(Backbone.Collection);
 });
 
-var __hasProp = {}.hasOwnProperty,
+var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 this.Wardrobe.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
@@ -287,8 +298,71 @@ this.Wardrobe.module("Entities", function(Entities, App, Backbone, Marionette, $
     __extends(Model, _super);
 
     function Model() {
+      this.saveError = __bind(this.saveError, this);
+
+      this.saveSuccess = __bind(this.saveSuccess, this);
       return Model.__super__.constructor.apply(this, arguments);
     }
+
+    Model.prototype.destroy = function(options) {
+      if (options == null) {
+        options = {};
+      }
+      _.defaults(options, {
+        wait: true
+      });
+      this.set({
+        _destroy: true
+      });
+      return Model.__super__.destroy.call(this, options);
+    };
+
+    Model.prototype.isDestroyed = function() {
+      return this.get("_destroy");
+    };
+
+    Model.prototype.save = function(data, options) {
+      var isNew;
+      if (options == null) {
+        options = {};
+      }
+      isNew = this.isNew();
+      _.defaults(options, {
+        wait: true,
+        success: _.bind(this.saveSuccess, this, isNew, options.collection),
+        error: _.bind(this.saveError, this)
+      });
+      this.unset("_errors");
+      return Model.__super__.save.call(this, data, options);
+    };
+
+    Model.prototype.saveSuccess = function(isNew, collection) {
+      if (isNew) {
+        if (collection) {
+          collection.add(this);
+        }
+        if (collection) {
+          collection.trigger("model:created", this);
+        }
+        return this.trigger("created", this);
+      } else {
+        if (collection == null) {
+          collection = this.collection;
+        }
+        if (collection) {
+          collection.trigger("model:updated", this);
+        }
+        return this.trigger("updated", this);
+      }
+    };
+
+    Model.prototype.saveError = function(model, xhr, options) {
+      if (xhr.status !== 404) {
+        return this.set({
+          _errors: $.parseJSON(xhr.responseText)
+        });
+      }
+    };
 
     return Model;
 
@@ -518,7 +592,12 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
     PostView.prototype.template = "post/templates/form";
 
     PostView.prototype.events = {
-      "click .publish": "save"
+      "click .publish": "save",
+      "click .js-toggle": "toggleDetails"
+    };
+
+    PostView.prototype.modelEvents = {
+      "change:_errors": "changeErrors"
     };
 
     PostView.prototype.onShow = function() {
@@ -538,22 +617,73 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
     };
 
     PostView.prototype.save = function(e) {
-      var _this = this;
+      var data;
       e.preventDefault();
-      this.model.save({
+      data = {
         title: this.$('#title').val(),
         slug: this.$('#slug').val(),
         content: this.editor.codemirror.getValue()
-      }, {
-        success: function(model, response) {
-          console.log("IT SAVED");
-          return App.vent.trigger("post:load");
-        },
-        error: function(model, error) {
-          return console.log("IT ERRORED");
-        }
+      };
+      return this.processFormSubmit(data);
+    };
+
+    PostView.prototype.processFormSubmit = function(data) {
+      return this.model.save(data, {
+        collection: this.collection
       });
-      return this;
+    };
+
+    PostView.prototype.changeErrors = function(model, errors, options) {
+      if (_.isEmpty(errors)) {
+        return this.removeErrors();
+      } else {
+        return this.addErrors(errors);
+      }
+    };
+
+    PostView.prototype.addErrors = function(errors) {
+      var error, name, _results;
+      if (errors == null) {
+        errors = {};
+      }
+      this.$("#js-errors").show().find("span").html("<strong>Error</strong> Please fix the following errors");
+      _results = [];
+      for (name in errors) {
+        error = errors[name];
+        _results.push(this.addError(error));
+      }
+      return _results;
+    };
+
+    PostView.prototype.addError = function(error) {
+      var sm;
+      sm = $("<li>").text(error);
+      return this.$("#js-errors span").append(sm);
+    };
+
+    PostView.prototype.removeErrors = function() {
+      return this.$("#js-errors").hide();
+    };
+
+    PostView.prototype.collapse = function($toggle) {
+      this.$toggle = $toggle;
+      this.$toggle.data("dir", "up").addClass("icon-caret-right").removeClass("icon-caret-down");
+      return this.$(".details.hide").hide();
+    };
+
+    PostView.prototype.expand = function($toggle) {
+      this.$toggle = $toggle;
+      this.$toggle.data("dir", "down").addClass("icon-caret-down").removeClass("icon-caret-right");
+      return this.$(".details.hide").show();
+    };
+
+    PostView.prototype.toggleDetails = function(e) {
+      this.$toggle = $(e.currentTarget);
+      if (this.$toggle.data("dir") === "up") {
+        return this.expand(this.$toggle);
+      } else {
+        return this.collapse(this.$toggle);
+      }
     };
 
     return PostView;
@@ -746,12 +876,28 @@ this.Wardrobe.module("PostApp.List", function(List, App, Backbone, Marionette, $
     PostItem.prototype.className = "post-item";
 
     PostItem.prototype.events = {
-      "click .details": "edit"
+      "click .details": "edit",
+      "click .delete": "deletePost"
     };
 
     PostItem.prototype.edit = function(e) {
       e.preventDefault();
       return App.vent.trigger("post:item:clicked", this.model);
+    };
+
+    PostItem.prototype.deletePost = function(e) {
+      e.preventDefault();
+      if (!confirm("Are you sure you want to delete this?")) {
+        return this;
+      }
+      return this.model.destroy({
+        success: function(model, response) {
+          return $("#js-alert").showAlert("Success", "The post is deleted.", "alert-success");
+        },
+        error: function(model, error) {
+          return $("#js-alert").showAlert("Error", error.responseText(), "alert-error");
+        }
+      });
     };
 
     return PostItem;
@@ -890,6 +1036,11 @@ this.Wardrobe.module("PostApp", function(PostApp, App, Backbone, Marionette, $, 
     }
   };
   App.vent.on("post:load", function() {
+    App.navigate("post/");
+    return API.list();
+  });
+  App.vent.on("post:created post:updated", function() {
+    $("#js-alert").showAlert("Success!", "Post was successfully saved.", "alert-success");
     App.navigate("post/");
     return API.list();
   });

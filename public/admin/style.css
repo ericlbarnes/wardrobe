@@ -8580,6 +8580,13 @@ body {
   padding: 70px 0 0 0;
   position: relative;
 }
+#js-alert {
+  position: absolute;
+  right: 0;
+  top: 40px;
+  min-width: 200px;
+  margin-bottom: 0;
+}
 td.title {
   width: 50%;
 }

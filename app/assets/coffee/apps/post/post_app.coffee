@@ -29,6 +29,11 @@
     App.navigate "post/"
     API.list()
 
+  App.vent.on "post:created post:updated", ->
+    $("#js-alert").showAlert("Success!", "Post was successfully saved.", "alert-success")
+    App.navigate "post/"
+    API.list()
+
   App.vent.on "post:new:clicked", ->
     App.navigate "/"
     API.add()

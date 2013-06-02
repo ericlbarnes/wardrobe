@@ -1,8 +1,19 @@
 <form>
+	<div id="js-errors" class="hide">
+		<div class="alert alert-error">
+			<button type="button" class="close" data-dismiss="alert">×</button>
+			<span></span>
+		</div>
+	</div>
 	<div id="write">
 		<button class="btn large publish pull-right">Publish Post</button>
-		<input type="text" style="width: 50%" name="title" id="title" value="" placeholder="Title">
-		<input type="hidden" id="slug" name="slug">
+		<div class="info">
+			<i data-dir="up" class="icon-caret-right js-toggle"></i>
+			<input type="text" style="width: 50%" name="title" id="title" value="" placeholder="Title">
+			<div class="details hide">
+				<input type="text" style="width: 50%" name="slug" id="slug" value="" placeholder="URI Slug">
+			</div>
+		</div>
 		<textarea name="content" id="content" placeholder="Content Goes Here..."></textarea>
 	</div>
 </form>
