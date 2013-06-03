@@ -56,7 +56,7 @@ this["JST"]["post/templates/form.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<form>\n\t<div id="js-errors" class="hide">\n\t\t<div class="alert alert-error">\n\t\t\t<button type="button" class="close" data-dismiss="alert">×</button>\n\t\t\t<span></span>\n\t\t</div>\n\t</div>\n\t<div id="write">\n\t\t<button class="btn large publish pull-right">Publish Post</button>\n\t\t<div class="info">\n\t\t\t<div>\n\t\t\t\t<i data-dir="up" class="icon-chevron-sign-right js-toggle"></i>\n\t\t\t\t<input type="text" style="width: 50%" name="title" id="title" value="" placeholder="Title">\n\t\t\t</div>\n\t\t\t<div class="details hide">\n\t\t\t\t<i class="icon-terminal"></i>\n\t\t\t\t<input type="text" style="width: 50%" name="slug" id="slug" value="" placeholder="URI Slug">\n\t\t\t</div>\n\t\t</div>\n\t\t<div class="content-area">\n\t\t\t<textarea name="content" id="content" placeholder="Content Goes Here..."></textarea>\n\t\t\t<div class="tags-bar hide">\n\t\t\t\t<input type="hidden" id="js-tags" name="tags" class="tags" style="width:224px;" placeholder="Add Tags" data-placeholder="Add Tags">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</form>\n';
+__p += '<form>\n\t<div id="js-errors" class="hide">\n\t\t<div class="alert alert-error">\n\t\t\t<button type="button" class="close" data-dismiss="alert">×</button>\n\t\t\t<span></span>\n\t\t</div>\n\t</div>\n\t<div id="write">\n\t\t<button class="btn large publish pull-right">Publish Post</button>\n\t\t<div class="info">\n\t\t\t<div>\n\t\t\t\t<i data-dir="up" class="icon-chevron-sign-right js-toggle"></i>\n\t\t\t\t<input type="text" style="width: 50%" name="title" id="title" value="" placeholder="Title">\n\t\t\t</div>\n\t\t\t<div class="details hide">\n\t\t\t\t<i class="icon-terminal"></i>\n\t\t\t\t<input type="text" style="width: 50%" name="slug" id="slug" value="" placeholder="URI Slug">\n\t\t\t</div>\n\t\t</div>\n\t\t<div class="content-area">\n\t\t\t<textarea name="content" id="content" placeholder="Content Goes Here..."></textarea>\n\t\t\t<div class="tags-bar hide">\n\t\t\t\t<input type="hidden" id="js-tags" name="tags" class="tags" style="width: 90%" value="" placeholder="Add Tags" data-placeholder="Add Tags">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</form>\n';
 
 }
 return __p
@@ -482,6 +482,62 @@ this.Wardrobe.module("Entities", function(Entities, App, Backbone, Marionette, $
 });
 
 var __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+this.Wardrobe.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
+  var API;
+  Entities.Tag = (function(_super) {
+
+    __extends(Tag, _super);
+
+    function Tag() {
+      return Tag.__super__.constructor.apply(this, arguments);
+    }
+
+    Tag.prototype.urlRoot = "/api/tag";
+
+    return Tag;
+
+  })(Entities.Model);
+  Entities.TagCollection = (function(_super) {
+
+    __extends(TagCollection, _super);
+
+    function TagCollection() {
+      return TagCollection.__super__.constructor.apply(this, arguments);
+    }
+
+    TagCollection.prototype.model = Entities.Tag;
+
+    TagCollection.prototype.url = "/api/tag";
+
+    return TagCollection;
+
+  })(App.Entities.Collection);
+  API = {
+    getAll: function(cb) {
+      var tags;
+      tags = new Entities.TagCollection;
+      tags.fetch({
+        reset: true,
+        success: function(collection, response, options) {
+          if (cb) {
+            return cb(tags);
+          }
+        },
+        error: function() {
+          throw new Error("Tags not fetched");
+        }
+      });
+      return tags;
+    }
+  };
+  return App.reqres.setHandler("tag:entities", function(cb) {
+    return API.getAll(cb);
+  });
+});
+
+var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   __slice = [].slice;
 
@@ -633,7 +689,7 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
     PostView.prototype.template = "post/templates/form";
 
     PostView.prototype.initialize = function() {
-      return this.tagsHide = true;
+      return this.tagsShown = false;
     };
 
     PostView.prototype.events = {
@@ -664,13 +720,26 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
     };
 
     PostView.prototype.setUpTags = function() {
-      return this.$("#js-tags").select2({
-        tags: ["red", "blue"]
+      var _this = this;
+      return App.request("tag:entities", function(tags) {
+        return _this.$("#js-tags").select2({
+          tags: tags.pluck('tag')
+        });
       });
     };
 
-    PostView.prototype.tags = function() {
-      return this.$(".tags-bar").toggleClass("hide");
+    PostView.prototype.tags = function(e) {
+      if (this.tagsShown) {
+        this.$('.editor-toolbar a').show();
+        this.$('.editor-toolbar i').show();
+        this.$(".tags-bar").hide();
+      } else {
+        this.$('.editor-toolbar a').hide();
+        this.$('.editor-toolbar i').hide();
+        this.$('.icon-tags').show();
+        this.$(".tags-bar").show();
+      }
+      return this.tagsShown = !this.tagsShown;
     };
 
     PostView.prototype.save = function(e) {
@@ -872,7 +941,10 @@ this.Wardrobe.module("PostApp.Edit", function(Edit, App, Backbone, Marionette, $
     }
 
     Post.prototype.onRender = function() {
-      return this.fillJSON();
+      var tags;
+      this.fillJSON();
+      tags = _.pluck(this.model.get("tags"), "tag");
+      return this.$("#js-tags").val(tags);
     };
 
     return Post;

@@ -4,3 +4,5 @@
 
     onRender: ->
       @fillJSON()
+      tags = _.pluck(@model.get("tags"), "tag")
+      @$("#js-tags").val(tags)

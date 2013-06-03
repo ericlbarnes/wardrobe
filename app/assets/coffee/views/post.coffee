@@ -4,7 +4,7 @@
     template: "post/templates/form"
 
     initialize: ->
-      @tagsHide = true
+      @tagsShown = false
 
     events:
       "click .publish" : "save"
@@ -31,11 +31,23 @@
       @editor.render(document.getElementById("content"))
 
     setUpTags: ->
-      @$("#js-tags").select2
-        tags: ["red", "blue"]
+      App.request "tag:entities", (tags) =>
+        @$("#js-tags").select2
+          tags: tags.pluck('tag')
 
-    tags: ->
-      @$(".tags-bar").toggleClass("hide");
+    tags: (e) ->
+      if @tagsShown
+        @$('.editor-toolbar a').show()
+        @$('.editor-toolbar i').show()
+        @$(".tags-bar").hide();
+      else
+        @$('.editor-toolbar a').hide()
+        @$('.editor-toolbar i').hide()
+        @$('.icon-tags').show()
+        @$(".tags-bar").show();
+
+      @tagsShown = !@tagsShown
+      # @$(".tags-bar").toggleClass("hide");
 
     save: (e) ->
       e.preventDefault()

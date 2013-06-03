@@ -24,6 +24,6 @@ class ApiTagController extends BaseController {
 	 */
 	public function index()
 	{
-		return Tag::orderBy('id', 'desc')->distinct()->lists('tag');
+		return Tag::orderBy('tag', 'asc')->distinct()->get();
 	}
 }
