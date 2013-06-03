@@ -16,3 +16,4 @@ Route::resource('post', 'PostController');
 Route::get('wardrobe', 'AdminController@getIndex');
 Route::controller('wardrobe/login', 'LoginController');
 Route::resource('api/post', 'ApiPostController');
+Route::resource('api/tag', 'ApiTagController');

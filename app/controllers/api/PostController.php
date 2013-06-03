@@ -57,7 +57,7 @@ class ApiPostController extends BaseController {
 	 */
 	public function show($id)
 	{
-		return (string) $this->posts->find($id);
+		return $this->posts->find($id);
 	}
 
 	/**

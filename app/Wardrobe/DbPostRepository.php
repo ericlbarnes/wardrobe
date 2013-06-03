@@ -9,7 +9,7 @@ class DbPostRepository implements PostRepositoryInterface {
 	 */
 	public function all()
 	{
-		return Post::orderBy('id', 'desc')->get();
+		return Post::with('tags')->orderBy('id', 'desc')->get();
 	}
 
 	/**
@@ -20,7 +20,7 @@ class DbPostRepository implements PostRepositoryInterface {
 	 */
 	public function find($id)
 	{
-		return Post::findOrFail($id);
+		return Post::with('tags')->findOrFail($id);
 	}
 
 	/**
@@ -31,7 +31,7 @@ class DbPostRepository implements PostRepositoryInterface {
 	 */
 	public function findBySlug($slug)
 	{
-		return Post::where('slug', $slug)->first();
+		return Post::with('tags')->where('slug', $slug)->first();
 	}
 
 	/**

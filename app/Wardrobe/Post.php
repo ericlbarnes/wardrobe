@@ -16,4 +16,12 @@ class Post extends \Eloquent {
 	 */
 	protected $fillable = array('title', 'slug', 'content');
 
+	/**
+	 * Tags Relationship
+	 * @return Relationship
+	 */
+	public function tags()
+  {
+		return $this->hasMany('\Wardrobe\Tag', 'post_id');
+	}
 }
