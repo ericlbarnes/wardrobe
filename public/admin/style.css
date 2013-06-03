@@ -9240,3 +9240,11 @@ disabled look for disabled choices in the results dropdown
   left: 3px;
   top: 6px;
 }
+.select2-drop {
+  border: 1px solid #95a5a6;
+  width: 300px !important;
+}
+.select2-results .select2-highlighted {
+  background: #fcfcfc;
+  color: #555;
+}
