@@ -14,8 +14,8 @@ body {
   color: #111;
 }
 
-#write input,
-#write textarea {
+#write .info input,
+#write .info textarea {
 	font-family: 'Old Standard TT', "Crimson Text", "Times New Roman", Georgia, serif;
 	font-weight: 400;
 	font-size: 22px;

@@ -3,6 +3,9 @@
   class Views.PostView extends App.Views.ItemView
     template: "post/templates/form"
 
+    initialize: ->
+      @tagsHide = true
+
     events:
       "click .publish" : "save"
       "click .js-toggle" : "toggleDetails"
@@ -13,6 +16,7 @@
 
     onShow: ->
       @setUpEditor()
+      @setUpTags()
       $('#slug').slugify('#title') if @model.isNew
 
     setUpEditor: ->
@@ -26,8 +30,12 @@
       @editor = new Editor(toolbar: toolbar)
       @editor.render(document.getElementById("content"))
 
+    setUpTags: ->
+      @$("#js-tags").select2
+        tags: ["red", "blue"]
+
     tags: ->
-      alert "tags"
+      @$(".tags-bar").toggleClass("hide");
 
     save: (e) ->
       e.preventDefault()

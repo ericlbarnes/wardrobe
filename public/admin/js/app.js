@@ -56,7 +56,7 @@ this["JST"]["post/templates/form.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<form>\n\t<div id="js-errors" class="hide">\n\t\t<div class="alert alert-error">\n\t\t\t<button type="button" class="close" data-dismiss="alert">×</button>\n\t\t\t<span></span>\n\t\t</div>\n\t</div>\n\t<div id="write">\n\t\t<button class="btn large publish pull-right">Publish Post</button>\n\t\t<div class="info">\n\t\t\t<div>\n\t\t\t\t<i data-dir="up" class="icon-chevron-sign-right js-toggle"></i>\n\t\t\t\t<input type="text" style="width: 50%" name="title" id="title" value="" placeholder="Title">\n\t\t\t</div>\n\t\t\t<div class="details hide">\n\t\t\t\t<i class="icon-terminal"></i>\n\t\t\t\t<input type="text" style="width: 50%" name="slug" id="slug" value="" placeholder="URI Slug">\n\t\t\t</div>\n\t\t</div>\n\t\t<div class="content-area">\n\t\t\t<textarea name="content" id="content" placeholder="Content Goes Here..."></textarea>\n\t\t</div>\n\t</div>\n</form>\n';
+__p += '<form>\n\t<div id="js-errors" class="hide">\n\t\t<div class="alert alert-error">\n\t\t\t<button type="button" class="close" data-dismiss="alert">×</button>\n\t\t\t<span></span>\n\t\t</div>\n\t</div>\n\t<div id="write">\n\t\t<button class="btn large publish pull-right">Publish Post</button>\n\t\t<div class="info">\n\t\t\t<div>\n\t\t\t\t<i data-dir="up" class="icon-chevron-sign-right js-toggle"></i>\n\t\t\t\t<input type="text" style="width: 50%" name="title" id="title" value="" placeholder="Title">\n\t\t\t</div>\n\t\t\t<div class="details hide">\n\t\t\t\t<i class="icon-terminal"></i>\n\t\t\t\t<input type="text" style="width: 50%" name="slug" id="slug" value="" placeholder="URI Slug">\n\t\t\t</div>\n\t\t</div>\n\t\t<div class="content-area">\n\t\t\t<textarea name="content" id="content" placeholder="Content Goes Here..."></textarea>\n\t\t\t<div class="tags-bar hide">\n\t\t\t\t<input type="hidden" id="js-tags" name="tags" class="tags" style="width:224px;" placeholder="Add Tags" data-placeholder="Add Tags">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</form>\n';
 
 }
 return __p
@@ -632,6 +632,10 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
 
     PostView.prototype.template = "post/templates/form";
 
+    PostView.prototype.initialize = function() {
+      return this.tagsHide = true;
+    };
+
     PostView.prototype.events = {
       "click .publish": "save",
       "click .js-toggle": "toggleDetails",
@@ -644,6 +648,7 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
 
     PostView.prototype.onShow = function() {
       this.setUpEditor();
+      this.setUpTags();
       if (this.model.isNew) {
         return $('#slug').slugify('#title');
       }
@@ -658,8 +663,14 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
       return this.editor.render(document.getElementById("content"));
     };
 
+    PostView.prototype.setUpTags = function() {
+      return this.$("#js-tags").select2({
+        tags: ["red", "blue"]
+      });
+    };
+
     PostView.prototype.tags = function() {
-      return alert("tags");
+      return this.$(".tags-bar").toggleClass("hide");
     };
 
     PostView.prototype.save = function(e) {
