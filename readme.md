@@ -2,15 +2,20 @@
 
 WIP
 
-Run the following commands: 
+Run the following commands:
 
     composer install
-    npm install
-    grunt
     php artisan migrate --seed
     php artisan serve
 
 Then visit http://localhost:8000/wardrobe#post
+
+### Development
+
+To compile assets run the following:
+
+    npm install
+    grunt watch
 
 ### License
 
