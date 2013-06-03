@@ -8,7 +8,7 @@
 	<section>
   <div class="post">
     <h2 class="title">{{ $post->title }}</h2>
-    {{ $post->content }}
+    {{ md($post->content) }}
   </div>
 </section>
 @stop
