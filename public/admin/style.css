@@ -8594,6 +8594,20 @@ td.title {
   padding: 20px;
   margin-bottom: 20px;
 }
+#write .field {
+  margin: 5px 0;
+}
+#write .details .field:before {
+  opacity: 0.6;
+  display: block;
+  content: ' ';
+  height: 1px;
+  background-color: #bdc3c7;
+  background: -moz-linear-gradient(45deg, #f9f9f9, #bdc3c7, #f9f9f9);
+  background: -webkit-linear-gradient(45deg, #f9f9f9, #bdc3c7, #f9f9f9);
+  background: -ms-linear-gradient(45deg, #f9f9f9, #bdc3c7, #f9f9f9);
+  background: linear-gradient(45deg, #f9f9f9, #bdc3c7, #f9f9f9);
+}
 #write .info {
   margin-bottom: 10px;
 }
@@ -8603,11 +8617,24 @@ td.title {
 #write .info i {
   color: #ccc;
   float: left;
-  margin-top: 14px;
+  margin-top: 16px;
   margin-right: 6px;
 }
 #write .content-area {
   position: relative;
+}
+#write label.radio {
+  display: inline-block;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 1.3em;
+  color: #999999;
+  padding: 5px;
+  margin-top: 4px;
+}
+#write label.radio input {
+  padding: 0;
+  margin: 5px;
 }
 .editor-toolbar {
   margin-bottom: 10px;
@@ -8618,6 +8645,7 @@ td.title {
   background: none;
   border: none;
   box-shadow: none;
+  margin: 5px 0;
 }
 #write .info input:focus,
 #write .info textarea:focus {
