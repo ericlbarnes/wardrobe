@@ -695,7 +695,7 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
     PostView.prototype.events = {
       "click .publish": "save",
       "click .js-toggle": "toggleDetails",
-      "click .icon-tags": "tags"
+      "click .icon-tags": "toggleTags"
     };
 
     PostView.prototype.modelEvents = {
@@ -728,14 +728,12 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
       });
     };
 
-    PostView.prototype.tags = function(e) {
+    PostView.prototype.toggleTags = function(e) {
       if (this.tagsShown) {
-        this.$('.editor-toolbar a').show();
-        this.$('.editor-toolbar i').show();
+        this.$('.editor-toolbar a, .editor-toolbar i').show();
         this.$(".tags-bar").hide();
       } else {
-        this.$('.editor-toolbar a').hide();
-        this.$('.editor-toolbar i').hide();
+        this.$('.editor-toolbar a, .editor-toolbar i').hide();
         this.$('.icon-tags').show();
         this.$(".tags-bar").show();
       }

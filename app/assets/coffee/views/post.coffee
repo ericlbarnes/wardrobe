@@ -9,7 +9,7 @@
     events:
       "click .publish" : "save"
       "click .js-toggle" : "toggleDetails"
-      "click .icon-tags" : "tags"
+      "click .icon-tags" : "toggleTags"
 
     modelEvents:
       "change:_errors"  : "changeErrors"
@@ -35,19 +35,16 @@
         @$("#js-tags").select2
           tags: tags.pluck('tag')
 
-    tags: (e) ->
+    toggleTags: (e) ->
       if @tagsShown
-        @$('.editor-toolbar a').show()
-        @$('.editor-toolbar i').show()
+        @$('.editor-toolbar a, .editor-toolbar i').show()
         @$(".tags-bar").hide();
       else
-        @$('.editor-toolbar a').hide()
-        @$('.editor-toolbar i').hide()
+        @$('.editor-toolbar a, .editor-toolbar i').hide()
         @$('.icon-tags').show()
         @$(".tags-bar").show();
 
       @tagsShown = !@tagsShown
-      # @$(".tags-bar").toggleClass("hide");
 
     save: (e) ->
       e.preventDefault()
