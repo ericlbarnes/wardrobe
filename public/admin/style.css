@@ -8594,6 +8594,27 @@ td.title {
   padding: 20px;
   margin-bottom: 20px;
 }
+#write .info {
+  margin-bottom: 10px;
+}
+#write .info input {
+  margin: 0 0 0 10px;
+}
+#write .info i {
+  color: #ccc;
+  float: left;
+  margin-top: 14px;
+  margin-right: 6px;
+}
+#write .content-area {
+  position: relative;
+}
+#write .content-area .tags-bar {
+  width: 50%;
+  position: absolute;
+  left: 0;
+  bottom: -15px;
+}
 .editor-toolbar {
   margin-bottom: 10px;
 }

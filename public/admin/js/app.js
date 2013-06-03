@@ -56,7 +56,7 @@ this["JST"]["post/templates/form.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<form>\n\t<div id="js-errors" class="hide">\n\t\t<div class="alert alert-error">\n\t\t\t<button type="button" class="close" data-dismiss="alert">×</button>\n\t\t\t<span></span>\n\t\t</div>\n\t</div>\n\t<div id="write">\n\t\t<button class="btn large publish pull-right">Publish Post</button>\n\t\t<div class="info">\n\t\t\t<i data-dir="up" class="icon-caret-right js-toggle"></i>\n\t\t\t<input type="text" style="width: 50%" name="title" id="title" value="" placeholder="Title">\n\t\t\t<div class="details hide">\n\t\t\t\t<input type="text" style="width: 50%" name="slug" id="slug" value="" placeholder="URI Slug">\n\t\t\t</div>\n\t\t</div>\n\t\t<textarea name="content" id="content" placeholder="Content Goes Here..."></textarea>\n\t</div>\n</form>';
+__p += '<form>\n\t<div id="js-errors" class="hide">\n\t\t<div class="alert alert-error">\n\t\t\t<button type="button" class="close" data-dismiss="alert">×</button>\n\t\t\t<span></span>\n\t\t</div>\n\t</div>\n\t<div id="write">\n\t\t<button class="btn large publish pull-right">Publish Post</button>\n\t\t<div class="info">\n\t\t\t<div>\n\t\t\t\t<i data-dir="up" class="icon-chevron-sign-right js-toggle"></i>\n\t\t\t\t<input type="text" style="width: 50%" name="title" id="title" value="" placeholder="Title">\n\t\t\t</div>\n\t\t\t<div class="details hide">\n\t\t\t\t<i class="icon-terminal"></i>\n\t\t\t\t<input type="text" style="width: 50%" name="slug" id="slug" value="" placeholder="URI Slug">\n\t\t\t</div>\n\t\t</div>\n\t\t<div class="content-area">\n\t\t\t<textarea name="content" id="content" placeholder="Content Goes Here..."></textarea>\n\t\t</div>\n\t</div>\n</form>\n';
 
 }
 return __p
@@ -634,7 +634,8 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
 
     PostView.prototype.events = {
       "click .publish": "save",
-      "click .js-toggle": "toggleDetails"
+      "click .js-toggle": "toggleDetails",
+      "click .icon-tags": "tags"
     };
 
     PostView.prototype.modelEvents = {
@@ -650,11 +651,15 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
 
     PostView.prototype.setUpEditor = function() {
       var toolbar;
-      toolbar = ['bold', 'italic', '|', 'quote', 'unordered-list', 'ordered-list', '|', 'link', 'image', '|', 'undo', 'redo'];
+      toolbar = ['bold', 'italic', '|', 'quote', 'unordered-list', 'ordered-list', '|', 'link', 'image', '|', 'undo', 'redo', '|', 'tags'];
       this.editor = new Editor({
         toolbar: toolbar
       });
       return this.editor.render(document.getElementById("content"));
+    };
+
+    PostView.prototype.tags = function() {
+      return alert("tags");
     };
 
     PostView.prototype.save = function(e) {
@@ -708,13 +713,13 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
 
     PostView.prototype.collapse = function($toggle) {
       this.$toggle = $toggle;
-      this.$toggle.data("dir", "up").addClass("icon-caret-right").removeClass("icon-caret-down");
+      this.$toggle.data("dir", "up").addClass("icon-chevron-sign-right").removeClass("icon-chevron-sign-down");
       return this.$(".details.hide").hide();
     };
 
     PostView.prototype.expand = function($toggle) {
       this.$toggle = $toggle;
-      this.$toggle.data("dir", "down").addClass("icon-caret-down").removeClass("icon-caret-right");
+      this.$toggle.data("dir", "down").addClass("icon-chevron-sign-down").removeClass("icon-chevron-sign-right");
       return this.$(".details.hide").show();
     };
 

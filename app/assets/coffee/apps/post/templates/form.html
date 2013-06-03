@@ -8,12 +8,17 @@
 	<div id="write">
 		<button class="btn large publish pull-right">Publish Post</button>
 		<div class="info">
-			<i data-dir="up" class="icon-caret-right js-toggle"></i>
-			<input type="text" style="width: 50%" name="title" id="title" value="" placeholder="Title">
+			<div>
+				<i data-dir="up" class="icon-chevron-sign-right js-toggle"></i>
+				<input type="text" style="width: 50%" name="title" id="title" value="" placeholder="Title">
+			</div>
 			<div class="details hide">
+				<i class="icon-terminal"></i>
 				<input type="text" style="width: 50%" name="slug" id="slug" value="" placeholder="URI Slug">
 			</div>
 		</div>
-		<textarea name="content" id="content" placeholder="Content Goes Here..."></textarea>
+		<div class="content-area">
+			<textarea name="content" id="content" placeholder="Content Goes Here..."></textarea>
+		</div>
 	</div>
 </form>

@@ -6,6 +6,7 @@
     events:
       "click .publish" : "save"
       "click .js-toggle" : "toggleDetails"
+      "click .icon-tags" : "tags"
 
     modelEvents:
       "change:_errors"  : "changeErrors"
@@ -19,11 +20,14 @@
         'bold', 'italic', '|'
         'quote', 'unordered-list', 'ordered-list', '|'
         'link', 'image', '|'
-        'undo', 'redo'
+        'undo', 'redo', '|', 'tags'
         # {name: 'info', action: 'http://lab.lepture.com/editor/markdown'}
       ]
       @editor = new Editor(toolbar: toolbar)
       @editor.render(document.getElementById("content"))
+
+    tags: ->
+      alert "tags"
 
     save: (e) ->
       e.preventDefault()
@@ -54,11 +58,11 @@
       @$("#js-errors").hide()
 
     collapse: (@$toggle) ->
-      @$toggle.data("dir", "up").addClass("icon-caret-right").removeClass("icon-caret-down")
+      @$toggle.data("dir", "up").addClass("icon-chevron-sign-right").removeClass("icon-chevron-sign-down")
       @$(".details.hide").hide()
 
     expand: (@$toggle) ->
-      @$toggle.data("dir", "down").addClass("icon-caret-down").removeClass("icon-caret-right")
+      @$toggle.data("dir", "down").addClass("icon-chevron-sign-down").removeClass("icon-chevron-sign-right")
       @$(".details.hide").show()
 
     toggleDetails: (e) ->
