@@ -43,7 +43,7 @@ class LoginController extends BaseController {
 
 		if ($this->users->login($email, $password, Input::get('remember') == 'yes'))
 		{
-			return Redirect::to('wardrobe/home');
+			return Redirect::to('wardrobe');
 		}
 
 		return Redirect::back()
