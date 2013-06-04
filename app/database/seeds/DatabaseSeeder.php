@@ -54,8 +54,8 @@ class UserTableSeeder extends Seeder {
 		Wardrobe\User::create(array(
 			'first_name' => 'Eric',
 			'last_name'  => 'Barnes',
-			'email'      => 'ericbarnes@gmail.com',
-			'password'   => Hash::make('secret'),
+			'email'      => 'eric@ericlbarnes.com',
+			'password'   => Hash::make('password'),
 		));
 	}
 }
