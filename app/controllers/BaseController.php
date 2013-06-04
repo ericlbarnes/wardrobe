@@ -2,8 +2,18 @@
 
 class BaseController extends Controller {
 
+	/**
+	 * The default theme used by the blog.
+	 *
+	 * @var string
+	 */
 	protected $theme = 'default';
 
+	/**
+	 * Create the base controller instance.
+	 *
+	 * @return void
+	 */
 	public function __construct()
 	{
 		$this->theme = Config::get('app.theme');

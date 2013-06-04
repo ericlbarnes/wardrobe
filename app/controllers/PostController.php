@@ -32,8 +32,9 @@ class PostController extends BaseController {
 	public function index()
 	{
 		$posts = $this->posts->all();
+
 		return View::make('themes.'.$this->theme.'.archive')
-			->with('posts', $posts);
+                                             ->with('posts', $posts);
 	}
 
 	/**
@@ -45,8 +46,9 @@ class PostController extends BaseController {
 	public function show($slug)
 	{
 		$post = $this->posts->findBySlug($slug);
+
 		return View::make('themes.'.$this->theme.'.post')
-			->with('post', $post);
+                                             ->with('post', $post);
 	}
 
 }

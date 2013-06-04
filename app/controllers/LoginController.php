@@ -1,37 +1,53 @@
 <?php
 
-use Wardrobe\User;
+use Wardrobe\UserRepositoryInterface;
 
 class LoginController extends BaseController {
 
-	public function __construct()
+	/**
+	 * The user repository implementations.
+	 *
+	 * @param  \Wardrobe\UserRepositoryInterface
+	 */
+	protected $users;
+
+	/**
+	 * Create a new login controller instance.
+	 *
+	 * @param  \Wardrobe\UserRepositoryInterface  $users
+	 * @return void
+	 */
+	public function __construct(UserRepositoryInterface $users)
 	{
 		parent::__construct();
+
+		$this->users = $users;
 	}
 
+	/**
+	 * Get the user login view.
+	 */
 	public function getIndex()
 	{
 		return View::make('admin.login');
 	}
 
 	/**
-	 * Handle the login
-	 * @return Redirect
+	 * Handle a user login attempt.
 	 */
 	public function postIndex()
 	{
-		Input::flash();
+		$email = mb_strtolower(Input::get('email'));
 
-		$credentials = array(
-			'email' => mb_strtolower(Input::get('email')),
-			'password' => Input::get('password'),
-		);
+		$password = Input::get('password');
 
-		if (Auth::attempt($credentials, Input::get('remember') == 'yes'))
+		if ($this->users->login($email, $password, Input::get('remember') == 'yes'))
 		{
-			return Redirect::to('wardrobe/login');
+			return Redirect::to('wardrobe/home');
 		}
 
-		return Redirect::back()->with('login_errors', true);
+		return Redirect::back()
+                          ->withInput()
+                          ->with('login_errors', true);
 	}
 }

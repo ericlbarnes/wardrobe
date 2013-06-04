@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder {
 
 		$this->call('PostTableSeeder');
 		$this->call('TagsTableSeeder');
+		$this->call('UserTableSeeder');
 	}
 
 }
@@ -34,5 +35,27 @@ class TagsTableSeeder extends Seeder {
 		Wardrobe\Tag::create(array('post_id' => 1, 'tag' => 'code'));
 		Wardrobe\Tag::create(array('post_id' => 1, 'tag' => 'laravel'));
 		Wardrobe\Tag::create(array('post_id' => 1, 'tag' => 'javascript'));
+	}
+}
+
+class UserTableSeeder extends Seeder {
+
+	public function run()
+	{
+		DB::table('users')->delete();
+
+		Wardrobe\User::create(array(
+			'first_name' => 'Taylor',
+			'last_name'  => 'Otwell',
+			'email'      => 'taylorotwell@gmail.com',
+			'password'   => Hash::make('secret'),
+		));
+
+		Wardrobe\User::create(array(
+			'first_name' => 'Eric',
+			'last_name'  => 'Barnes',
+			'email'      => 'ericbarnes@gmail.com',
+			'password'   => Hash::make('secret'),
+		));
 	}
 }
