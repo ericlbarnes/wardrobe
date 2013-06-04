@@ -14,7 +14,7 @@ class Post extends \Eloquent {
 	 *
 	 * @var array
 	 */
-	protected $fillable = array('title', 'slug', 'content');
+	protected $fillable = array('title', 'slug', 'content', 'active');
 
 	/**
 	 * Tags Relationship
