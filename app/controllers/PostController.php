@@ -31,7 +31,7 @@ class PostController extends BaseController {
 	 */
 	public function index()
 	{
-		$posts = $this->posts->all();
+		$posts = $this->posts->allActive();
 
 		return View::make('themes.'.$this->theme.'.archive')
                                              ->with('posts', $posts);

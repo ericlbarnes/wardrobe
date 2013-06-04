@@ -21,7 +21,7 @@ class ApiPostController extends BaseController {
 	{
 		parent::__construct();
 		$this->posts = $posts;
-		// $this->beforeFilter('auth');
+		$this->beforeFilter('auth');
 	}
 
 	/**
@@ -46,7 +46,7 @@ class ApiPostController extends BaseController {
 			return Response::make(json_encode($messages->all()), 500, array('Content-Type' => 'application/json'));
 		}
 
-		return (string) $this->posts->create(Input::get('title'), Input::get('content'), Input::get('slug'));
+		return (string) $this->posts->create(Input::get('title'), Input::get('content'), Input::get('slug'), Input::get('active'));
 	}
 
 	/**
@@ -84,7 +84,7 @@ class ApiPostController extends BaseController {
 			return Response::make(json_encode($messages->all()), 500, array('Content-Type' => 'application/json'));
 		}
 
-		return (string) $this->posts->update($id, Input::get('title'), Input::get('content'), Input::get('slug'));
+		return (string) $this->posts->update($id, Input::get('title'), Input::get('content'), Input::get('slug'), Input::get('active'));
 	}
 
 	/**

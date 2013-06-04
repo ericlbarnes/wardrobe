@@ -10,6 +10,11 @@ interface PostRepositoryInterface {
 	public function all();
 
 	/**
+	 * Get all the active posts.
+	 */
+	public function allActive();
+
+	/**
 	 * Get a Post by its primary key.
 	 *
 	 * @param  int   $id
@@ -32,7 +37,7 @@ interface PostRepositoryInterface {
 	 * @param  string  $content
 	 * @return Post
 	 */
-	public function create($title, $content, $slug);
+	public function create($title, $content, $slug, $active);
 
 	/**
 	 * Update a post's title and content.
@@ -42,7 +47,7 @@ interface PostRepositoryInterface {
 	 * @param  string  $content
 	 * @return Post
 	 */
-	public function update($id, $title, $content, $slug);
+	public function update($id, $title, $content, $slug, $active);
 
 	/**
 	 * Delete the post with the given ID.
