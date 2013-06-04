@@ -736,7 +736,8 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
       this.editor = new Editor({
         toolbar: toolbar
       });
-      return this.editor.render(document.getElementById("content"));
+      this.editor.render(document.getElementById("content"));
+      return this.$('.editor-statusbar').find('.lines').html(this.editor.codemirror.lineCount()).find('.words').html(this.editor.codemirror.getValue().length).find('.cursorActivity').html(this.editor.codemirror.getCursor().line + ':' + this.editor.codemirror.getCursor().ch);
     };
 
     PostView.prototype.setUpTags = function() {

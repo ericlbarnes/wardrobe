@@ -32,11 +32,16 @@
         'link', 'image', '|'
         'undo', 'redo', '|', 'tags'
       ]
-      @editor = new Editor(toolbar: toolbar)
+
+      @editor = new Editor
+        toolbar: toolbar
+
       @editor.render(document.getElementById("content"))
-      $('.editor-statusbar .lines').html @editor.codemirror.lineCount()
-      $('.editor-statusbar .words').html @editor.codemirror.getValue().length
-      $('.editor-statusbar .cursorActivity').html @editor.codemirror.getCursor().line + ':' + @editor.codemirror.getCursor().ch;
+
+      @$('.editor-statusbar')
+        .find('.lines').html(@editor.codemirror.lineCount())
+        .find('.words').html(@editor.codemirror.getValue().length)
+        .find('.cursorActivity').html(@editor.codemirror.getCursor().line + ':' + @editor.codemirror.getCursor().ch)
 
     setUpTags: ->
       App.request "tag:entities", (tags) =>
