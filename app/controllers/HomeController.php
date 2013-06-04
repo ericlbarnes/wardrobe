@@ -31,7 +31,7 @@ class HomeController extends BaseController {
 	 */
 	public function getIndex()
 	{
-		$posts = $this->posts->all();
+		$posts = $this->posts->allActive();
 
 		return View::make('themes.'.$this->theme.'.index', compact('posts'));
 	}

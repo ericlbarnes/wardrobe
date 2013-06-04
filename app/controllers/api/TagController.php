@@ -14,7 +14,7 @@ class ApiTagController extends BaseController {
 	{
 		parent::__construct();
 		// $this->posts = $posts;
-		// $this->beforeFilter('auth');
+		$this->beforeFilter('auth');
 	}
 
 	/**

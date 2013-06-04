@@ -23,7 +23,7 @@ class PostTableSeeder extends Seeder {
     public function run()
     {
         DB::table('posts')->delete();
-        Wardrobe\Post::create(array('title' => 'Seeded', 'slug' => 'seeded', 'content' => 'Some example content'));
+        Wardrobe\Post::create(array('title' => 'Seeded', 'slug' => 'seeded', 'content' => 'Some example content', 'active' => 1));
     }
 }
 
