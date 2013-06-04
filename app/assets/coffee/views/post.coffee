@@ -34,6 +34,9 @@
       ]
       @editor = new Editor(toolbar: toolbar)
       @editor.render(document.getElementById("content"))
+      $('.editor-statusbar .lines').html @editor.codemirror.lineCount()
+      $('.editor-statusbar .words').html @editor.codemirror.getValue().length
+      $('.editor-statusbar .cursorActivity').html @editor.codemirror.getCursor().line + ':' + @editor.codemirror.getCursor().ch;
 
     setUpTags: ->
       App.request "tag:entities", (tags) =>
