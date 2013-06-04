@@ -24,7 +24,7 @@ this["JST"]["post/list/templates/grid.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<table class="table">\n\t<thead>\n\t\t<tr>\n\t\t\t<th>ID</th>\n\t\t\t<th>Title</th>\n\t\t\t<th>Created</th>\n\t\t\t<th>Updated</th>\n\t\t\t<th>Delete</th>\n\t\t</tr>\n\t</thead>\n\t<tbody></tbody>\n</table>';
+__p += '<table class="table">\n\t<thead>\n\t\t<tr>\n\t\t\t<th>ID</th>\n\t\t\t<th>Title</th>\n\t\t\t<th>Status</th>\n\t\t\t<th>Created</th>\n\t\t\t<th>Updated</th>\n\t\t\t<th>Delete</th>\n\t\t</tr>\n\t</thead>\n\t<tbody></tbody>\n</table>\n';
 
 }
 return __p
@@ -38,7 +38,9 @@ __p += '<td class="id">' +
 ((__t = ( id )) == null ? '' : __t) +
 '</td>\n<td class="title"><a href="#" class="details">' +
 ((__t = ( title )) == null ? '' : __t) +
-'</a></td>\n<td class="date js-format-date" data-date="' +
+'</a></td>\n<td class="status">' +
+((__t = ( (active == 1) ? "Active" : "Draft" )) == null ? '' : __t) +
+'</td>\n<td class="date js-format-date" data-date="' +
 ((__t = ( created_at )) == null ? '' : __t) +
 '">' +
 ((__t = ( created_at )) == null ? '' : __t) +
@@ -56,7 +58,9 @@ this["JST"]["post/templates/form.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<form>\n\t<div id="js-errors" class="hide">\n\t\t<div class="alert alert-error">\n\t\t\t<button type="button" class="close" data-dismiss="alert">×</button>\n\t\t\t<span></span>\n\t\t</div>\n\t</div>\n\t<div id="write">\n\t\t<button class="btn large publish pull-right">Publish Post</button>\n\t\t<div class="info">\n\t\t\t<div class="field">\n\t\t\t\t<i data-dir="up" class="icon-chevron-sign-right js-toggle" title="Expand for options"></i>\n\t\t\t\t<input type="text" style="width: 50%" name="title" id="title" value="" placeholder="Title">\n\t\t\t</div>\n\t\t\t<div class="details hide">\n\t\t\t\t<div class="field">\n\t\t\t\t\t<i class="icon-terminal" title="URI Slug"></i>\n\t\t\t\t\t<input type="text" style="width: 50%" name="slug" id="slug" value="" placeholder="URI Slug">\n\t\t\t\t</div>\n\t\t\t\t<div class="field">\n\t\t\t\t\t<i class="icon-off" title="Status"></i>\n\t\t\t\t\t<label class="radio"><input type="radio" name="active" id="activeOn" value="1" checked> Published</label>\n\t\t\t\t\t<label class="radio"><input type="radio" name="active" id="activeOff" value="0"> Draft</label>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t\t<div class="content-area">\n\t\t\t<textarea name="content" id="content" placeholder="Content Goes Here..."></textarea>\n\t\t\t<div class="tags-bar hide">\n\t\t\t\t<input type="hidden" id="js-tags" name="tags" class="tags" style="width: 90%" value="" placeholder="Add Tags" data-placeholder="Add Tags">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</form>\n';
+__p += '<form>\n\t<div id="js-errors" class="hide">\n\t\t<div class="alert alert-error">\n\t\t\t<button type="button" class="close" data-dismiss="alert">×</button>\n\t\t\t<span></span>\n\t\t</div>\n\t</div>\n\t<div id="write">\n\t\t<button class="btn large publish pull-right">' +
+((__t = ( submitBtnText() )) == null ? '' : __t) +
+'</button>\n\t\t<div class="info">\n\t\t\t<div class="field">\n\t\t\t\t<i data-dir="up" class="icon-chevron-sign-right js-toggle" title="Expand for options"></i>\n\t\t\t\t<input type="text" style="width: 50%" name="title" id="title" value="" placeholder="Title">\n\t\t\t</div>\n\t\t\t<div class="details hide">\n\t\t\t\t<div class="field">\n\t\t\t\t\t<i class="icon-terminal" title="URI Slug"></i>\n\t\t\t\t\t<input type="text" style="width: 50%" name="slug" id="slug" value="" placeholder="URI Slug">\n\t\t\t\t</div>\n\t\t\t\t<div class="field status">\n\t\t\t\t\t<i class="icon-off" title="Status"></i>\n\t\t\t\t\t<label class="radio"><input type="radio" name="active" class="js-active" value="1" checked> Published</label>\n\t\t\t\t\t<label class="radio"><input type="radio" name="active" class="js-active" value="0"> Draft</label>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t\t<div class="content-area">\n\t\t\t<textarea name="content" id="content" placeholder="Content Goes Here..."></textarea>\n\t\t\t<div class="tags-bar hide">\n\t\t\t\t<input type="hidden" id="js-tags" name="tags" class="tags" style="width: 90%" value="" placeholder="Add Tags" data-placeholder="Add Tags">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</form>\n';
 
 }
 return __p
@@ -108,14 +112,15 @@ $.fn.formatDates = function() {
 
 
 $.fn.fillJSON = function(json) {
-  var $el, key, val, _results;
+  var $el, key, val;
   $el = $(this);
-  _results = [];
   for (key in json) {
     val = json[key];
-    _results.push($el.find("[name='" + key + "']").val(val));
+    if (key === "active") {
+      return this;
+    }
+    $el.find("[name='" + key + "']").val(val);
   }
-  return _results;
 };
 
 $.fn.showAlert = function(title, msg, type) {
@@ -695,11 +700,26 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
     PostView.prototype.events = {
       "click .publish": "save",
       "click .js-toggle": "toggleDetails",
-      "click .icon-tags": "toggleTags"
+      "click .icon-tags": "toggleTags",
+      "change .js-active": "changeBtn"
     };
 
     PostView.prototype.modelEvents = {
       "change:_errors": "changeErrors"
+    };
+
+    PostView.prototype.templateHelpers = {
+      submitBtnText: function() {
+        if (!(this.active != null)) {
+          "Publish Post";
+
+        }
+        if (this.active === "1") {
+          return "Publish Post";
+        } else {
+          return "Save Post";
+        }
+      }
     };
 
     PostView.prototype.onShow = function() {
@@ -746,6 +766,7 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
       data = {
         title: this.$('#title').val(),
         slug: this.$('#slug').val(),
+        active: this.$('input[type=radio]:checked').val(),
         content: this.editor.codemirror.getValue()
       };
       return this.processFormSubmit(data);
@@ -807,6 +828,14 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
         return this.expand(this.$toggle);
       } else {
         return this.collapse(this.$toggle);
+      }
+    };
+
+    PostView.prototype.changeBtn = function(e) {
+      if (e.currentTarget.value === "1") {
+        return this.$(".publish").text("Publish Post");
+      } else {
+        return this.$(".publish").text("Save Post");
       }
     };
 
@@ -942,7 +971,14 @@ this.Wardrobe.module("PostApp.Edit", function(Edit, App, Backbone, Marionette, $
       var tags;
       this.fillJSON();
       tags = _.pluck(this.model.get("tags"), "tag");
-      return this.$("#js-tags").val(tags);
+      this.$("#js-tags").val(tags);
+      if (this.model.get("active") === "1") {
+        this.$(".publish").text("Publish Post");
+        return this.$('input:radio[name="active"]').filter('[value="1"]').attr('checked', true);
+      } else {
+        this.$(".publish").text("Save Post");
+        return this.$('input:radio[name="active"]').filter('[value="0"]').attr('checked', true);
+      }
     };
 
     return Post;
@@ -1009,7 +1045,17 @@ this.Wardrobe.module("PostApp.List", function(List, App, Backbone, Marionette, $
 
     PostItem.prototype.tagName = "tr";
 
-    PostItem.prototype.className = "post-item";
+    PostItem.prototype.attributes = function() {
+      if (this.model.get("active") === "1") {
+        return {
+          "class": "post-item"
+        };
+      } else {
+        return {
+          "class": "post-item draft"
+        };
+      }
+    };
 
     PostItem.prototype.triggers = {
       "click .delete": "post:delete:clicked"
@@ -1127,6 +1173,10 @@ this.Wardrobe.module("PostApp.New", function(New, App, Backbone, Marionette, $, 
       return Post.__super__.constructor.apply(this, arguments);
     }
 
+    Post.prototype.onRender = function() {
+      return this.$(".publish").text("Publish Post");
+    };
+
     return Post;
 
   })(App.Views.PostView);
@@ -1179,12 +1229,12 @@ this.Wardrobe.module("PostApp", function(PostApp, App, Backbone, Marionette, $, 
     }
   };
   App.vent.on("post:load", function() {
-    App.navigate("post/");
+    App.navigate("post");
     return API.list();
   });
   App.vent.on("post:created post:updated", function() {
     $("#js-alert").showAlert("Success!", "Post was successfully saved.", "alert-success");
-    App.navigate("post/");
+    App.navigate("post");
     return API.list();
   });
   App.vent.on("post:new:clicked", function() {

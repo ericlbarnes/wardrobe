@@ -26,13 +26,13 @@
       $('ul.nav li').removeClass("active").find(type).parent().addClass("active")
 
   App.vent.on "post:load", ->
-    App.navigate "post/"
+    App.navigate "post"
     API.list()
 
   # Listen for the post created or saved then show alert and redirect.
   App.vent.on "post:created post:updated", ->
     $("#js-alert").showAlert("Success!", "Post was successfully saved.", "alert-success")
-    App.navigate "post/"
+    App.navigate "post"
     API.list()
 
   App.vent.on "post:new:clicked", ->

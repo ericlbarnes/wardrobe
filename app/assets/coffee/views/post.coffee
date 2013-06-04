@@ -10,9 +10,15 @@
       "click .publish" : "save"
       "click .js-toggle" : "toggleDetails"
       "click .icon-tags" : "toggleTags"
+      "change .js-active" : "changeBtn"
 
     modelEvents:
       "change:_errors"  : "changeErrors"
+
+    templateHelpers:
+      submitBtnText: ->
+        "Publish Post" if not @active? # When no model is set.
+        if @active is "1" then "Publish Post" else "Save Post"
 
     onShow: ->
       @setUpEditor()
@@ -25,7 +31,6 @@
         'quote', 'unordered-list', 'ordered-list', '|'
         'link', 'image', '|'
         'undo', 'redo', '|', 'tags'
-        # {name: 'info', action: 'http://lab.lepture.com/editor/markdown'}
       ]
       @editor = new Editor(toolbar: toolbar)
       @editor.render(document.getElementById("content"))
@@ -48,10 +53,13 @@
 
     save: (e) ->
       e.preventDefault()
+
       data =
         title: @$('#title').val()
         slug: @$('#slug').val()
+        active: @$('input[type=radio]:checked').val()
         content: @editor.codemirror.getValue()
+
       @processFormSubmit data
 
     processFormSubmit: (data) ->
@@ -88,3 +96,10 @@
         @expand @$toggle
       else
         @collapse @$toggle
+
+    # Toggle the save button text based on status
+    changeBtn: (e) ->
+      if e.currentTarget.value is "1"
+        @$(".publish").text("Publish Post")
+      else
+        @$(".publish").text("Save Post")

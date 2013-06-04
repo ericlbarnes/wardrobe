@@ -1,5 +1,6 @@
 <td class="id"><%= id %></td>
 <td class="title"><a href="#" class="details"><%= title %></a></td>
+<td class="status"><%= (active == 1) ? "Active" : "Draft" %></td>
 <td class="date js-format-date" data-date="<%= created_at %>"><%= created_at %></td>
 <td class="date js-format-date" data-date="<%= updated_at %>"><%= updated_at %></td>
 <td class="actions"><button class="btn delete"><i class="icon-trash"></i></button></td>

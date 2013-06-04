@@ -3,7 +3,13 @@
   class List.PostItem extends App.Views.ItemView
     template: "post/list/templates/item"
     tagName: "tr"
-    className: "post-item"
+
+    attributes: ->
+      if @model.get("active") is "1"
+        class: "post-item"
+      else
+        class: "post-item draft"
+    # className: "post-item"
 
     triggers:
       "click .delete" : "post:delete:clicked"
