@@ -4,7 +4,7 @@ this["JST"]["header/list/templates/header.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div class="navbar navbar-inverse navbar-fixed-top">\n  <div class="navbar-inner">\n    <div class="container">\n\n      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">\n        <span class="icon-bar"></span>\n        <span class="icon-bar"></span>\n        <span class="icon-bar"></span>\n      </a>\n\n      <a class="brand" href="#">Wardrobe</a>\n\n      <ul class="nav">\n        <li class="active"><a class="write" href="#">Write</a></li>\n        <li><a  class="posts" href="#post">Posts</a></li>\n      </ul>\n\n      <!-- Everything you want hidden at 940px or less, place within here -->\n      <div class="nav-collapse collapse">\n      \t<!--\n        <ul class="nav">\n          <li class="active"><a class="write" href="#">Write</a></li>\n          <li><a  class="posts" href="#post">Posts</a></li>\n        </ul>\n        -->\n      </div>\n\n    </div>\n  </div>\n</div>';
+__p += '<div class="navbar navbar-inverse navbar-fixed-top">\n  <div class="navbar-inner">\n    <a class="brand" href="#">Wardrobe</a>\n    <ul class="nav">\n      <li class="active"><a class="write" href="#">Write</a></li>\n      <li><a  class="posts" href="#post">Posts</a></li>\n    </ul>\n  </div>\n</div>\n';
 
 }
 return __p
