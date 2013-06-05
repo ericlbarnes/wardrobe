@@ -49,7 +49,7 @@
       App.request "tag:entities", (tags) =>
         @$("#js-tags").selectize
           # theme: "contacts"
-          persist: false
+          persist: true
           maxItems: null
           valueField: "tag"
           labelField: "tag"
@@ -60,6 +60,8 @@
               "<div><i class='icon-tag'></i> #{item.tag}</div>"
             option: (item) ->
               "<div><i class='icon-tag'></i> #{item.tag}</div>"
+          create: (input) ->
+            return "tag" : input
 
     toggleTags: (e) ->
       if @tagsShown

@@ -745,7 +745,7 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
       var _this = this;
       return App.request("tag:entities", function(tags) {
         return _this.$("#js-tags").selectize({
-          persist: false,
+          persist: true,
           maxItems: null,
           valueField: "tag",
           labelField: "tag",
@@ -758,6 +758,11 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
             option: function(item) {
               return "<div><i class='icon-tag'></i> " + item.tag + "</div>";
             }
+          },
+          create: function(input) {
+            return {
+              "tag": input
+            };
           }
         });
       });
