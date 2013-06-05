@@ -19,6 +19,7 @@ class CreatePostsTable extends Migration {
 			$table->text('content');
 			$table->string('image');
 			$table->string('type');
+			$table->timestamp('publish_date');
 			$table->tinyInteger('active')->default(0);
 			$table->timestamps();
 		});

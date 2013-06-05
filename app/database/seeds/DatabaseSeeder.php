@@ -23,7 +23,13 @@ class PostTableSeeder extends Seeder {
     public function run()
     {
         DB::table('posts')->delete();
-        Wardrobe\Post::create(array('title' => 'Seeded', 'slug' => 'seeded', 'content' => 'Some example content', 'active' => 1));
+        Wardrobe\Post::create(array(
+        	'title' => 'Seeded',
+        	'slug' => 'seeded',
+        	'content' => 'Some example content',
+        	'active' => 1,
+        	'publish_date' => new DateTime,
+        ));
     }
 }
 
@@ -56,6 +62,13 @@ class UserTableSeeder extends Seeder {
 			'last_name'  => 'Barnes',
 			'email'      => 'eric@ericlbarnes.com',
 			'password'   => Hash::make('password'),
+		));
+
+		Wardrobe\User::create(array(
+			'first_name' => 'Demo',
+			'last_name'  => 'Demo',
+			'email'      => 'demo@example.com',
+			'password'   => Hash::make('demo'),
 		));
 	}
 }

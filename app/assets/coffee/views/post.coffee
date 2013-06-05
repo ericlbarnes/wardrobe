@@ -23,7 +23,9 @@
     onShow: ->
       @setUpEditor()
       @setUpTags()
-      $('#slug').slugify('#title') if @model.isNew
+      if @model.isNew
+        $('#slug').slugify('#title')
+        @$("#publish_date").val moment().format("YYYY-MM-DD HH:mm:ss")
 
     setUpEditor: ->
       toolbar = [

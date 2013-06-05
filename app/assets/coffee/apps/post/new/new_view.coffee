@@ -3,3 +3,4 @@
   class New.Post extends App.Views.PostView
     onRender: ->
       @$(".publish").text("Publish Post")
+

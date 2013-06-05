@@ -13,7 +13,7 @@
 		<ul class="archive">
 			@foreach ($posts as $post)
 				<li>
-					<span>{{ $post->updated_at }}</span> <strong><a href="/post/{{ $post->slug }}">{{ $post->title }}</a></strong>
+					<span>{{ $post->publish_date }}</span> <strong><a href="/post/{{ $post->slug }}">{{ $post->title }}</a></strong>
 				</li>
 			@endforeach
 		</ul>

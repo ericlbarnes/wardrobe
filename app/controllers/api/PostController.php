@@ -48,7 +48,13 @@ class ApiPostController extends BaseController {
 
 		// var_dump(explode(',', Input::get('tags')));
 
-		return (string) $this->posts->create(Input::get('title'), Input::get('content'), Input::get('slug'), Input::get('active'));
+		return (string) $this->posts->create(
+			Input::get('title'),
+			Input::get('content'),
+			Input::get('slug'),
+			Input::get('active'),
+			Input::get('publish_date')
+		);
 	}
 
 	/**
@@ -86,7 +92,17 @@ class ApiPostController extends BaseController {
 			return Response::make(json_encode($messages->all()), 500, array('Content-Type' => 'application/json'));
 		}
 
-		return (string) $this->posts->update($id, Input::get('title'), Input::get('content'), Input::get('slug'), Input::get('active'));
+		// var_dump(explode(',', Input::get('tags')));
+		// would be tag, tag2, tag3
+
+		return (string) $this->posts->update(
+			$id,
+			Input::get('title'),
+			Input::get('content'),
+			Input::get('slug'),
+			Input::get('active'),
+			Input::get('publish_date')
+		);
 	}
 
 	/**

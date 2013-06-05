@@ -60,7 +60,7 @@ var __t, __p = '', __e = _.escape;
 with (obj) {
 __p += '<form>\n\t<div id="js-errors" class="hide">\n\t\t<div class="alert alert-error">\n\t\t\t<button type="button" class="close" data-dismiss="alert">×</button>\n\t\t\t<span></span>\n\t\t</div>\n\t</div>\n\t<div id="write">\n\t\t<button class="btn large publish pull-right">' +
 ((__t = ( submitBtnText() )) == null ? '' : __t) +
-'</button>\n\t\t<div class="info">\n\t\t\t<div class="field">\n\t\t\t\t<i data-dir="up" class="icon-chevron-sign-right js-toggle" title="Expand for options"></i>\n\t\t\t\t<input type="text" style="width: 50%" name="title" id="title" value="" placeholder="Title">\n\t\t\t</div>\n\t\t\t<div class="details hide">\n\t\t\t\t<div class="field">\n\t\t\t\t\t<i class="icon-terminal" title="URI Slug"></i>\n\t\t\t\t\t<input type="text" style="width: 50%" name="slug" id="slug" value="" placeholder="URI Slug">\n\t\t\t\t</div>\n\t\t\t\t<div class="field status">\n\t\t\t\t\t<i class="icon-off" title="Status"></i>\n\t\t\t\t\t<label class="radio"><input type="radio" name="active" class="js-active" value="1" checked> Published</label>\n\t\t\t\t\t<label class="radio"><input type="radio" name="active" class="js-active" value="0"> Draft</label>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t\t<div class="content-area">\n\t\t\t<textarea name="content" id="content" placeholder="Content Goes Here..."></textarea>\n\t\t\t<div class="tags-bar hide">\n\t\t\t\t<input type="text" id="js-tags" name="tags" class="tags" style="width: 90%" value="" placeholder="Tags">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</form>\n';
+'</button>\n\t\t<div class="info">\n\t\t\t<div class="field">\n\t\t\t\t<i data-dir="up" class="icon-chevron-sign-right js-toggle" title="Expand for options"></i>\n\t\t\t\t<input type="text" style="width: 50%" name="title" id="title" value="" placeholder="Title">\n\t\t\t</div>\n\t\t\t<div class="details hide">\n\t\t\t\t<div class="field">\n\t\t\t\t\t<i class="icon-terminal" title="URI Slug"></i>\n\t\t\t\t\t<input type="text" style="width: 50%" name="slug" id="slug" value="" placeholder="URI Slug">\n\t\t\t\t</div>\n\t\t\t\t<div class="field status">\n\t\t\t\t\t<i class="icon-off" title="Status"></i>\n\t\t\t\t\t<label class="radio"><input type="radio" name="active" class="js-active" value="1" checked> Published</label>\n\t\t\t\t\t<label class="radio"><input type="radio" name="active" class="js-active" value="0"> Draft</label>\n\t\t\t\t</div>\n\t\t\t\t<div class="field">\n\t\t\t\t\t<i class="icon-calendar" title="Publish Date"></i>\n\t\t\t\t\t<input type="text" style="width: 50%" name="publish_date" id="publish_date" value="" placeholder="Publish Date">\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t\t<div class="content-area">\n\t\t\t<textarea name="content" id="content" placeholder="Content Goes Here..."></textarea>\n\t\t\t<div class="tags-bar hide">\n\t\t\t\t<input type="text" id="js-tags" name="tags" class="tags" style="width: 90%" value="" placeholder="Tags">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</form>\n';
 
 }
 return __p
@@ -726,7 +726,8 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
       this.setUpEditor();
       this.setUpTags();
       if (this.model.isNew) {
-        return $('#slug').slugify('#title');
+        $('#slug').slugify('#title');
+        return this.$("#publish_date").val(moment().format("YYYY-MM-DD HH:mm:ss"));
       }
     };
 

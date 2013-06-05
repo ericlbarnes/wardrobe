@@ -19,7 +19,11 @@ class DbPostRepository implements PostRepositoryInterface {
 	 */
 	public function allActive()
 	{
-		return Post::with('tags')->where('active', 1)->orderBy('id', 'desc')->get();
+		return Post::with('tags')
+			->where('active', 1)
+			->where('publish_date', '<=', new \DateTime)
+			->orderBy('id', 'desc')
+			->get();
 	}
 
 	/**
@@ -53,9 +57,9 @@ class DbPostRepository implements PostRepositoryInterface {
 	 * @param  string  $active
 	 * @return Post
 	 */
-	public function create($title, $content, $slug, $active)
+	public function create($title, $content, $slug, $active, $publish_date)
 	{
-		return Post::create(compact('title', 'content', 'slug', 'active'));
+		return Post::create(compact('title', 'content', 'slug', 'active', 'publish_date'));
 	}
 
 	/**
@@ -68,11 +72,11 @@ class DbPostRepository implements PostRepositoryInterface {
 	 * @param  string  $active
 	 * @return Post
 	 */
-	public function update($id, $title, $content, $slug, $active)
+	public function update($id, $title, $content, $slug, $active, $publish_date)
 	{
 		$post = $this->find($id);
 
-		$post->fill(compact('title', 'content', 'slug', 'active'))->save();
+		$post->fill(compact('title', 'content', 'slug', 'active', 'publish_date'))->save();
 
 		return $post;
 	}
