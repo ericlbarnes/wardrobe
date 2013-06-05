@@ -2,36 +2,35 @@
 	width: 90%;
 	position: absolute;
 	left: 30px;
-	top: 11px;
-	.select2-container-multi .select2-choices {
-		border: none;
-		background: none;
-		background-image: none;
-		box-shadow: none;
-	}
-	.select2-container-multi .select2-choices .select2-search-field input {
-		margin: 3px 0;
-		max-width: 150px !important; // Should a tag ever be more than 150 width? I think no.
-	}
-	.select2-container-multi .select2-choices .select2-search-choice {
-		background: #fcfcfc;
-		border-color: #95a5a6;
-		margin: 1px 0 0 5px;
-		padding: 5px 5px 5px 18px;
-	}
-	.select2-container-multi .select2-search-choice-close {
-		left: 3px;
-		top: 6px;
-	}
+	top: 5px;
 }
 
-// Drop downs
-// ----------
-.select2-drop {
-	border: 1px solid #95a5a6;
-	width: 300px !important; // I don't want it 100%
+.selectize-control.default.multi .selectize-input > div {
+	background: #f5f5f5;
+  border: 1px solid @btnBorder;
+  .border-radius(@baseBorderRadius);
+  color: #333333;
+  &.active {
+  	border: 1px solid @btnBorder;
+  	color: @grayDark;
+    text-decoration: none;
+    background: #fafaf9;
+  }
 }
-.select2-results .select2-highlighted {
-	background: #fcfcfc;
-	color: #555;
+
+.selectize-input {
+	background: none;
+	border: none;
+	box-shadow: none;
+	&:focus,
+	&.focus {
+		outline: none;
+		box-shadow: none;
+	}
+}
+.selectize-control.multi .selectize-input.has-items {
+	padding: 7px 4px !important;
+	i {
+		color: #aaa;
+	}
 }

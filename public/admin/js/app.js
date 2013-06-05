@@ -60,7 +60,7 @@ var __t, __p = '', __e = _.escape;
 with (obj) {
 __p += '<form>\n\t<div id="js-errors" class="hide">\n\t\t<div class="alert alert-error">\n\t\t\t<button type="button" class="close" data-dismiss="alert">×</button>\n\t\t\t<span></span>\n\t\t</div>\n\t</div>\n\t<div id="write">\n\t\t<button class="btn large publish pull-right">' +
 ((__t = ( submitBtnText() )) == null ? '' : __t) +
-'</button>\n\t\t<div class="info">\n\t\t\t<div class="field">\n\t\t\t\t<i data-dir="up" class="icon-chevron-sign-right js-toggle" title="Expand for options"></i>\n\t\t\t\t<input type="text" style="width: 50%" name="title" id="title" value="" placeholder="Title">\n\t\t\t</div>\n\t\t\t<div class="details hide">\n\t\t\t\t<div class="field">\n\t\t\t\t\t<i class="icon-terminal" title="URI Slug"></i>\n\t\t\t\t\t<input type="text" style="width: 50%" name="slug" id="slug" value="" placeholder="URI Slug">\n\t\t\t\t</div>\n\t\t\t\t<div class="field status">\n\t\t\t\t\t<i class="icon-off" title="Status"></i>\n\t\t\t\t\t<label class="radio"><input type="radio" name="active" class="js-active" value="1" checked> Published</label>\n\t\t\t\t\t<label class="radio"><input type="radio" name="active" class="js-active" value="0"> Draft</label>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t\t<div class="content-area">\n\t\t\t<textarea name="content" id="content" placeholder="Content Goes Here..."></textarea>\n\t\t\t<div class="tags-bar hide">\n\t\t\t\t<input type="hidden" id="js-tags" name="tags" class="tags" style="width: 90%" value="" placeholder="Add Tags" data-placeholder="Add Tags">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</form>\n';
+'</button>\n\t\t<div class="info">\n\t\t\t<div class="field">\n\t\t\t\t<i data-dir="up" class="icon-chevron-sign-right js-toggle" title="Expand for options"></i>\n\t\t\t\t<input type="text" style="width: 50%" name="title" id="title" value="" placeholder="Title">\n\t\t\t</div>\n\t\t\t<div class="details hide">\n\t\t\t\t<div class="field">\n\t\t\t\t\t<i class="icon-terminal" title="URI Slug"></i>\n\t\t\t\t\t<input type="text" style="width: 50%" name="slug" id="slug" value="" placeholder="URI Slug">\n\t\t\t\t</div>\n\t\t\t\t<div class="field status">\n\t\t\t\t\t<i class="icon-off" title="Status"></i>\n\t\t\t\t\t<label class="radio"><input type="radio" name="active" class="js-active" value="1" checked> Published</label>\n\t\t\t\t\t<label class="radio"><input type="radio" name="active" class="js-active" value="0"> Draft</label>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t\t<div class="content-area">\n\t\t\t<textarea name="content" id="content" placeholder="Content Goes Here..."></textarea>\n\t\t\t<div class="tags-bar hide">\n\t\t\t\t<input type="text" id="js-tags" name="tags" class="tags" style="width: 90%" value="" placeholder="Tags">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</form>\n';
 
 }
 return __p
@@ -743,8 +743,21 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
     PostView.prototype.setUpTags = function() {
       var _this = this;
       return App.request("tag:entities", function(tags) {
-        return _this.$("#js-tags").select2({
-          tags: tags.pluck('tag')
+        return _this.$("#js-tags").selectize({
+          persist: false,
+          maxItems: null,
+          valueField: "tag",
+          labelField: "tag",
+          searchField: ["tag"],
+          options: tags.toJSON(),
+          render: {
+            item: function(item) {
+              return "<div><i class='icon-tag'></i> " + item.tag + "</div>";
+            },
+            option: function(item) {
+              return "<div><i class='icon-tag'></i> " + item.tag + "</div>";
+            }
+          }
         });
       });
     };
@@ -757,6 +770,7 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
         this.$('.editor-toolbar a, .editor-toolbar i').hide();
         this.$('.icon-tags').show();
         this.$(".tags-bar").show();
+        this.$("js-tags").focus();
       }
       return this.tagsShown = !this.tagsShown;
     };
@@ -768,7 +782,8 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
         title: this.$('#title').val(),
         slug: this.$('#slug').val(),
         active: this.$('input[type=radio]:checked').val(),
-        content: this.editor.codemirror.getValue()
+        content: this.editor.codemirror.getValue(),
+        tags: this.$("#js-tags").val()
       };
       return this.processFormSubmit(data);
     };

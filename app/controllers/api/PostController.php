@@ -46,6 +46,8 @@ class ApiPostController extends BaseController {
 			return Response::make(json_encode($messages->all()), 500, array('Content-Type' => 'application/json'));
 		}
 
+		// var_dump(explode(',', Input::get('tags')));
+
 		return (string) $this->posts->create(Input::get('title'), Input::get('content'), Input::get('slug'), Input::get('active'));
 	}
 

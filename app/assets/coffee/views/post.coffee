@@ -45,8 +45,19 @@
 
     setUpTags: ->
       App.request "tag:entities", (tags) =>
-        @$("#js-tags").select2
-          tags: tags.pluck('tag')
+        @$("#js-tags").selectize
+          # theme: "contacts"
+          persist: false
+          maxItems: null
+          valueField: "tag"
+          labelField: "tag"
+          searchField: ["tag"]
+          options: tags.toJSON()
+          render:
+            item: (item) ->
+              "<div><i class='icon-tag'></i> #{item.tag}</div>"
+            option: (item) ->
+              "<div><i class='icon-tag'></i> #{item.tag}</div>"
 
     toggleTags: (e) ->
       if @tagsShown
@@ -55,7 +66,8 @@
       else
         @$('.editor-toolbar a, .editor-toolbar i').hide()
         @$('.icon-tags').show()
-        @$(".tags-bar").show();
+        @$(".tags-bar").show()
+        @$("js-tags").focus()
 
       @tagsShown = !@tagsShown
 
@@ -67,6 +79,7 @@
         slug: @$('#slug').val()
         active: @$('input[type=radio]:checked').val()
         content: @editor.codemirror.getValue()
+        tags: @$("#js-tags").val()
 
       @processFormSubmit data
 

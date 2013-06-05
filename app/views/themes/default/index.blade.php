@@ -1,7 +1,8 @@
-@extends('layout')
+@extends('themes.default.layout')
 
 @section('content')
 	<section class="home">
+		<h1>Header</h1>
 		<div class="hero">
 			<p>I am Eric Barnes a product engineer at <a href="http://userscape.com">UserScape</a> where I work on <a href="http://helpspot.com">HelpSpot</a> and <a href="http://besnappy.com">Snappy</a>.</p>
 		</div>
