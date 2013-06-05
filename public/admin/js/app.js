@@ -784,7 +784,8 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
         slug: this.$('#slug').val(),
         active: this.$('input[type=radio]:checked').val(),
         content: this.editor.codemirror.getValue(),
-        tags: this.$("#js-tags").val()
+        tags: this.$("#js-tags").val(),
+        publish_date: this.$("#publish_date").val()
       };
       return this.processFormSubmit(data);
     };

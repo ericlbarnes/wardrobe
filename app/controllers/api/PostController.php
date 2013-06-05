@@ -126,6 +126,7 @@ class ApiPostController extends BaseController {
 	{
 		$rules['title'] = 'required';
 		$rules['slug'] = 'required|alpha_dash|unique:posts,slug';
+		$rules['publish_date'] = 'required|date_format:Y-m-d H:i:s';
 
 		if ($id)
 		{

@@ -82,6 +82,7 @@
         active: @$('input[type=radio]:checked').val()
         content: @editor.codemirror.getValue()
         tags: @$("#js-tags").val()
+        publish_date: @$("#publish_date").val()
 
       @processFormSubmit data
 
