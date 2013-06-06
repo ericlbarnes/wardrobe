@@ -1,7 +1,8 @@
 {
 	"require": {
 		"laravel/framework": "4.0.*",
-		"dflydev/markdown": "1.0.*@dev"
+		"dflydev/markdown": "1.0.*@dev",
+		"nesbot/carbon": "dev-master"
 	},
 	"autoload": {
 		"psr-0": {
