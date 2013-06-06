@@ -23,11 +23,6 @@ class Tag extends \Eloquent {
 	 */
 	protected $fillable = array('post_id', 'tag');
 
-	public function allTags()
-	{
-		return Tag::orderBy('id', 'desc')->distinct()->get();
-	}
-
 	/**
 	 * Post relationship
 	 *
@@ -35,6 +30,7 @@ class Tag extends \Eloquent {
 	 */
 	public function posts()
   {
-		return $this->belongsTo('\Wardrobe\Post');
+		return $this->belongsTo('Wardrobe\Post');
 	}
+
 }

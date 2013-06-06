@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Wardrobe\PostRepositoryInterface;
 
 class PostController extends BaseController {
@@ -49,6 +50,42 @@ class PostController extends BaseController {
 
 		return View::make('themes.'.$this->theme.'.post')
                                              ->with('post', $post);
+	}
+
+	/**
+	 * Create a new post instance.
+	 *
+	 * @return Wardrobe\Post
+	 */
+	public function store()
+	{
+		return $this->posts->create(
+			Input::get('title'),
+			Input::get('content'),
+			Input::get('slug'),
+			explode(',', Input::get('tags')),
+			(bool) Input::get('active'),
+			Carbon::createFromTimestamp(strtotime(Input::get('publish_date')))
+		);
+	}
+
+	/**
+	 * Update an existing post instance.
+	 *
+	 * @param  int  $id
+	 * @return Wardrobe\Post
+	 */
+	public function update($id)
+	{
+		return $this->posts->update(
+			$id,
+			Input::get('title'),
+			Input::get('content'),
+			Input::get('slug'),
+			explode(',', Input::get('tags')),
+			(bool) Input::get('active'),
+			Carbon::createFromTimestamp(strtotime(Input::get('publish_date')))
+		);
 	}
 
 }

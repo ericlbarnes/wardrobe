@@ -1,5 +1,7 @@
 <?php namespace Wardrobe;
 
+use DateTime;
+
 interface PostRepositoryInterface {
 
 	/**
@@ -12,7 +14,7 @@ interface PostRepositoryInterface {
 	/**
 	 * Get all the active posts.
 	 */
-	public function allActive();
+	public function active();
 
 	/**
 	 * Get a Post by its primary key.
@@ -35,9 +37,13 @@ interface PostRepositoryInterface {
 	 *
 	 * @param  string  $title
 	 * @param  string  $content
+	 * @param  string  $slug
+	 * @param  array  $tags
+	 * @param  bool  $active
+	 * @param  DateTime  $publish_date
 	 * @return Post
 	 */
-	public function create($title, $content, $slug, $active, $publish_date);
+	public function create($title, $content, $slug, array $tags, $active, DateTime $publish_date);
 
 	/**
 	 * Update a post's title and content.
@@ -45,9 +51,13 @@ interface PostRepositoryInterface {
 	 * @param  int  $post
 	 * @param  string  $title
 	 * @param  string  $content
+	 * @param  string  $slug
+	 * @param  array  $tags
+	 * @param  bool  $active
+	 * @param  DateTime  $publish_date
 	 * @return Post
 	 */
-	public function update($id, $title, $content, $slug, $active, $publish_date);
+	public function update($id, $title, $content, $slug, array $tags, $active, DateTime $publish_date);
 
 	/**
 	 * Delete the post with the given ID.

@@ -17,13 +17,13 @@ class DbPostRepository implements PostRepositoryInterface {
 	 *
 	 * @return array
 	 */
-	public function allActive()
+	public function active()
 	{
 		return Post::with('tags')
-			->where('active', 1)
-			->where('publish_date', '<=', new \DateTime)
-			->orderBy('id', 'desc')
-			->get();
+                        ->where('active', 1)
+                        ->where('publish_date', '<=', new \DateTime)
+                        ->orderBy('id', 'desc')
+                        ->get();
 	}
 
 	/**
@@ -54,12 +54,20 @@ class DbPostRepository implements PostRepositoryInterface {
 	 * @param  string  $title
 	 * @param  string  $content
 	 * @param  string  $slug
-	 * @param  string  $active
+	 * @param  array  $tags
+	 * @param  bool  $active
+	 * @param  DateTime  $publish_date
 	 * @return Post
 	 */
-	public function create($title, $content, $slug, $active, $publish_date)
+	public function create($title, $content, $slug, array $tags, $active, DateTime $publish_date)
 	{
-		return Post::create(compact('title', 'content', 'slug', 'active', 'publish_date'));
+		$post = Post::create(compact('title', 'content', 'slug', 'active', 'publish_date'));
+
+		$post->tags()->delete();
+
+		$post->tags()->createMany($this->prepareTags($tags));
+
+		return $post;
 	}
 
 	/**
@@ -78,7 +86,29 @@ class DbPostRepository implements PostRepositoryInterface {
 
 		$post->fill(compact('title', 'content', 'slug', 'active', 'publish_date'))->save();
 
+		$post->tags()->delete();
+
+		$post->tags()->createMany($this->prepareTags($tags));
+
 		return $post;
+	}
+
+	/**
+	 * Prepare an array of tags for database storage.
+	 *
+	 * @param  array  $tags
+	 * @return array
+	 */
+	protected function prepareTags(array $tags)
+	{
+		$results = array();
+
+		foreach ($tags as $tag)
+		{
+			$results[] = compact('tag');
+		}
+
+		return $results;
 	}
 
 	/**
