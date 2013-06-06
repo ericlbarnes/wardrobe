@@ -1,5 +1,7 @@
 <?php namespace Wardrobe;
 
+use \DateTime;
+
 class DbPostRepository implements PostRepositoryInterface {
 
 	/**
@@ -21,7 +23,7 @@ class DbPostRepository implements PostRepositoryInterface {
 	{
 		return Post::with('tags')
                         ->where('active', 1)
-                        ->where('publish_date', '<=', new \DateTime)
+                        ->where('publish_date', '<=', new DateTime)
                         ->orderBy('id', 'desc')
                         ->get();
 	}
@@ -80,7 +82,7 @@ class DbPostRepository implements PostRepositoryInterface {
 	 * @param  string  $active
 	 * @return Post
 	 */
-	public function update($id, $title, $content, $slug, $active, $publish_date)
+	public function update($id, $title, $content, $slug, array $tags, $active, DateTime $publish_date)
 	{
 		$post = $this->find($id);
 

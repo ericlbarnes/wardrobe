@@ -8594,6 +8594,13 @@ td.title {
   padding: 20px;
   margin-bottom: 20px;
 }
+#write .popover {
+  max-width: 376px;
+}
+#write .popover form {
+  margin: 0;
+  padding: 10px 0;
+}
 #write .field {
   margin: 5px 0;
 }
@@ -8641,11 +8648,11 @@ td.title {
 }
 #write .info input,
 #write .info textarea {
-  padding: 20px 3px;
+  padding: 14px 3px;
   background: none;
   border: none;
   box-shadow: none;
-  margin: 5px 0;
+  margin: 0;
 }
 #write .info input:focus,
 #write .info textarea:focus {

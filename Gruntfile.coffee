@@ -55,6 +55,19 @@ module.exports = (grunt) ->
           'app/assets/vendor/backbone/underscore.js'
           'app/assets/vendor/backbone/backbone.js'
           'app/assets/vendor/backbone-plugins/backbone.marionette.js'
+          'app/assets/vendor/plugins/dates/moment.js'
+          'app/assets/vendor/plugins/dates/*.js'
+          'app/assets/vendor/plugins/editor/*.js'
+          'app/assets/vendor/plugins/bootstrap/bootstrap-transition.js'
+          'app/assets/vendor/plugins/bootstrap/bootstrap-alert.js'
+          'app/assets/vendor/plugins/bootstrap/bootstrap-button.js'
+          'app/assets/vendor/plugins/bootstrap/bootstrap-dropdown.js'
+          'app/assets/vendor/plugins/bootstrap/bootstrap-modal.js'
+          'app/assets/vendor/plugins/bootstrap/bootstrap-tab.js'
+          'app/assets/vendor/plugins/bootstrap/bootstrap-tooltip.js'
+          'app/assets/vendor/plugins/bootstrap/bootstrap-datepicker.js'
+          'app/assets/vendor/plugins/bootstrap/bootstrap-typeahead.js'
+          'app/assets/vendor/plugins/bootstrap/bootstrap-popover.js'
           'app/assets/vendor/plugins/*.js'
         ]
         dest: 'public/admin/js/structure.js'
@@ -88,7 +101,7 @@ module.exports = (grunt) ->
     regarde:
       coffee:
         files: 'app/assets/coffee/**/*.coffee'
-        tasks: ["clean", "jst", "coffee", "concat", "uglify:app"]
+        tasks: ["clean", "jst", "coffee", "concat"]
         options:
           interrupt: true
       html:
@@ -103,7 +116,7 @@ module.exports = (grunt) ->
           interrupt: true
       src:
         files: 'app/assets/vendor/**/*.js'
-        tasks: ["concat", "livereload", "uglify:structure"]
+        tasks: ["concat", "livereload"]
         options:
           interrupt: true
 
@@ -121,4 +134,5 @@ module.exports = (grunt) ->
   # Default task(s).
   # grunt.registerTask('watch', ['livereload-start', 'regarde']);
   grunt.registerTask('watch', ['regarde']);
-  grunt.registerTask "default", ["clean", "less", "coffee", "jst", "concat", "uglify"]
+  grunt.registerTask "default", ["clean", "less", "coffee", "jst", "concat"]
+  grunt.registerTask "deploy", ["clean", "less", "coffee", "jst", "concat", "uglify"]

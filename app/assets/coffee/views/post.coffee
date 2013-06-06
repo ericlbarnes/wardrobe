@@ -10,6 +10,8 @@
       "click .publish" : "save"
       "click .js-toggle" : "toggleDetails"
       "click .icon-tags" : "toggleTags"
+      "click .icon-calendar" : "showCalendar"
+      "click .js-setdate" : "setPublishDate"
       "change .js-active" : "changeBtn"
 
     modelEvents:
@@ -23,16 +25,21 @@
     onShow: ->
       @setUpEditor()
       @setUpTags()
-      if @model.isNew
+      @loadCalendar()
+
+      if @model.isNew()
         $('#slug').slugify('#title')
-        @$("#publish_date").val moment().format("YYYY-MM-DD HH:mm:ss")
+        @$("#publish_date").val "Now"
+      else
+        publish = moment(@model.get("publish_date"), "YYYY-MM-DD HH:mm")
+        @$("#publish_date").val publish.format("MMM Do, YYYY h:mm A")
 
     setUpEditor: ->
       toolbar = [
         'bold', 'italic', '|'
         'quote', 'unordered-list', 'ordered-list', '|'
         'link', 'image', '|'
-        'undo', 'redo', '|', 'tags'
+        'undo', 'redo', '|', 'tags', 'calendar'
       ]
 
       @editor = new Editor
@@ -74,6 +81,20 @@
         @$("js-tags").focus()
 
       @tagsShown = !@tagsShown
+
+    loadCalendar: ->
+      @$(".icon-calendar").popover
+        html: "true"
+        placement: "right"
+        content: ->
+          _.defer -> $("#date").val $("#publish_date").val()
+          $("#date-form").html()
+
+    setPublishDate: (e) ->
+      e.preventDefault()
+      pubDate = $("#date").val()
+      $("#publish_date").val pubDate
+      @$(".icon-calendar").popover('hide')
 
     save: (e) ->
       e.preventDefault()
