@@ -46,14 +46,13 @@ class ApiPostController extends BaseController {
 			return Response::make(json_encode($messages->all()), 500, array('Content-Type' => 'application/json'));
 		}
 
-		// var_dump(explode(',', Input::get('tags')));
-
-		return (string) $this->posts->create(
+		return $this->posts->create(
 			Input::get('title'),
 			Input::get('content'),
 			Input::get('slug'),
-			Input::get('active'),
-			Input::get('publish_date')
+			explode(',', Input::get('tags')),
+			(bool) Input::get('active'),
+			Carbon::createFromTimestamp(strtotime(Input::get('publish_date')))
 		);
 	}
 
@@ -92,16 +91,14 @@ class ApiPostController extends BaseController {
 			return Response::make(json_encode($messages->all()), 500, array('Content-Type' => 'application/json'));
 		}
 
-		// var_dump(explode(',', Input::get('tags')));
-		// would be tag, tag2, tag3
-
-		return (string) $this->posts->update(
+		return $this->posts->update(
 			$id,
 			Input::get('title'),
 			Input::get('content'),
 			Input::get('slug'),
-			Input::get('active'),
-			Input::get('publish_date')
+			explode(',', Input::get('tags')),
+			(bool) Input::get('active'),
+			Carbon::createFromTimestamp(strtotime(Input::get('publish_date')))
 		);
 	}
 
@@ -126,7 +123,7 @@ class ApiPostController extends BaseController {
 	{
 		$rules['title'] = 'required';
 		$rules['slug'] = 'required|alpha_dash|unique:posts,slug';
-		$rules['publish_date'] = 'required|date_format:Y-m-d H:i:s';
+		// $rules['publish_date'] = 'required|date_format:Y-m-d H:i:s';
 
 		if ($id)
 		{
@@ -140,5 +137,4 @@ class ApiPostController extends BaseController {
 			return $validator->errors();
 		}
 	}
-
 }
