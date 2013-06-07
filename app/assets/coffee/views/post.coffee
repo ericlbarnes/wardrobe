@@ -10,7 +10,7 @@
       "click .publish" : "save"
       "click .js-toggle" : "toggleDetails"
       "click .icon-tags" : "toggleTags"
-      "click .icon-calendar" : "showCalendar"
+      # "click .icon-calendar" : "showCalendar"
       "click .js-setdate" : "setPublishDate"
       "change .js-active" : "changeBtn"
 
@@ -25,7 +25,7 @@
     onShow: ->
       @setUpEditor()
       @setUpTags()
-      @loadCalendar()
+      @setupCalendar()
 
       if @model.isNew()
         $('#slug').slugify('#title')
@@ -82,16 +82,34 @@
 
       @tagsShown = !@tagsShown
 
-    loadCalendar: ->
-      @$(".icon-calendar").popover
-        html: "true"
-        placement: "right"
-        content: ->
-          _.defer -> $("#date").val $("#publish_date").val()
-          $("#date-form").html()
+    setupCalendar: ->
+      _.defer -> $("#date").val $("#publish_date").val()
+      @$(".icon-calendar").qtip
+        show:
+          event: 'click'
+        content:
+          text: $("#date-form").html()
+        position:
+          at: "right center"
+          my: "left center"
+          viewport: $(window) # Keep the tooltip on-screen at all times
+          effect: false # Disable positioning animation
+        events:
+          render: (event, api) ->
+            $(".js-date").each ->
+              $(this).val $("#publish_date").val()
+            $(".js-setdate").click (e) ->
+              e.preventDefault()
+              pubDate = $(e.currentTarget).parent().find('input')
+              $("#publish_date").val pubDate
+              $('.icon-calendar').qtip('hide')
+
+        hide: "unfocus"
+      , event
 
     setPublishDate: (e) ->
       e.preventDefault()
+      alert "here"
       pubDate = $("#date").val()
       $("#publish_date").val pubDate
       @$(".icon-calendar").popover('hide')

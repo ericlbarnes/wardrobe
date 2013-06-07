@@ -60,7 +60,7 @@ var __t, __p = '', __e = _.escape;
 with (obj) {
 __p += '<form>\n\t<input type="hidden" name="publish_date" id="publish_date" value="">\n\t<div id="js-errors" class="hide">\n\t\t<div class="alert alert-error">\n\t\t\t<button type="button" class="close" data-dismiss="alert">×</button>\n\t\t\t<span></span>\n\t\t</div>\n\t</div>\n\t<div id="write">\n\t\t<button class="btn large publish pull-right">' +
 ((__t = ( submitBtnText() )) == null ? '' : __t) +
-'</button>\n\t\t<div class="info">\n\t\t\t<div class="field">\n\t\t\t\t<i data-dir="up" class="icon-chevron-sign-right js-toggle" title="Expand for options"></i>\n\t\t\t\t<input type="text" style="width: 50%" name="title" id="title" value="" placeholder="Title">\n\t\t\t</div>\n\t\t\t<div class="details hide">\n\t\t\t\t<div class="field">\n\t\t\t\t\t<i class="icon-terminal" title="URI Slug"></i>\n\t\t\t\t\t<input type="text" style="width: 50%" name="slug" id="slug" value="" placeholder="URI Slug">\n\t\t\t\t</div>\n\t\t\t\t<div class="field status">\n\t\t\t\t\t<i class="icon-off" title="Status"></i>\n\t\t\t\t\t<label class="radio"><input type="radio" name="active" class="js-active" value="1" checked> Published</label>\n\t\t\t\t\t<label class="radio"><input type="radio" name="active" class="js-active" value="0"> Draft</label>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t\t<div class="content-area">\n\t\t\t<textarea name="content" id="content" placeholder="Content Goes Here..."></textarea>\n\t\t\t<div class="tags-bar hide">\n\t\t\t\t<input type="text" id="js-tags" name="tags" class="tags" style="width: 90%" value="" placeholder="Tags">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</form>\n\n<div id="date-form" style="display: none">\n\t<form class="form-inline">\n\t\t<label for="date">Publish Date</label><br>\n\t\t<input type="text" name="date" id="date" value="" placeholder="Next Thursday 10am">\n\t\t<button class="btn js-setdate">Set</button>\n\t</form>\n</div>\n';
+'</button>\n\t\t<div class="info">\n\t\t\t<div class="field">\n\t\t\t\t<i data-dir="up" class="icon-chevron-sign-right js-toggle" title="Expand for options"></i>\n\t\t\t\t<input type="text" style="width: 50%" name="title" id="title" value="" placeholder="Title">\n\t\t\t</div>\n\t\t\t<div class="details hide">\n\t\t\t\t<div class="field">\n\t\t\t\t\t<i class="icon-terminal" title="URI Slug"></i>\n\t\t\t\t\t<input type="text" style="width: 50%" name="slug" id="slug" value="" placeholder="URI Slug">\n\t\t\t\t</div>\n\t\t\t\t<div class="field status">\n\t\t\t\t\t<i class="icon-off" title="Status"></i>\n\t\t\t\t\t<label class="radio"><input type="radio" name="active" class="js-active" value="1" checked> Published</label>\n\t\t\t\t\t<label class="radio"><input type="radio" name="active" class="js-active" value="0"> Draft</label>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t\t<div class="content-area">\n\t\t\t<textarea name="content" id="content" placeholder="Content Goes Here..."></textarea>\n\t\t\t<div class="tags-bar hide">\n\t\t\t\t<input type="text" id="js-tags" name="tags" class="tags" style="width: 90%" value="" placeholder="Tags">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</form>\n\n<div id="date-form" style="display: none">\n\t<form class="form-inline">\n\t\t<label for="date">Publish Date</label><br>\n\t\t<input type="text" name="date" class="js-date" id="date" value="" placeholder="Next Thursday 10am">\n\t\t<button class="btn js-setdate">Set</button>\n\t</form>\n</div>\n';
 
 }
 return __p
@@ -701,7 +701,6 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
       "click .publish": "save",
       "click .js-toggle": "toggleDetails",
       "click .icon-tags": "toggleTags",
-      "click .icon-calendar": "showCalendar",
       "click .js-setdate": "setPublishDate",
       "change .js-active": "changeBtn"
     };
@@ -728,7 +727,7 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
       var publish;
       this.setUpEditor();
       this.setUpTags();
-      this.loadCalendar();
+      this.setupCalendar();
       if (this.model.isNew()) {
         $('#slug').slugify('#title');
         return this.$("#publish_date").val("Now");
@@ -788,22 +787,45 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
       return this.tagsShown = !this.tagsShown;
     };
 
-    PostView.prototype.loadCalendar = function() {
-      return this.$(".icon-calendar").popover({
-        html: "true",
-        placement: "right",
-        content: function() {
-          _.defer(function() {
-            return $("#date").val($("#publish_date").val());
-          });
-          return $("#date-form").html();
-        }
+    PostView.prototype.setupCalendar = function() {
+      _.defer(function() {
+        return $("#date").val($("#publish_date").val());
       });
+      return this.$(".icon-calendar").qtip({
+        show: {
+          event: 'click'
+        },
+        content: {
+          text: $("#date-form").html()
+        },
+        position: {
+          at: "right center",
+          my: "left center",
+          viewport: $(window),
+          effect: false
+        },
+        events: {
+          render: function(event, api) {
+            $(".js-date").each(function() {
+              return $(this).val($("#publish_date").val());
+            });
+            return $(".js-setdate").click(function(e) {
+              var pubDate;
+              e.preventDefault();
+              pubDate = $(e.currentTarget).parent().find('input');
+              $("#publish_date").val(pubDate);
+              return $('.icon-calendar').qtip('hide');
+            });
+          }
+        },
+        hide: "unfocus"
+      }, event);
     };
 
     PostView.prototype.setPublishDate = function(e) {
       var pubDate;
       e.preventDefault();
+      alert("here");
       pubDate = $("#date").val();
       $("#publish_date").val(pubDate);
       return this.$(".icon-calendar").popover('hide');

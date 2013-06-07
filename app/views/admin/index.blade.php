@@ -8,9 +8,6 @@
 	<!-- <link rel="stylesheet" type="text/css" href="/admin/bedge_grunge/style.css"> -->
 	<link rel="stylesheet" href="http://lab.lepture.com/editor/css/editor.css" />
 	<link rel="stylesheet" type="text/css" href="/admin/muted/style.css">
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-	<script type="text/javascript" src="/admin/js/structure.js"></script>
-	<script type="text/javascript" src="/admin/js/app.js"></script>
 </head>
 <body>
 	<div id="header-region"></div>
@@ -20,6 +17,9 @@
 			<div id="main-region" class="span12"></div>
 		</div>
 	</div>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script type="text/javascript" src="/admin/js/structure.js"></script>
+	<script type="text/javascript" src="/admin/js/app.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			Wardrobe.start();
