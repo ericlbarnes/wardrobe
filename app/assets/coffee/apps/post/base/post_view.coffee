@@ -1,7 +1,7 @@
 @Wardrobe.module "Views", (Views, App, Backbone, Marionette, $, _) ->
 
   class Views.PostView extends App.Views.ItemView
-    template: "post/templates/form"
+    template: "post/base/templates/form"
 
     initialize: ->
       @tagsShown = false
@@ -10,7 +10,6 @@
       "click .publish" : "save"
       "click .js-toggle" : "toggleDetails"
       "click .icon-tags" : "toggleTags"
-      # "click .icon-calendar" : "showCalendar"
       "click .js-setdate" : "setPublishDate"
       "change .js-active" : "changeBtn"
 
@@ -83,7 +82,6 @@
       @tagsShown = !@tagsShown
 
     setupCalendar: ->
-      _.defer -> $("#date").val $("#publish_date").val()
       @$(".icon-calendar").qtip
         show:
           event: 'click'

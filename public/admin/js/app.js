@@ -10,6 +10,18 @@ __p += '<div class="navbar navbar-inverse navbar-fixed-top">\n  <div class="navb
 return __p
 };
 
+this["JST"]["post/base/templates/form.html"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<form>\n  <input type="hidden" name="publish_date" id="publish_date" value="">\n  <div id="js-errors" class="hide">\n    <div class="alert alert-error">\n      <button type="button" class="close" data-dismiss="alert">×</button>\n      <span></span>\n    </div>\n  </div>\n  <div id="write">\n    <button class="btn large publish pull-right">' +
+((__t = ( submitBtnText() )) == null ? '' : __t) +
+'</button>\n    <div class="info">\n      <div class="field">\n        <i data-dir="up" class="icon-chevron-sign-right js-toggle" title="Expand for options"></i>\n        <input type="text" style="width: 50%" name="title" id="title" value="" placeholder="Title">\n      </div>\n      <div class="details hide">\n        <div class="field">\n          <i class="icon-terminal" title="URI Slug"></i>\n          <input type="text" style="width: 50%" name="slug" id="slug" value="" placeholder="URI Slug">\n        </div>\n        <div class="field status">\n          <i class="icon-off" title="Status"></i>\n          <label class="radio"><input type="radio" name="active" class="js-active" value="1" checked> Published</label>\n          <label class="radio"><input type="radio" name="active" class="js-active" value="0"> Draft</label>\n        </div>\n      </div>\n    </div>\n    <div class="content-area">\n      <textarea name="content" id="content" placeholder="Content Goes Here..."></textarea>\n      <div class="tags-bar hide">\n        <input type="text" id="js-tags" name="tags" class="tags" style="width: 90%" value="" placeholder="Tags">\n      </div>\n    </div>\n  </div>\n</form>\n\n<div id="date-form" style="display: none">\n  <form class="form-inline">\n    <label for="date">Publish Date</label><br>\n    <input type="text" name="date" class="js-date" id="date" value="" placeholder="Next Thursday 10am">\n    <button class="btn js-setdate">Set</button>\n  </form>\n</div>\n';
+
+}
+return __p
+};
+
 this["JST"]["post/list/templates/empty.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
@@ -49,18 +61,6 @@ __p += '<td class="id">' +
 '">' +
 ((__t = ( updated_at )) == null ? '' : __t) +
 '</td>\n<td class="actions"><button class="btn delete"><i class="icon-trash"></i></button></td>\n';
-
-}
-return __p
-};
-
-this["JST"]["post/templates/form.html"] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape;
-with (obj) {
-__p += '<form>\n\t<input type="hidden" name="publish_date" id="publish_date" value="">\n\t<div id="js-errors" class="hide">\n\t\t<div class="alert alert-error">\n\t\t\t<button type="button" class="close" data-dismiss="alert">×</button>\n\t\t\t<span></span>\n\t\t</div>\n\t</div>\n\t<div id="write">\n\t\t<button class="btn large publish pull-right">' +
-((__t = ( submitBtnText() )) == null ? '' : __t) +
-'</button>\n\t\t<div class="info">\n\t\t\t<div class="field">\n\t\t\t\t<i data-dir="up" class="icon-chevron-sign-right js-toggle" title="Expand for options"></i>\n\t\t\t\t<input type="text" style="width: 50%" name="title" id="title" value="" placeholder="Title">\n\t\t\t</div>\n\t\t\t<div class="details hide">\n\t\t\t\t<div class="field">\n\t\t\t\t\t<i class="icon-terminal" title="URI Slug"></i>\n\t\t\t\t\t<input type="text" style="width: 50%" name="slug" id="slug" value="" placeholder="URI Slug">\n\t\t\t\t</div>\n\t\t\t\t<div class="field status">\n\t\t\t\t\t<i class="icon-off" title="Status"></i>\n\t\t\t\t\t<label class="radio"><input type="radio" name="active" class="js-active" value="1" checked> Published</label>\n\t\t\t\t\t<label class="radio"><input type="radio" name="active" class="js-active" value="0"> Draft</label>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t\t<div class="content-area">\n\t\t\t<textarea name="content" id="content" placeholder="Content Goes Here..."></textarea>\n\t\t\t<div class="tags-bar hide">\n\t\t\t\t<input type="text" id="js-tags" name="tags" class="tags" style="width: 90%" value="" placeholder="Tags">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</form>\n\n<div id="date-form" style="display: none">\n\t<form class="form-inline">\n\t\t<label for="date">Publish Date</label><br>\n\t\t<input type="text" name="date" class="js-date" id="date" value="" placeholder="Next Thursday 10am">\n\t\t<button class="btn js-setdate">Set</button>\n\t</form>\n</div>\n';
 
 }
 return __p
@@ -679,6 +679,79 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
   });
 });
 
+
+this.Wardrobe.module("HeaderApp", function(HeaderApp, App, Backbone, Marionette, $, _) {
+  var API;
+  this.startWithParent = false;
+  API = {
+    list: function() {
+      return new HeaderApp.List.Controller({
+        region: App.headerRegion
+      });
+    }
+  };
+  return HeaderApp.on("start", function() {
+    return API.list();
+  });
+});
+
+var __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+this.Wardrobe.module("HeaderApp.List", function(List, App, Backbone, Marionette, $, _) {
+  return List.Controller = (function(_super) {
+
+    __extends(Controller, _super);
+
+    function Controller() {
+      return Controller.__super__.constructor.apply(this, arguments);
+    }
+
+    Controller.prototype.initialize = function() {
+      var listView;
+      listView = this.getListView();
+      return this.show(listView);
+    };
+
+    Controller.prototype.getListView = function() {
+      return new List.Header;
+    };
+
+    return Controller;
+
+  })(App.Controllers.Base);
+});
+
+var __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+this.Wardrobe.module("HeaderApp.List", function(List, App, Backbone, Marionette, $, _) {
+  return List.Header = (function(_super) {
+
+    __extends(Header, _super);
+
+    function Header() {
+      return Header.__super__.constructor.apply(this, arguments);
+    }
+
+    Header.prototype.template = "header/list/templates/header";
+
+    Header.prototype.tagName = "header";
+
+    Header.prototype.events = {
+      "click .write": "newPost"
+    };
+
+    Header.prototype.newPost = function(e) {
+      e.preventDefault();
+      return App.vent.trigger("post:new:clicked");
+    };
+
+    return Header;
+
+  })(App.Views.ItemView);
+});
+
 var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
@@ -691,7 +764,7 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
       return PostView.__super__.constructor.apply(this, arguments);
     }
 
-    PostView.prototype.template = "post/templates/form";
+    PostView.prototype.template = "post/base/templates/form";
 
     PostView.prototype.initialize = function() {
       return this.tagsShown = false;
@@ -788,9 +861,6 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
     };
 
     PostView.prototype.setupCalendar = function() {
-      _.defer(function() {
-        return $("#date").val($("#publish_date").val());
-      });
       return this.$(".icon-calendar").qtip({
         show: {
           event: 'click'
@@ -913,79 +983,6 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
     };
 
     return PostView;
-
-  })(App.Views.ItemView);
-});
-
-
-this.Wardrobe.module("HeaderApp", function(HeaderApp, App, Backbone, Marionette, $, _) {
-  var API;
-  this.startWithParent = false;
-  API = {
-    list: function() {
-      return new HeaderApp.List.Controller({
-        region: App.headerRegion
-      });
-    }
-  };
-  return HeaderApp.on("start", function() {
-    return API.list();
-  });
-});
-
-var __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-this.Wardrobe.module("HeaderApp.List", function(List, App, Backbone, Marionette, $, _) {
-  return List.Controller = (function(_super) {
-
-    __extends(Controller, _super);
-
-    function Controller() {
-      return Controller.__super__.constructor.apply(this, arguments);
-    }
-
-    Controller.prototype.initialize = function() {
-      var listView;
-      listView = this.getListView();
-      return this.show(listView);
-    };
-
-    Controller.prototype.getListView = function() {
-      return new List.Header;
-    };
-
-    return Controller;
-
-  })(App.Controllers.Base);
-});
-
-var __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-this.Wardrobe.module("HeaderApp.List", function(List, App, Backbone, Marionette, $, _) {
-  return List.Header = (function(_super) {
-
-    __extends(Header, _super);
-
-    function Header() {
-      return Header.__super__.constructor.apply(this, arguments);
-    }
-
-    Header.prototype.template = "header/list/templates/header";
-
-    Header.prototype.tagName = "header";
-
-    Header.prototype.events = {
-      "click .write": "newPost"
-    };
-
-    Header.prototype.newPost = function(e) {
-      e.preventDefault();
-      return App.vent.trigger("post:new:clicked");
-    };
-
-    return Header;
 
   })(App.Views.ItemView);
 });
