@@ -774,7 +774,6 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
       "click .publish": "save",
       "click .js-toggle": "toggleDetails",
       "click .icon-tags": "toggleTags",
-      "click .js-setdate": "setPublishDate",
       "change .js-active": "changeBtn"
     };
 
@@ -784,11 +783,7 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
 
     PostView.prototype.templateHelpers = {
       submitBtnText: function() {
-        if (!(this.active != null)) {
-          "Publish Post";
-
-        }
-        if (this.active === "1") {
+        if ((this.active != null) || this.active === "1") {
           return "Publish Post";
         } else {
           return "Save Post";
@@ -863,7 +858,7 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
     PostView.prototype.setupCalendar = function() {
       return this.$(".icon-calendar").qtip({
         show: {
-          event: 'click'
+          event: "click"
         },
         content: {
           text: $("#date-form").html()
@@ -884,7 +879,7 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
               e.preventDefault();
               pubDate = $(e.currentTarget).parent().find('input');
               $("#publish_date").val(pubDate);
-              return $('.icon-calendar').qtip('hide');
+              return $('.icon-calendar').qtip("hide");
             });
           }
         },
@@ -892,27 +887,16 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
       }, event);
     };
 
-    PostView.prototype.setPublishDate = function(e) {
-      var pubDate;
-      e.preventDefault();
-      alert("here");
-      pubDate = $("#date").val();
-      $("#publish_date").val(pubDate);
-      return this.$(".icon-calendar").popover('hide');
-    };
-
     PostView.prototype.save = function(e) {
-      var data;
       e.preventDefault();
-      data = {
+      return this.processFormSubmit({
         title: this.$('#title').val(),
         slug: this.$('#slug').val(),
         active: this.$('input[type=radio]:checked').val(),
         content: this.editor.codemirror.getValue(),
         tags: this.$("#js-tags").val(),
         publish_date: this.$("#publish_date").val()
-      };
-      return this.processFormSubmit(data);
+      });
     };
 
     PostView.prototype.processFormSubmit = function(data) {
@@ -1040,6 +1024,7 @@ this.Wardrobe.module("PostApp.Edit", function(Edit, App, Backbone, Marionette, $
     Post.prototype.onRender = function() {
       var tags;
       this.fillJSON();
+      this._setDate();
       tags = _.pluck(this.model.get("tags"), "tag");
       this.$("#js-tags").val(tags);
       if (this.model.get("active") === "1") {
@@ -1049,6 +1034,12 @@ this.Wardrobe.module("PostApp.Edit", function(Edit, App, Backbone, Marionette, $
         this.$(".publish").text("Save Post");
         return this.$('input:radio[name="active"]').filter('[value="0"]').attr('checked', true);
       }
+    };
+
+    Post.prototype._setDate = function() {
+      var date;
+      date = moment.utc(this.model.get("publish_date"), "YYYY-MM-DDTHH:mm:ss");
+      return this.$(".js-date").val(date.format("MMM Do YYYY, hh:mma"));
     };
 
     return Post;

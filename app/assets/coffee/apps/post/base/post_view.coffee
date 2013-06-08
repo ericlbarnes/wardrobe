@@ -10,7 +10,6 @@
       "click .publish" : "save"
       "click .js-toggle" : "toggleDetails"
       "click .icon-tags" : "toggleTags"
-      "click .js-setdate" : "setPublishDate"
       "change .js-active" : "changeBtn"
 
     modelEvents:
@@ -18,8 +17,7 @@
 
     templateHelpers:
       submitBtnText: ->
-        "Publish Post" if not @active? # When no model is set.
-        if @active is "1" then "Publish Post" else "Save Post"
+        if @active? or @active is "1" then "Publish Post" else "Save Post"
 
     onShow: ->
       @setUpEditor()
@@ -54,7 +52,6 @@
     setUpTags: ->
       App.request "tag:entities", (tags) =>
         @$("#js-tags").selectize
-          # theme: "contacts"
           persist: true
           maxItems: null
           valueField: "tag"
@@ -84,14 +81,14 @@
     setupCalendar: ->
       @$(".icon-calendar").qtip
         show:
-          event: 'click'
+          event: "click"
         content:
           text: $("#date-form").html()
         position:
           at: "right center"
           my: "left center"
           viewport: $(window) # Keep the tooltip on-screen at all times
-          effect: false # Disable positioning animation
+          effect: false
         events:
           render: (event, api) ->
             $(".js-date").each ->
@@ -100,30 +97,19 @@
               e.preventDefault()
               pubDate = $(e.currentTarget).parent().find('input')
               $("#publish_date").val pubDate
-              $('.icon-calendar').qtip('hide')
-
+              $('.icon-calendar').qtip "hide"
         hide: "unfocus"
       , event
 
-    setPublishDate: (e) ->
-      e.preventDefault()
-      alert "here"
-      pubDate = $("#date").val()
-      $("#publish_date").val pubDate
-      @$(".icon-calendar").popover('hide')
-
     save: (e) ->
       e.preventDefault()
-
-      data =
+      @processFormSubmit
         title: @$('#title').val()
         slug: @$('#slug').val()
         active: @$('input[type=radio]:checked').val()
         content: @editor.codemirror.getValue()
         tags: @$("#js-tags").val()
         publish_date: @$("#publish_date").val()
-
-      @processFormSubmit data
 
     processFormSubmit: (data) ->
       @model.save data,
@@ -163,6 +149,6 @@
     # Toggle the save button text based on status
     changeBtn: (e) ->
       if e.currentTarget.value is "1"
-        @$(".publish").text("Publish Post")
+        @$(".publish").text "Publish Post"
       else
-        @$(".publish").text("Save Post")
+        @$(".publish").text "Save Post"
