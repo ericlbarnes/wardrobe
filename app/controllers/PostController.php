@@ -1,6 +1,5 @@
 <?php
 
-use Carbon\Carbon;
 use Wardrobe\PostRepositoryInterface;
 
 class PostController extends BaseController {
@@ -33,6 +32,14 @@ class PostController extends BaseController {
 	public function getIndex()
 	{
 		$posts = $this->posts->active();
+
+		return View::make('themes.'.$this->theme.'.archive')
+                                             ->with('posts', $posts);
+	}
+
+	public function getTag($tag)
+	{
+		$posts = $this->posts->activeByTag($tag);
 
 		return View::make('themes.'.$this->theme.'.archive')
                                              ->with('posts', $posts);

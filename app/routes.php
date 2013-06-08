@@ -13,6 +13,8 @@
 Route::get('/', 'HomeController@getIndex');
 Route::get('archive', 'PostController@index');
 Route::get('post/{slug}', 'PostController@getShow');
+Route::get('tag/{tag}', 'PostController@getTag');
+Route::get('archive', 'PostController@getIndex');
 Route::controller('post', 'PostController');
 Route::get('wardrobe', 'AdminController@getIndex');
 Route::controller('wardrobe/login', 'LoginController');

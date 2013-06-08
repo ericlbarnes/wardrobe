@@ -51,6 +51,24 @@ class DbPostRepository implements PostRepositoryInterface {
 	}
 
 	/**
+	 * Get all posts with a tag
+	 *
+	 * @param  string   $tag
+	 * @return array
+	 */
+	public function activeByTag($tag)
+	{
+		// Need help with this query. Should it go through the tags repository instead?
+		return Post::with(array('tags' => function($query) use($tag)
+		{
+			$query->where('tag', '=', $tag);
+		}))->where('active', 1)
+       ->where('publish_date', '<=', new DateTime)
+       ->orderBy('id', 'desc')
+       ->get();
+	}
+
+	/**
 	 * Create a new post.
 	 *
 	 * @param  string  $title

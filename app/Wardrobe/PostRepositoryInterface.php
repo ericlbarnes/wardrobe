@@ -17,6 +17,14 @@ interface PostRepositoryInterface {
 	public function active();
 
 	/**
+	 * Get all posts with a tag
+	 *
+	 * @param  string   $tag
+	 * @return array
+	 */
+	public function activeByTag($tag);
+
+	/**
 	 * Get a Post by its primary key.
 	 *
 	 * @param  int   $id
