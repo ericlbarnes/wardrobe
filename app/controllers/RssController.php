@@ -31,12 +31,16 @@ class RssController extends BaseController {
    */
   public function getIndex()
   {
-    $posts = $this->posts->active();
+    $data = array(
+      'posts'   => $this->posts->active(),
+      'updated' => $this->getUpdatedDate($posts),
+    );
 
     header("Content-Type: application/rss+xml; charset=UTF-8");
-    return View::make('themes.'.$this->theme.'.atom')
-                                             ->with('posts', $posts)
-                                             ->with('updated', $this->getUpdatedDate($posts));
+
+    return Response::view('themes.'.$this->theme.'.atom', $data, 200, array(
+      'Content-Type' => 'application/rss+xml; charset=UTF-8',
+    ));
   }
 
   /**
