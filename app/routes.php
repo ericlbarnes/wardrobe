@@ -16,6 +16,7 @@ Route::get('post/{slug}', 'PostController@getShow');
 Route::get('tag/{tag}', 'PostController@getTag');
 Route::get('archive', 'PostController@getIndex');
 Route::controller('post', 'PostController');
+Route::controller('rss', 'RssController');
 Route::get('wardrobe', 'AdminController@getIndex');
 Route::controller('wardrobe/login', 'LoginController');
 Route::resource('api/post', 'ApiPostController');

@@ -1,5 +1,7 @@
 <?php namespace Wardrobe;
 
+use Carbon\Carbon;
+
 class Post extends \Eloquent {
 
 	/**
@@ -23,5 +25,25 @@ class Post extends \Eloquent {
 	public function tags()
   {
 		return $this->hasMany('\Wardrobe\Tag', 'post_id');
+	}
+
+	/**
+	 * Get the atom date for atom feeds
+	 * @return DateTime
+	 */
+	public function getAtomDateAttribute()
+	{
+		$dt = Carbon::createFromFormat('Y-m-d H:i:s', $this->attributes['publish_date']);
+		return $dt->toATOMString();
+	}
+
+	/**
+	 * Get the atom date for rss feeds
+	 * @return DateTime
+	 */
+	public function getRssDateAttribute()
+	{
+		$dt = Carbon::createFromFormat('Y-m-d H:i:s', $this->attributes['publish_date']);
+		return $dt->toRSSString();
 	}
 }

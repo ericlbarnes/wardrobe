@@ -7,7 +7,7 @@
     <meta name="author" content="Eric Barnes" />
     <meta name="description" content="My randomness." />
     <meta name="viewport" content="width=device-width">
-    <link rel="alternate" type="application/rss+xml" href="/atom.xml" />
+    <link rel="alternate" type="application/rss+xml" href="/rss" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/themes/elb/css/style.min.css" rel="stylesheet" media="screen">
     <link rel="shortcut icon" href="http://ericlbarnes.s3.amazonaws.com/newsies/16x16-avatar.png">
@@ -33,8 +33,8 @@
         <nav>
           <ul>
             <li><a href="/archive">Posts</a></li>
-            <li><a href="/code">Code</a></li>
-            <li><a href="http://feeds.feedburner.com/EricLBarnes">RSS</a></li>
+            <li><a href="/tag/code">Code</a></li>
+            <li><a href="/rss">RSS</a></li>
           </ul>
         </nav>
       </header>
