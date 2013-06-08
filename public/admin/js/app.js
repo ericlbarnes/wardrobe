@@ -26,7 +26,7 @@ this["JST"]["post/list/templates/empty.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<td colspan="5">No Posts</td>';
+__p += '<td colspan="4">No Posts</td>';
 
 }
 return __p
@@ -36,7 +36,7 @@ this["JST"]["post/list/templates/grid.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<table class="table">\n\t<thead>\n\t\t<tr>\n\t\t\t<th>ID</th>\n\t\t\t<th>Title</th>\n\t\t\t<th>Status</th>\n\t\t\t<th>Created</th>\n\t\t\t<th>Updated</th>\n\t\t\t<th>Delete</th>\n\t\t</tr>\n\t</thead>\n\t<tbody></tbody>\n</table>\n';
+__p += '<table class="table">\n\t<thead>\n\t\t<tr>\n\t\t\t<th>ID</th>\n\t\t\t<th>Title</th>\n\t\t\t<th>Status</th>\n\t\t\t<th>Published</th>\n\t\t\t<th>Delete</th>\n\t\t</tr>\n\t</thead>\n\t<tbody></tbody>\n</table>\n';
 
 }
 return __p
@@ -53,13 +53,9 @@ __p += '<td class="id">' +
 '</a></td>\n<td class="status">' +
 ((__t = ( (active == 1) ? "Active" : "Draft" )) == null ? '' : __t) +
 '</td>\n<td class="date js-format-date" data-date="' +
-((__t = ( created_at )) == null ? '' : __t) +
+((__t = ( publish_date )) == null ? '' : __t) +
 '">' +
-((__t = ( created_at )) == null ? '' : __t) +
-'</td>\n<td class="date js-format-date" data-date="' +
-((__t = ( updated_at )) == null ? '' : __t) +
-'">' +
-((__t = ( updated_at )) == null ? '' : __t) +
+((__t = ( publish_date )) == null ? '' : __t) +
 '</td>\n<td class="actions"><button class="btn delete"><i class="icon-trash"></i></button></td>\n';
 
 }
@@ -877,7 +873,7 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
             return $(".js-setdate").click(function(e) {
               var pubDate;
               e.preventDefault();
-              pubDate = $(e.currentTarget).parent().find('input');
+              pubDate = $(e.currentTarget).parent().find('input').val();
               $("#publish_date").val(pubDate);
               return $('.icon-calendar').qtip("hide");
             });
@@ -1022,11 +1018,19 @@ this.Wardrobe.module("PostApp.Edit", function(Edit, App, Backbone, Marionette, $
     }
 
     Post.prototype.onRender = function() {
-      var tags;
       this.fillJSON();
       this._setDate();
-      tags = _.pluck(this.model.get("tags"), "tag");
-      this.$("#js-tags").val(tags);
+      this._setActive();
+      return this._setTags();
+    };
+
+    Post.prototype._setDate = function() {
+      var date;
+      date = moment.utc(this.model.get("publish_date"), "YYYY-MM-DDTHH:mm:ss");
+      return this.$(".js-date").val(date.format("MMM Do YYYY, hh:mma"));
+    };
+
+    Post.prototype._setActive = function() {
       if (this.model.get("active") === "1") {
         this.$(".publish").text("Publish Post");
         return this.$('input:radio[name="active"]').filter('[value="1"]').attr('checked', true);
@@ -1036,10 +1040,10 @@ this.Wardrobe.module("PostApp.Edit", function(Edit, App, Backbone, Marionette, $
       }
     };
 
-    Post.prototype._setDate = function() {
-      var date;
-      date = moment.utc(this.model.get("publish_date"), "YYYY-MM-DDTHH:mm:ss");
-      return this.$(".js-date").val(date.format("MMM Do YYYY, hh:mma"));
+    Post.prototype._setTags = function() {
+      var tags;
+      tags = _.pluck(this.model.get("tags"), "tag");
+      return this.$("#js-tags").val(tags);
     };
 
     return Post;

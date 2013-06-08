@@ -95,7 +95,7 @@
               $(this).val $("#publish_date").val()
             $(".js-setdate").click (e) ->
               e.preventDefault()
-              pubDate = $(e.currentTarget).parent().find('input')
+              pubDate = $(e.currentTarget).parent().find('input').val()
               $("#publish_date").val pubDate
               $('.icon-calendar').qtip "hide"
         hide: "unfocus"
@@ -103,6 +103,7 @@
 
     save: (e) ->
       e.preventDefault()
+
       @processFormSubmit
         title: @$('#title').val()
         slug: @$('#slug').val()
