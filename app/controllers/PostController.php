@@ -30,9 +30,9 @@ class PostController extends BaseController {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function getIndex()
 	{
-		$posts = $this->posts->allActive();
+		$posts = $this->posts->active();
 
 		return View::make('themes.'.$this->theme.'.archive')
                                              ->with('posts', $posts);
@@ -44,48 +44,11 @@ class PostController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($slug)
+	public function getShow($slug)
 	{
 		$post = $this->posts->findBySlug($slug);
 
 		return View::make('themes.'.$this->theme.'.post')
                                              ->with('post', $post);
 	}
-
-	/**
-	 * Create a new post instance.
-	 *
-	 * @return Wardrobe\Post
-	 */
-	public function store()
-	{
-		return $this->posts->create(
-			Input::get('title'),
-			Input::get('content'),
-			Input::get('slug'),
-			explode(',', Input::get('tags')),
-			(bool) Input::get('active'),
-			Carbon::createFromTimestamp(strtotime(Input::get('publish_date')))
-		);
-	}
-
-	/**
-	 * Update an existing post instance.
-	 *
-	 * @param  int  $id
-	 * @return Wardrobe\Post
-	 */
-	public function update($id)
-	{
-		return $this->posts->update(
-			$id,
-			Input::get('title'),
-			Input::get('content'),
-			Input::get('slug'),
-			explode(',', Input::get('tags')),
-			(bool) Input::get('active'),
-			Carbon::createFromTimestamp(strtotime(Input::get('publish_date')))
-		);
-	}
-
 }

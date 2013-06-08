@@ -16,7 +16,7 @@ class BaseController extends Controller {
 	 */
 	public function __construct()
 	{
-		$this->theme = Config::get('app.theme');
+		$this->theme = Config::get('wardrobe.theme');
 	}
 
 	/**
