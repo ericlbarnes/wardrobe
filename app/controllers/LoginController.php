@@ -52,6 +52,15 @@ class LoginController extends BaseController {
 	}
 
 	/**
+	 * Log out the user
+	 */
+	public function getLogout()
+	{
+		Auth::logout();
+		return Redirect::to('wardrobe/login');
+	}
+
+	/**
 	 * Forgot password form
 	 */
 	public function getRemind()

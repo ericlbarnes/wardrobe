@@ -18,6 +18,7 @@ Route::get('archive', 'PostController@getIndex');
 Route::controller('post', 'PostController');
 Route::controller('rss', 'RssController');
 Route::get('wardrobe', 'AdminController@getIndex');
+Route::get('wardrobe/logout', 'LoginController@getLogout');
 Route::controller('wardrobe/login', 'LoginController');
 Route::resource('api/post', 'ApiPostController');
 Route::resource('api/tag', 'ApiTagController');
