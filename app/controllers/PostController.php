@@ -42,7 +42,8 @@ class PostController extends BaseController {
 		$posts = $this->posts->activeByTag($tag);
 
 		return View::make('themes.'.$this->theme.'.archive')
-                                             ->with('posts', $posts);
+                                             ->with('posts', $posts)
+                                             ->with('tag', $tag);
 	}
 
 	/**

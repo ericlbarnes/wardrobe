@@ -6,7 +6,12 @@
 
 @section('content')
   <section>
-    <h2 class="title">Archives</h2>
+    @if (isset($tag))
+      <h2 class="title">{{ ucfirst($tag) }} Archives</h2>
+    @else
+      <h2 class="title">Archives</h2>
+    @endif
+
     <ul class="archive">
       @foreach ($posts as $post)
         <li>
