@@ -22,7 +22,7 @@ do (Backbone) ->
       delete @_registry[id]
 
     # Used in testing to ensure controllers are closed.
-    # Snappy.resetRegistry() from console.
+    # Wardrobe.resetRegistry() from console.
     resetRegistry: ->
       oldCount = @getRegistrySize()
       for key, controller of @_registry

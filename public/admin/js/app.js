@@ -730,7 +730,9 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
       var args, _ref,
         _this = this;
       args = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-      console.log("removing", this);
+      if (App.environment === "local") {
+        console.log("removing", this);
+      }
       if ((_ref = this.model) != null ? _ref.isDestroyed() : void 0) {
         return this.$el.fadeOut(400, function() {
           return _remove.apply(_this, args);

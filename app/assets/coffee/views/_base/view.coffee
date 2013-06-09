@@ -5,7 +5,7 @@
   _.extend Marionette.View::,
 
     remove: (args...) ->
-      console.log "removing", @
+      console.log "removing", @ if App.environment is "local"
       if @model?.isDestroyed()
         @$el.fadeOut 400, =>
           _remove.apply @, args
