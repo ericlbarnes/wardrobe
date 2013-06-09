@@ -4,13 +4,13 @@ this["JST"]["header/list/templates/header.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div class="navbar navbar-inverse navbar-fixed-top">\n  <div class="navbar-inner">\n    <a class="brand" href="#">Wardrobe</a>\n    <ul class="nav">\n      <li class="active"><a class="write" href="#">Write</a></li>\n      <li><a class="posts" href="#post">Posts</a></li>\n      <li class="divider-vertical"></li>\n    </ul>\n    <ul class="nav pull-right">\n      <li class="dropdown dropdown-user">\n      <a class="dropdown-toggle" data-toggle="dropdown" href="#">\n        <img src="" class="avatar" width="16">\n        You <b class="caret"></b>\n      </a>\n      <ul class="dropdown-menu right">\n        <li><a href="/wardrobe/logout">Logout</a></li>\n      </ul>\n    </li>\n    </ul>\n  </div>\n</div>\n';
+__p += '<div class="navbar navbar-inverse navbar-fixed-top">\n  <div class="navbar-inner">\n    <div class="container">\n      <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">\n        <span class="icon-bar"></span>\n        <span class="icon-bar"></span>\n        <span class="icon-bar"></span>\n      </button>\n      <a class="brand" href="#">Wardrobe</a>\n      <div class="nav-collapse collapse">\n        <ul class="nav">\n          <li class="active"><a class="write" href="#">Write</a></li>\n          <li><a class="posts" href="#post">Posts</a></li>\n          <li class="divider-vertical"></li>\n        </ul>\n        <ul class="nav pull-right">\n          <li class="dropdown dropdown-user">\n            <a class="dropdown-toggle" data-toggle="dropdown" href="#">\n              <img src="" class="avatar" width="16">\n              You <b class="caret"></b>\n            </a>\n            <ul class="dropdown-menu right">\n              <li><a href="/wardrobe/logout">Logout</a></li>\n            </ul>\n          </li>\n        </ul>\n      </div>\n    </div>\n  </div>\n</div>';
 
 }
 return __p
 };
 
-this["JST"]["post/base/templates/form.html"] = function(obj) {
+this["JST"]["post/_base/templates/form.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
@@ -839,7 +839,7 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
       return PostView.__super__.constructor.apply(this, arguments);
     }
 
-    PostView.prototype.template = "post/base/templates/form";
+    PostView.prototype.template = "post/_base/templates/form";
 
     PostView.prototype.initialize = function() {
       return this.tagsShown = false;

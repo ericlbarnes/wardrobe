@@ -1,7 +1,7 @@
 @Wardrobe.module "Views", (Views, App, Backbone, Marionette, $, _) ->
 
   class Views.PostView extends App.Views.ItemView
-    template: "post/base/templates/form"
+    template: "post/_base/templates/form"
 
     initialize: ->
       @tagsShown = false
