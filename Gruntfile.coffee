@@ -58,7 +58,9 @@ module.exports = (grunt) ->
           'app/assets/vendor/plugins/dates/moment.js'
           'app/assets/vendor/plugins/dates/*.js'
           'app/assets/vendor/plugins/editor/*.js'
+          'app/assets/vendor/plugins/md5.js'
           'app/assets/vendor/plugins/qtip.js'
+          'app/assets/vendor/plugins/bootstrap/*.js'
           'app/assets/vendor/plugins/*.js'
         ]
         dest: 'public/admin/js/structure.js'

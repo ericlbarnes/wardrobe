@@ -4,7 +4,7 @@ this["JST"]["header/list/templates/header.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div class="navbar navbar-inverse navbar-fixed-top">\n  <div class="navbar-inner">\n    <a class="brand" href="#">Wardrobe</a>\n    <ul class="nav">\n      <li class="active"><a class="write" href="#">Write</a></li>\n      <li><a  class="posts" href="#post">Posts</a></li>\n    </ul>\n  </div>\n</div>\n';
+__p += '<div class="navbar navbar-inverse navbar-fixed-top">\n  <div class="navbar-inner">\n    <a class="brand" href="#">Wardrobe</a>\n    <ul class="nav">\n      <li class="active"><a class="write" href="#">Write</a></li>\n      <li><a class="posts" href="#post">Posts</a></li>\n      <li class="divider-vertical"></li>\n    </ul>\n    <ul class="nav pull-right">\n      <li class="dropdown dropdown-user">\n      <a class="dropdown-toggle" data-toggle="dropdown" href="#">\n        <img src="" class="avatar" width="16">\n        You <b class="caret"></b>\n      </a>\n      <ul class="dropdown-menu right">\n        <li><a href="/wardrobe/logout">Logout</a></li>\n      </ul>\n    </li>\n    </ul>\n  </div>\n</div>\n';
 
 }
 return __p
@@ -88,6 +88,14 @@ return __p
     }
   };
 })(Backbone);
+
+
+$.fn.avatar = function(email, size) {
+  if (size == null) {
+    size = 28;
+  }
+  return $(this).attr("src", '//www.gravatar.com/avatar/' + md5(email) + '?s=' + (size * 2));
+};
 
 
 $.fn.formatDates = function() {
@@ -252,7 +260,11 @@ this.Wardrobe = (function(Backbone, Marionette) {
   var App;
   App = new Backbone.Marionette.Application();
   App.on("initialize:before", function(options) {
-    return App.environment = $('meta[name=env]').attr("content");
+    App.environment = $('meta[name=env]').attr("content");
+    return this.currentUser = App.request("set:current:user", options.user);
+  });
+  App.reqres.setHandler("get:current:user", function() {
+    return App.currentUser;
   });
   App.addRegions({
     headerRegion: "#header-region",
@@ -539,6 +551,61 @@ this.Wardrobe.module("Entities", function(Entities, App, Backbone, Marionette, $
 });
 
 var __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+this.Wardrobe.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
+  var API;
+  Entities.User = (function(_super) {
+
+    __extends(User, _super);
+
+    function User() {
+      return User.__super__.constructor.apply(this, arguments);
+    }
+
+    User.prototype.urlRoot = "/api/user";
+
+    return User;
+
+  })(Entities.Model);
+  Entities.UsersCollection = (function(_super) {
+
+    __extends(UsersCollection, _super);
+
+    function UsersCollection() {
+      return UsersCollection.__super__.constructor.apply(this, arguments);
+    }
+
+    UsersCollection.prototype.model = Entities.User;
+
+    UsersCollection.prototype.url = "/api/user";
+
+    return UsersCollection;
+
+  })(Entities.Collection);
+  API = {
+    setCurrentUser: function(currentUser) {
+      return new Entities.User(currentUser);
+    },
+    getUserEntities: function(cb) {
+      var users;
+      users = new Entities.UsersCollection;
+      return users.fetch({
+        success: function() {
+          return cb(users);
+        }
+      });
+    }
+  };
+  App.reqres.setHandler("set:current:user", function(currentUser) {
+    return API.setCurrentUser(currentUser);
+  });
+  return App.reqres.setHandler("user:entities", function(cb) {
+    return API.getUserEntities(cb);
+  });
+});
+
+var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   __slice = [].slice;
 
@@ -736,6 +803,16 @@ this.Wardrobe.module("HeaderApp.List", function(List, App, Backbone, Marionette,
 
     Header.prototype.events = {
       "click .write": "newPost"
+    };
+
+    Header.prototype.onRender = function() {
+      return this.generateAvatar(App.request("get:current:user"));
+    };
+
+    Header.prototype.generateAvatar = function(user) {
+      var $avEl;
+      $avEl = this.$(".avatar");
+      return $avEl.avatar(user.get("email"), $avEl.attr("width"));
     };
 
     Header.prototype.newPost = function(e) {

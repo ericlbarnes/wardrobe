@@ -9187,6 +9187,9 @@ td.title {
 .qtip .qtip-close {
   display: none !important;
 }
+header .avatar {
+  margin-right: 5px;
+}
 #login-region {
   width: 300px;
   margin: 0 auto;

@@ -7,6 +7,13 @@
     events:
     	"click .write" : "newPost"
 
+    onRender: ->
+      @generateAvatar App.request "get:current:user"
+
+    generateAvatar: (user) ->
+      $avEl = @$(".avatar")
+      $avEl.avatar user.get("email"), $avEl.attr("width")
+
     newPost: (e) ->
       e.preventDefault()
       App.vent.trigger "post:new:clicked"
