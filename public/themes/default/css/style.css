@@ -81,6 +81,9 @@ p {
 .post p {
   text-align: justify;
 }
+.post blockquote {
+  font-style: italic;
+}
 
 ul.archive {
   margin: 0;
