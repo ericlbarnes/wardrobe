@@ -1,21 +1,29 @@
 ## Wardrobe
 
-WIP
+Wardrobe is designed to be a very minimal blogging platform with the primary focus on writing. Currently it is a work in progress but you are free to give it a try. (Just be warned something may and will fail until I get it to the first official beta).
 
-Run the following commands:
+If you spot any issues or have any ideas please feel free to submit a pull request or file an issue report.
+
+## Installation
+
+I will be adding a full download to make installation easier for those with out composer but for the time being please follow the below instructions.
+
+First clone or download this repo and modify the app/config/database.php with your database settings.
+
+Next cd to the directory and run the following terminal commands:
 
     composer install
     php artisan migrate --seed
-    php artisan serve
+    php artisan serve # can omit if you already have a server
 
-Then visit http://localhost:8000/wardrobe#post
+Finally visit http://localhost:8000/wardrobe and you should get the login page.
 
 ## Notes
 
 Setup your site settings in the app/config directory.
 
-1. mail -> For emails such as password reset
-2. wardrobe -> For the site theme and base settings
+1. mail.php -> For emails such as password reset
+2. wardrobe.php -> For the site theme and base settings
 
 ### Development
 
