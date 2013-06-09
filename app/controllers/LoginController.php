@@ -50,4 +50,25 @@ class LoginController extends BaseController {
                           ->withInput()
                           ->with('login_errors', true);
 	}
+
+	/**
+	 * Forgot password form
+	 */
+	public function getRemind()
+	{
+		return View::make('admin.auth.forgot');
+	}
+
+	/**
+	 * Send an email to reset your password.
+	 */
+	public function postRemind()
+	{
+		$credentials = array('email' => Input::get('email'));
+
+		return Password::remind($credentials, function($message, $user)
+		{
+			$message->subject('Reset your password');
+		});
+	}
 }

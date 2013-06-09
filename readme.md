@@ -10,6 +10,13 @@ Run the following commands:
 
 Then visit http://localhost:8000/wardrobe#post
 
+## Notes
+
+Setup your site settings in the app/config directory.
+
+1. mail -> For emails such as password reset
+2. wardrobe -> For the site theme and base settings
+
 ### Development
 
 To compile assets run the following:

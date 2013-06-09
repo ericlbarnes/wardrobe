@@ -21,3 +21,28 @@ Route::get('wardrobe', 'AdminController@getIndex');
 Route::controller('wardrobe/login', 'LoginController');
 Route::resource('api/post', 'ApiPostController');
 Route::resource('api/tag', 'ApiTagController');
+
+/**
+ * Password reset
+ */
+Route::get('password/reset/{token}', function($token)
+{
+    return View::make('admin.auth.reset')->with('token', $token);
+});
+
+/**
+ * Password reset Success
+ */
+Route::post('password/reset/{token}', function()
+{
+    $credentials = array('email' => Input::get('email'));
+
+    return Password::reset($credentials, function($user, $password)
+    {
+        $user->password = Hash::make($password);
+
+        $user->save();
+
+        return Redirect::to('wardrobe');
+    });
+});
