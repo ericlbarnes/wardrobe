@@ -11,7 +11,9 @@
 @section('footer.js')
 	<script type="text/javascript">
 		$(document).ready(function() {
-			Wardrobe.start();
+			Wardrobe.start({
+        user: {{ $user }}
+      });
 		});
 	</script>
 @stop

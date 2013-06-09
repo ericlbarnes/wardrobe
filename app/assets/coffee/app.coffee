@@ -4,6 +4,10 @@
 
   App.on "initialize:before", (options) ->
     App.environment = $('meta[name=env]').attr("content")
+    @currentUser = App.request "set:current:user", options.user
+
+  App.reqres.setHandler "get:current:user", ->
+    App.currentUser
 
   App.addRegions
     headerRegion: "#header-region"
