@@ -89,7 +89,7 @@ module.exports = (grunt) ->
         files:
           "app/assets/src/js/templates.js": ["app/assets/coffee/apps/**/*.html"]
 
-    regarde:
+    watch:
       coffee:
         files: 'app/assets/coffee/**/*.coffee'
         tasks: ["clean", "jst", "coffee", "concat"]
@@ -119,11 +119,9 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks "grunt-contrib-clean"
   grunt.loadNpmTasks "grunt-contrib-less"
   grunt.loadNpmTasks "grunt-contrib-jst"
-  grunt.loadNpmTasks "grunt-regarde"
   grunt.loadNpmTasks "grunt-contrib-livereload"
 
   # Default task(s).
   # grunt.registerTask('watch', ['livereload-start', 'regarde']);
-  grunt.registerTask('watch', ['regarde']);
   grunt.registerTask "default", ["clean", "less", "coffee", "jst", "concat"]
   grunt.registerTask "deploy", ["clean", "less", "coffee", "jst", "concat", "uglify"]
