@@ -9204,6 +9204,18 @@ header .avatar {
   float: none;
   margin-top: -2px;
 }
+#install-region {
+  width: 500px;
+  margin: 0 auto;
+  padding: 10px;
+  background: #fff;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+}
+#install-region h1 {
+  text-align: center;
+}
 /**********************************************************
  * THEME: "default"                                       *
  **********************************************************/

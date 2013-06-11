@@ -23,6 +23,8 @@ Route::controller('wardrobe/login', 'LoginController');
 Route::resource('api/post', 'ApiPostController');
 Route::resource('api/tag', 'ApiTagController');
 Route::resource('api/user', 'ApiUserController');
+Route::get('install', 'InstallController@getIndex');
+Route::post('install', 'InstallController@postIndex');
 
 /**
  * Password reset
