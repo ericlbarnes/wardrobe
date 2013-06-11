@@ -1,10 +1,20 @@
 this["JST"] = this["JST"] || {};
 
+this["JST"]["account/edit/templates/form.html"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<form class="form-horizontal">\n  <div id="js-errors" class="hide">\n    <div class="alert alert-error">\n      <button type="button" class="close" data-dismiss="alert">×</button>\n      <span></span>\n    </div>\n  </div>\n  <div class="alert alert-success hide">\n    <strong>Success!</strong> Your account has been saved!\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="first_name">First Name</label>\n    <div class="controls">\n      <input type="text" id="first_name" name="first_name" placeholder="First Name">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="last_name">Last Name</label>\n    <div class="controls">\n      <input type="text" id="last_name" name="last_name" placeholder="Last Name">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="email">Email</label>\n    <div class="controls">\n      <input type="text" id="email" name="email" placeholder="Email">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="password">Password</label>\n    <div class="controls">\n      <input class="input-xlarge" id="password" type="password" name="password" value="">\n      <span class="help-inline">Enter a new password to change password</span>\n    </div>\n  </div>\n  <div class="control-group">\n    <div class="controls">\n      <button type="submit" class="btn save">Save</button>\n    </div>\n  </div>\n</form>';
+
+}
+return __p
+};
+
 this["JST"]["header/list/templates/header.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div class="navbar navbar-inverse navbar-fixed-top">\n  <div class="navbar-inner">\n    <div class="container">\n      <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">\n        <span class="icon-bar"></span>\n        <span class="icon-bar"></span>\n        <span class="icon-bar"></span>\n      </button>\n      <a class="brand" href="#">Wardrobe</a>\n      <div class="nav-collapse collapse">\n        <ul class="nav">\n          <li class="active"><a class="write" href="#">Write</a></li>\n          <li><a class="posts" href="#post">Posts</a></li>\n          <li class="divider-vertical"></li>\n        </ul>\n        <ul class="nav pull-right">\n          <li class="dropdown dropdown-user">\n            <a class="dropdown-toggle" data-toggle="dropdown" href="#">\n              <img src="" class="avatar" width="16">\n              You <b class="caret"></b>\n            </a>\n            <ul class="dropdown-menu right">\n              <li><a href="/wardrobe/logout">Logout</a></li>\n            </ul>\n          </li>\n        </ul>\n      </div>\n    </div>\n  </div>\n</div>';
+__p += '<div class="navbar navbar-inverse navbar-fixed-top">\n  <div class="navbar-inner">\n    <div class="container">\n      <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">\n        <span class="icon-bar"></span>\n        <span class="icon-bar"></span>\n        <span class="icon-bar"></span>\n      </button>\n      <a class="brand" href="#">Wardrobe</a>\n      <div class="nav-collapse collapse">\n        <ul class="nav">\n          <li class="active"><a class="write" href="#">Write</a></li>\n          <li><a class="posts" href="#post">Posts</a></li>\n          <li class="divider-vertical"></li>\n        </ul>\n        <ul class="nav pull-right">\n          <li class="dropdown dropdown-user">\n            <a class="dropdown-toggle" data-toggle="dropdown" href="#">\n              <img src="" class="avatar" width="16">\n              You <b class="caret"></b>\n            </a>\n            <ul class="dropdown-menu right">\n              <li><a href="#" class="edit-account">Edit Account</a></li>\n              <li><a href="/wardrobe/logout">Logout</a></li>\n            </ul>\n          </li>\n        </ul>\n      </div>\n    </div>\n  </div>\n</div>';
 
 }
 return __p
@@ -744,6 +754,156 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
   });
 });
 
+var __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+this.Wardrobe.module("AccountApp", function(AccountApp, App, Backbone, Marionette, $, _) {
+  var API;
+  AccountApp.Router = (function(_super) {
+
+    __extends(Router, _super);
+
+    function Router() {
+      return Router.__super__.constructor.apply(this, arguments);
+    }
+
+    Router.prototype.appRoutes = {
+      "account/edit": "edit"
+    };
+
+    return Router;
+
+  })(Marionette.AppRouter);
+  API = {
+    edit: function() {
+      return new AccountApp.Edit.Controller({
+        region: App.mainRegion
+      });
+    }
+  };
+  App.vent.on("account:edit:clicked", function() {
+    App.navigate("/account/edit");
+    return API.edit();
+  });
+  return App.addInitializer(function() {
+    return new AccountApp.Router({
+      controller: API
+    });
+  });
+});
+
+var __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+this.Wardrobe.module("AccountApp.Edit", function(Edit, App, Backbone, Marionette, $, _) {
+  return Edit.Controller = (function(_super) {
+
+    __extends(Controller, _super);
+
+    function Controller() {
+      return Controller.__super__.constructor.apply(this, arguments);
+    }
+
+    Controller.prototype.initialize = function() {
+      var user, view;
+      user = App.request("get:current:user");
+      view = this.getEditView(user);
+      return this.show(view);
+    };
+
+    Controller.prototype.getEditView = function(user) {
+      return new Edit.User({
+        model: user
+      });
+    };
+
+    return Controller;
+
+  })(App.Controllers.Base);
+});
+
+var __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+this.Wardrobe.module("AccountApp.Edit", function(Edit, App, Backbone, Marionette, $, _) {
+  return Edit.User = (function(_super) {
+
+    __extends(User, _super);
+
+    function User() {
+      return User.__super__.constructor.apply(this, arguments);
+    }
+
+    User.prototype.template = "account/edit/templates/form";
+
+    User.prototype.events = {
+      "click .save": "save"
+    };
+
+    User.prototype.modelEvents = {
+      "change:_errors": "changeErrors"
+    };
+
+    User.prototype.onRender = function() {
+      return this.fillJSON();
+    };
+
+    User.prototype.save = function(e) {
+      var data,
+        _this = this;
+      e.preventDefault();
+      data = {
+        first_name: this.$('#first_name').val(),
+        last_name: this.$('#last_name').val(),
+        email: this.$('#email').val(),
+        password: this.$('#password').val(),
+        active: 1
+      };
+      return this.model.save(data, {
+        success: function(model, response) {
+          App.request("set:current:user", data);
+          return _this.$(".alert-success").show();
+        }
+      });
+    };
+
+    User.prototype.changeErrors = function(model, errors, options) {
+      if (_.isEmpty(errors)) {
+        return this.removeErrors();
+      } else {
+        return this.addErrors(errors);
+      }
+    };
+
+    User.prototype.addErrors = function(errors) {
+      var error, name, _results;
+      if (errors == null) {
+        errors = {};
+      }
+      this.$("#js-errors").show().find("span").html("<strong>Error</strong> Please fix the following errors");
+      _results = [];
+      for (name in errors) {
+        error = errors[name];
+        _results.push(this.addError(error));
+      }
+      return _results;
+    };
+
+    User.prototype.addError = function(error) {
+      var sm;
+      sm = $("<li>").text(error);
+      return this.$("#js-errors span").append(sm);
+    };
+
+    User.prototype.removeErrors = function() {
+      return this.$("#js-errors").hide();
+    };
+
+    return User;
+
+  })(App.Views.ItemView);
+});
+
 
 this.Wardrobe.module("HeaderApp", function(HeaderApp, App, Backbone, Marionette, $, _) {
   var API;
@@ -804,7 +964,8 @@ this.Wardrobe.module("HeaderApp.List", function(List, App, Backbone, Marionette,
     Header.prototype.tagName = "header";
 
     Header.prototype.events = {
-      "click .write": "newPost"
+      "click .write": "newPost",
+      "click .edit-account": "editAccount"
     };
 
     Header.prototype.onRender = function() {
@@ -815,6 +976,11 @@ this.Wardrobe.module("HeaderApp.List", function(List, App, Backbone, Marionette,
       var $avEl;
       $avEl = this.$(".avatar");
       return $avEl.avatar(user.get("email"), $avEl.attr("width"));
+    };
+
+    Header.prototype.editAccount = function(e) {
+      e.preventDefault();
+      return App.vent.trigger("account:edit:clicked");
     };
 
     Header.prototype.newPost = function(e) {

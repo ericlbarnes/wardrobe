@@ -22,6 +22,7 @@ Route::get('wardrobe/logout', 'LoginController@getLogout');
 Route::controller('wardrobe/login', 'LoginController');
 Route::resource('api/post', 'ApiPostController');
 Route::resource('api/tag', 'ApiTagController');
+Route::resource('api/user', 'ApiUserController');
 
 /**
  * Password reset

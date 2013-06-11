@@ -18,6 +18,9 @@ Next cd to the directory and run the following terminal commands:
 
 Finally visit http://localhost:8000/wardrobe and you should get the login page.
 
+Email: demo@example.com
+Password: demo
+
 ## Notes
 
 Setup your site settings in the app/config directory.
