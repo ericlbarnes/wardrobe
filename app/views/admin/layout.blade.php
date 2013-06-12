@@ -5,7 +5,6 @@
   <meta name="env" content="{{ App::environment() }}">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="/admin/style.css">
-  <link rel="stylesheet" href="http://lab.lepture.com/editor/css/editor.css" />
   <link rel="stylesheet" type="text/css" href="/admin/muted/style.css">
 </head>
 <body>

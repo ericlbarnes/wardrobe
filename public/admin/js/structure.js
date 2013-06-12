@@ -13558,7 +13558,7 @@ var createIcon = function(name, options) {
   if (shortcut) {
     shortcut = fixShortcut(shortcut);
     el.title = shortcut;
-    el.title = el.title.replace('Cmd', 'âŒ˜');
+    el.title = el.title.replace('Cmd', 'âŒ');
     if (isMac) {
       el.title = el.title.replace('Alt', 'âŒ¥');
     }
