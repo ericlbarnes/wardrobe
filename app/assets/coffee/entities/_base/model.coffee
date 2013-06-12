@@ -12,9 +12,6 @@
         when 401 then document.location.href = "/wardrobe/login"
 
     destroy: (options = {}) ->
-      _.defaults options,
-        wait: true
-
       @set _destroy: true
       super options
 
