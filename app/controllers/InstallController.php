@@ -70,19 +70,17 @@ class InstallController extends BaseController {
    */
   public function postUser()
   {
-    $rules = array(
-      'first_name' => 'required',
-      'last_name' => 'required',
-      'email' => 'required|email',
-      'password' => 'required|min:6',
+    $messages = $this->users->validateForCreation(
+      Input::get('first_name'),
+      Input::get('last_name'),
+      Input::get('email'),
+      Input::get('password')      
     );
 
-    $validator = Validator::make(Input::get(), $rules);
-
-    if ($validator->fails())
+    if (count($messages) > 0)
     {
       return Redirect::back()
-                          ->withErrors($validator->messages())
+                          ->withErrors($messages)
                           ->with('install_errors', true);
     }
 

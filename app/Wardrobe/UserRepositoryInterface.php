@@ -36,6 +36,17 @@ interface UserRepositoryInterface {
 	public function update($id, $first_name, $last_name, $email, $password, $active);
 
 	/**
+	 * Validate that the given user is valid for creation.
+	 *
+	 * @param  string  $first_name
+	 * @param  string  $last_name
+	 * @param  string  $email
+	 * @param  string  $password
+	 * @return \Illuminate\Support\MessageBag
+	 */
+	public function validateForCreation($first_name, $last_name, $email, $password);
+
+	/**
 	 * Log the user into the application.
 	 *
 	 * If the credentials are invalid, returns false, else returns true.

@@ -1,6 +1,6 @@
 <?php namespace Wardrobe;
 
-use Auth, Hash;
+use Auth, Hash, Validator;
 
 class DbUserRepository implements UserRepositoryInterface {
 
@@ -60,6 +60,29 @@ class DbUserRepository implements UserRepositoryInterface {
 		$user->fill(compact('first_name', 'last_name', 'email', 'password', 'active'))->save();
 
 		return $user;
+	}
+
+	/**
+	 * Validate that the given user is valid for creation.
+	 *
+	 * @param  string  $first_name
+	 * @param  string  $last_name
+	 * @param  string  $email
+	 * @param  string  $password
+	 * @return \Illuminate\Support\MessageBag
+	 */
+	public function validateForCreation($first_name, $last_name, $email, $password)
+	{
+		$validator = Validator::make(compact('first_name', 'last_name', 'email', 'password'), array(
+			'first_name' => 'required|max:255',
+			'last_name'  => 'required|max:255',
+			'email'      => 'required|email|unique:users',
+			'password'   => 'required|min:6',
+		));
+
+		$validator->passes();
+
+		return $validator->errors();
 	}
 
 	/**
