@@ -378,9 +378,6 @@ this.Wardrobe.module("Entities", function(Entities, App, Backbone, Marionette, $
       if (options == null) {
         options = {};
       }
-      _.defaults(options, {
-        wait: true
-      });
       this.set({
         _destroy: true
       });
@@ -456,7 +453,7 @@ this.Wardrobe.module("Entities", function(Entities, App, Backbone, Marionette, $
 
     return Post;
 
-  })(Entities.Model);
+  })(App.Entities.Model);
   Entities.PostCollection = (function(_super) {
 
     __extends(PostCollection, _super);
@@ -521,7 +518,7 @@ this.Wardrobe.module("Entities", function(Entities, App, Backbone, Marionette, $
 
     return Tag;
 
-  })(Entities.Model);
+  })(App.Entities.Model);
   Entities.TagCollection = (function(_super) {
 
     __extends(TagCollection, _super);
@@ -577,7 +574,7 @@ this.Wardrobe.module("Entities", function(Entities, App, Backbone, Marionette, $
 
     return User;
 
-  })(Entities.Model);
+  })(App.Entities.Model);
   Entities.UsersCollection = (function(_super) {
 
     __extends(UsersCollection, _super);
@@ -592,7 +589,7 @@ this.Wardrobe.module("Entities", function(Entities, App, Backbone, Marionette, $
 
     return UsersCollection;
 
-  })(Entities.Collection);
+  })(App.Entities.Collection);
   API = {
     setCurrentUser: function(currentUser) {
       return new Entities.User(currentUser);
@@ -743,7 +740,7 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
       if (App.environment === "local") {
         console.log("removing", this);
       }
-      if ((_ref = this.model) != null ? _ref.isDestroyed() : void 0) {
+      if ((_ref = this.model) != null ? typeof _ref.isDestroyed === "function" ? _ref.isDestroyed() : void 0 : void 0) {
         return this.$el.fadeOut(400, function() {
           return _remove.apply(_this, args);
         });
@@ -1384,21 +1381,6 @@ this.Wardrobe.module("PostApp.List", function(List, App, Backbone, Marionette, $
       return App.vent.trigger("post:item:clicked", this.model);
     };
 
-    PostItem.prototype.deletePost = function(e) {
-      e.preventDefault();
-      if (!confirm("Are you sure you want to delete this?")) {
-        return this;
-      }
-      return this.model.destroy({
-        success: function(model, response) {
-          return $("#js-alert").showAlert("Success", "The post is deleted.", "alert-success");
-        },
-        error: function(model, error) {
-          return $("#js-alert").showAlert("Error", error.responseText(), "alert-error");
-        }
-      });
-    };
-
     return PostItem;
 
   })(App.Views.ItemView);
@@ -1548,7 +1530,9 @@ this.Wardrobe.module("PostApp", function(PostApp, App, Backbone, Marionette, $, 
     return API.list();
   });
   App.vent.on("post:new:clicked", function() {
-    App.navigate("/");
+    App.navigate("/", {
+      trigger: false
+    });
     return API.add();
   });
   App.vent.on("post:item:clicked", function(item) {
