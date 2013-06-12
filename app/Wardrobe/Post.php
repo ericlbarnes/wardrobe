@@ -34,6 +34,7 @@ class Post extends \Eloquent {
 	public function getAtomDateAttribute()
 	{
 		$dt = Carbon::createFromFormat('Y-m-d H:i:s', $this->attributes['publish_date']);
+
 		return $dt->toATOMString();
 	}
 
@@ -44,6 +45,7 @@ class Post extends \Eloquent {
 	public function getRssDateAttribute()
 	{
 		$dt = Carbon::createFromFormat('Y-m-d H:i:s', $this->attributes['publish_date']);
+
 		return $dt->toRSSString();
 	}
 }

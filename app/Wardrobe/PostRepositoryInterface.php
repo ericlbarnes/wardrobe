@@ -75,4 +75,30 @@ interface PostRepositoryInterface {
 	 */
 	public function delete($id);
 
+	/**
+	 * Get a list of all of the tags used by the blog.
+	 *
+	 * @return array
+	 */
+	public function allTags();
+
+	/**
+	 * Determine if the given post is valid for creation.
+	 *
+	 * @param  string  $title
+	 * @param  string  $slug
+	 * @return \Illuminate\Support\MessageBag
+	 */
+	public function validForCreation($title, $slug);
+
+	/**
+	 * Determine if a given post is valid for updating.
+	 *
+	 * @param  string  $title
+	 * @param  string  $slug
+	 * @param  int  $id
+	 * @return \Illuminate\Support\MessageBag
+	 */
+	public function validForUpdate($id, $title, $slug);
+
 }

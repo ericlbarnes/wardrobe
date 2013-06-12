@@ -70,7 +70,7 @@ class InstallController extends BaseController {
    */
   public function postUser()
   {
-    $messages = $this->users->validateForCreation(
+    $messages = $this->users->validForCreation(
       Input::get('first_name'),
       Input::get('last_name'),
       Input::get('email'),
