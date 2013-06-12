@@ -1,8 +1,16 @@
 <?php
 
 use Wardrobe\Tag;
+use Wardrobe\PostRepositoryInterface;
 
 class ApiTagController extends BaseController {
+
+	/**
+	 * The post repository implementation.
+	 *
+	 * @var \Wardrobe\PostRepositoryInterface  $posts
+	 */
+	protected $posts;
 
 	/**
 	 * Create a new API Tag controller.
@@ -10,10 +18,12 @@ class ApiTagController extends BaseController {
 	 * @param  Wardrobe\PostRepositoryInterface  $posts
 	 * @return void
 	 */
-	public function __construct()
+	public function __construct(PostRepositoryInterface $posts)
 	{
 		parent::__construct();
-		// $this->posts = $posts;
+
+		$this->posts = $posts;
+
 		$this->beforeFilter('auth');
 	}
 
@@ -24,6 +34,7 @@ class ApiTagController extends BaseController {
 	 */
 	public function index()
 	{
-		return Tag::orderBy('tag', 'asc')->distinct()->get();
+		return Response::json($this->posts->allTags());
 	}
+
 }

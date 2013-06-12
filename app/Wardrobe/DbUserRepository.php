@@ -71,14 +71,52 @@ class DbUserRepository implements UserRepositoryInterface {
 	 * @param  string  $password
 	 * @return \Illuminate\Support\MessageBag
 	 */
-	public function validateForCreation($first_name, $last_name, $email, $password)
+	public function validForCreation($first_name, $last_name, $email, $password)
 	{
-		$validator = Validator::make(compact('first_name', 'last_name', 'email', 'password'), array(
+		return $this->validateUser($first_name, $last_name, $email, $password);
+	}
+
+	/**
+	 * Validate that the given user is valid for updating.
+	 *
+	 * @param  int  $id
+	 * @param  string  $first_name
+	 * @param  string  $last_name
+	 * @param  string  $email
+	 * @param  string  $password
+	 * @return \Illuminate\Support\MessageBag
+	 */
+	public function validForUpdate($id, $first_name, $last_name, $email, $password)
+	{
+		return $this->validateUser($first_name, $last_name, $email, $password, $id);
+	}
+
+	/**
+	 * Validate the given user data.
+	 *
+	 * @param  string  $first_name
+	 * @param  stirng  $last_name
+	 * @param  string  $password
+	 * @param  int  $id
+	 * @return \Illuminate\Support\MessageBag
+	 */
+	protected function validateUser($first_name, $last_name, $email, $password, $id = null)
+	{
+		$rules = array(
 			'first_name' => 'required|max:255',
 			'last_name'  => 'required|max:255',
 			'email'      => 'required|email|unique:users',
 			'password'   => 'required|min:6',
-		));
+		);
+
+		if ($id)
+		{
+			$rules['email'] .= ','.$id;
+		}
+
+		$validator = Validator::make(
+			compact('first_name', 'last_name', 'email', 'password'), $rules
+		);
 
 		$validator->passes();
 

@@ -21,7 +21,9 @@ class ApiPostController extends BaseController {
 	public function __construct(PostRepositoryInterface $posts)
 	{
 		parent::__construct();
+
 		$this->posts = $posts;
+
 		$this->beforeFilter('auth');
 	}
 
@@ -42,9 +44,11 @@ class ApiPostController extends BaseController {
 	 */
 	public function store()
 	{
-		if ($messages = $this->validatePost(Input::get()))
+		$messages = $this->posts->validForCreation(Input::get('title'), Input::get('slug'));
+
+		if (count($messages) > 0)
 		{
-			return Response::make(json_encode($messages->all()), 500, array('Content-Type' => 'application/json'));
+			return Response::json($messages->all(), 500);
 		}
 
 		return $this->posts->create(
@@ -87,9 +91,11 @@ class ApiPostController extends BaseController {
 	 */
 	public function update($id)
 	{
-		if ($messages = $this->validatePost(Input::get(), $id))
+		$messages = $this->posts->validForUpdate($id, Input::get('title'), Input::get('slug'));
+
+		if (count($messages) > 0)
 		{
-			return Response::make(json_encode($messages->all()), 500, array('Content-Type' => 'application/json'));
+			return Response::json($messagse->all(), 500);
 		}
 
 		return $this->posts->update(
@@ -114,28 +120,4 @@ class ApiPostController extends BaseController {
 		$this->posts->delete($id);
 	}
 
-		/**
-	 * Validate the post.
-	 *
-	 * @param  array  $data
-	 * @return MessageBag|null
-	 */
-	protected function validatePost($data, $id = null)
-	{
-		$rules['title'] = 'required';
-		$rules['slug'] = 'required|alpha_dash|unique:posts,slug';
-		// $rules['publish_date'] = 'required|date_format:Y-m-d H:i:s';
-
-		if ($id)
-		{
-			$rules['slug'] .= ','.$id;
-		}
-
-		$validator = Validator::make($data, $rules);
-
-		if ($validator->fails())
-		{
-			return $validator->errors();
-		}
-	}
 }

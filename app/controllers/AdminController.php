@@ -20,6 +20,6 @@ class AdminController extends BaseController {
 	public function getIndex()
 	{
 		return View::make('admin.index')
-                         ->with('user', Auth::user());
+                        ->with('user', Auth::user());
 	}
 }

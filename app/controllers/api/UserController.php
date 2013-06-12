@@ -21,7 +21,9 @@ class ApiUserController extends BaseController {
   public function __construct(UserRepositoryInterface $users)
   {
     parent::__construct();
+
     $this->users = $users;
+
     $this->beforeFilter('auth');
   }
 
@@ -42,9 +44,16 @@ class ApiUserController extends BaseController {
    */
   public function store()
   {
-    if ($messages = $this->validateUser(Input::get()))
+    $messages = $this->users->validForCreation(
+      Input::get('first_name'),
+      Input::get('last_name'),
+      Input::get('email'),
+      Input::get('password')
+    );
+
+    if (count($messages) > 0)
     {
-      return Response::make(json_encode($messages->all()), 500, array('Content-Type' => 'application/json'));
+      return Response::json($messages->all(), 500);
     }
 
     return $this->users->create(
@@ -86,9 +95,17 @@ class ApiUserController extends BaseController {
    */
   public function update($id)
   {
-    if ($messages = $this->validateUser(Input::get(), $id))
+    $messages = $this->users->validForUpdate(
+      $id,
+      Input::get('first_name'),
+      Input::get('last_name'),
+      Input::get('email'),
+      Input::get('password')
+    );
+
+    if (count($messages) > 0)
     {
-      return Response::make(json_encode($messages->all()), 500, array('Content-Type' => 'application/json'));
+      return Response::json($messages->all(), 500);
     }
 
     return $this->users->update(
@@ -112,26 +129,4 @@ class ApiUserController extends BaseController {
     $this->users->delete($id);
   }
 
-    /**
-   * Validate the post.
-   *
-   * @param  array  $data
-   * @return MessageBag|null
-   */
-  protected function validateUser($data, $id = null)
-  {
-    $rules = array(
-      'first_name' => 'required',
-      'last_name' => 'required',
-      'password' => 'min:6',
-      'email' => 'required|email',
-    );
-
-    $validator = Validator::make($data, $rules);
-
-    if ($validator->fails())
-    {
-      return $validator->errors();
-    }
-  }
 }

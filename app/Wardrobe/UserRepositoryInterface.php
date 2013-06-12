@@ -44,7 +44,19 @@ interface UserRepositoryInterface {
 	 * @param  string  $password
 	 * @return \Illuminate\Support\MessageBag
 	 */
-	public function validateForCreation($first_name, $last_name, $email, $password);
+	public function validForCreation($first_name, $last_name, $email, $password);
+
+	/**
+	 * Validate that the given user is valid for updating.
+	 *
+	 * @param  int  $id
+	 * @param  string  $first_name
+	 * @param  string  $last_name
+	 * @param  string  $email
+	 * @param  string  $password
+	 * @return \Illuminate\Support\MessageBag
+	 */
+	public function validForUpdate($id, $first_name, $last_name, $email, $password);
 
 	/**
 	 * Log the user into the application.

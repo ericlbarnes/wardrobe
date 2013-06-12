@@ -1,6 +1,6 @@
 <?php namespace Wardrobe;
 
-use \DateTime;
+use DateTime, Validator;
 
 class DbPostRepository implements PostRepositoryInterface {
 
@@ -139,6 +139,66 @@ class DbPostRepository implements PostRepositoryInterface {
 	public function delete($id)
 	{
 		Post::where('id', $id)->delete();
+	}
+
+	/**
+	 * Get a list of all of the tags used by the blog.
+	 *
+	 * @return array
+	 */
+	public function allTags()
+	{
+		return Tag::orderBy('tag', 'asc')->distinct()->get()->toArray();
+	}
+
+	/**
+	 * Determine if the given post is valid for creation.
+	 *
+	 * @param  string  $title
+	 * @param  string  $slug
+	 * @return \Illuminate\Support\MessageBag
+	 */
+	public function validForCreation($title, $slug)
+	{
+		return $this->validatePost($title, $slug);
+	}
+
+	/**
+	 * Determine if a given post is valid for updating.
+	 *
+	 * @param  string  $title
+	 * @param  string  $slug
+	 * @param  int  $id
+	 * @return \Illuminate\Support\MessageBag
+	 */
+	public function validForUpdate($id, $title, $slug)
+	{
+		return $this->validatePost($title, $slug, $id);
+	}
+
+	/**
+	 * Determine if the given post is valid.
+	 *
+	 * @param  string  $title
+	 * @param  string  $slug
+	 * @param  int  $id
+	 * @return \Illuminate\Support\MessageBag
+	 */
+	protected function validatePost($title, $slug, $id = null)
+	{
+		$rules = array(
+			'title' => 'required',
+			'slug'  => 'required|alpha_dash|unique:posts,slug',
+		);
+
+		if ($id)
+		{
+			$rules['slug'] .= ','.$id;
+		}
+
+		with($validator = Validator::make(compact('title', 'slug'), $rules))->fails();
+
+		return $validator->errors();		
 	}
 
 }
