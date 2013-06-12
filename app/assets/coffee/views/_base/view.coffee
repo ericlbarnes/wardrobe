@@ -6,7 +6,7 @@
 
     remove: (args...) ->
       console.log "removing", @ if App.environment is "local"
-      if @model?.isDestroyed()
+      if @model?.isDestroyed?()
         @$el.fadeOut 400, =>
           _remove.apply @, args
       else
