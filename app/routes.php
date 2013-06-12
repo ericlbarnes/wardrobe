@@ -25,6 +25,8 @@ Route::resource('api/tag', 'ApiTagController');
 Route::resource('api/user', 'ApiUserController');
 Route::get('install', 'InstallController@getIndex');
 Route::post('install', 'InstallController@postIndex');
+Route::get('install/step2', 'InstallController@getUser');
+Route::post('install/user', 'InstallController@postUser');
 
 /**
  * Password reset

@@ -16,6 +16,23 @@ class DbUserRepository implements UserRepositoryInterface {
 	}
 
 	/**
+	 * Create a user
+	 *
+	 * @param  string  $first_name
+	 * @param  string  $last_name
+	 * @param  string  $email
+	 * @param  int  $active
+	 * @param  string  $password
+	 * @return Post
+	 */
+	public function create($first_name, $last_name, $email, $active, $password)
+	{
+		$password = Hash::make($password);
+
+		return User::create(compact('first_name', 'last_name', 'email', 'password', 'active'));
+	}
+
+	/**
 	 * Update a user
 	 *
 	 * @param  int  $id

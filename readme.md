@@ -13,13 +13,8 @@ First clone or download this repo and modify the app/config/database.php with yo
 Next cd to the directory and run the following terminal commands:
 
     composer install
-    php artisan migrate --seed
-    php artisan serve # can omit if you already have a server
 
-Finally visit http://localhost:8000/wardrobe and you should get the login page.
-
-Email: demo@example.com
-Password: demo
+Finally visit http://site.com/install and follow the steps.
 
 ## Notes
 
