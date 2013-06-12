@@ -9,14 +9,12 @@
         class: "post-item"
       else
         class: "post-item draft"
-    # className: "post-item"
 
     triggers:
       "click .delete" : "post:delete:clicked"
 
     events:
       "click .details" : "edit"
-      # "click .delete" : "deletePost"
 
     onShow: ->
       @$('.js-format-date').formatDates()
@@ -24,17 +22,6 @@
     edit: (e) ->
       e.preventDefault()
       App.vent.trigger "post:item:clicked", @model
-
-    deletePost: (e) ->
-      e.preventDefault()
-      if not confirm "Are you sure you want to delete this?"
-        return @
-      @model.destroy
-        success: (model, response) ->
-          $("#js-alert").showAlert "Success", "The post is deleted.", "alert-success"
-
-        error: (model, error) ->
-          $("#js-alert").showAlert "Error", error.responseText(), "alert-error"
 
   class List.Empty extends App.Views.ItemView
     template: "post/list/templates/empty"

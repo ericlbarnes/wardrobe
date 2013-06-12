@@ -1,9 +1,9 @@
 @Wardrobe.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
 
-  class Entities.User extends Entities.Model
+  class Entities.User extends App.Entities.Model
     urlRoot: "/api/user"
 
-  class Entities.UsersCollection extends Entities.Collection
+  class Entities.UsersCollection extends App.Entities.Collection
     model: Entities.User
     url: "/api/user"
 

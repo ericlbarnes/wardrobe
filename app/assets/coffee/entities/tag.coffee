@@ -1,6 +1,6 @@
 @Wardrobe.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
 
-  class Entities.Tag extends Entities.Model
+  class Entities.Tag extends App.Entities.Model
     urlRoot: "/api/tag"
 
   class Entities.TagCollection extends App.Entities.Collection
