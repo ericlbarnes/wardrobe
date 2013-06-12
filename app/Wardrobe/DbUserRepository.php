@@ -105,13 +105,16 @@ class DbUserRepository implements UserRepositoryInterface {
 		$rules = array(
 			'first_name' => 'required|max:255',
 			'last_name'  => 'required|max:255',
-			'email'      => 'required|email|unique:users',
-			'password'   => 'required|min:6',
+			'email'      => 'required|email|unique:users,email',
 		);
 
 		if ($id)
 		{
-			$rules['email'] .= ','.$id;
+			$rules['email']    .= ','.$id;
+		}
+		else
+		{
+			$rules['password']  = 'required|min:6';
 		}
 
 		$validator = Validator::make(
