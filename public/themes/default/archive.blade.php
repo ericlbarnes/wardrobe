@@ -1,4 +1,4 @@
-@extends('themes.default.layout')
+@extends(theme_path('layout'))
 
 @section('title')
   Archives

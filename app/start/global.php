@@ -81,7 +81,20 @@ App::down(function()
 
 require app_path().'/filters.php';
 
+/*
+|--------------------------------------------------------------------------
+| Require The Helpers File
+|--------------------------------------------------------------------------
+|
+| Next we will load the filters file for the application. This gives us
+| a nice separate location to store our route and application filter
+| definitions instead of putting them all in the main routes file.
+|
+*/
+
+require app_path().'/theme_helpers.php';
+
 /**
- * Load application helpers
+ * Load markdown helper
  */
-require_once app_path().'/helpers.php';
+require_once app_path().'/md.php';

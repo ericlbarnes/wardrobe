@@ -11,7 +11,7 @@ class DbPostRepository implements PostRepositoryInterface {
 	 */
 	public function all()
 	{
-		return Post::with('tags')->orderBy('id', 'desc')->get();
+		return Post::with('tags')->orderBy('publish_date', 'desc')->get();
 	}
 
 	/**
@@ -24,7 +24,7 @@ class DbPostRepository implements PostRepositoryInterface {
 		return Post::with('tags')
                         ->where('active', 1)
                         ->where('publish_date', '<=', new DateTime)
-                        ->orderBy('id', 'desc')
+                        ->orderBy('publish_date', 'desc')
                         ->get();
 	}
 
@@ -62,7 +62,7 @@ class DbPostRepository implements PostRepositoryInterface {
                        ->select('posts.*')
                        ->join('tags', 'posts.id', '=', 'tags.post_id')
                        ->where('tags.tag', '=', $tag)
-                       ->orderBy('posts.id', 'desc')
+                       ->orderBy('posts.publish_date', 'desc')
                        ->distinct()
                        ->get();
 	}
@@ -198,7 +198,7 @@ class DbPostRepository implements PostRepositoryInterface {
 
 		with($validator = Validator::make(compact('title', 'slug'), $rules))->fails();
 
-		return $validator->errors();		
+		return $validator->errors();
 	}
 
 }
