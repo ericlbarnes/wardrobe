@@ -1,7 +1,7 @@
 <?php
 
 use Wardrobe\Tag;
-use Wardrobe\PostRepositoryInterface;
+use Wardrobe\Repositories\PostRepositoryInterface;
 
 class ApiTagController extends BaseController {
 

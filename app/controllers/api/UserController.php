@@ -1,7 +1,7 @@
 <?php
 
 use Carbon\Carbon;
-use Wardrobe\UserRepositoryInterface;
+use Wardrobe\Repositories\UserRepositoryInterface;
 
 class ApiUserController extends BaseController {
 

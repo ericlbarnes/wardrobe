@@ -1,6 +1,6 @@
 <?php
 
-use Wardrobe\UserRepositoryInterface;
+use Wardrobe\Repositories\UserRepositoryInterface;
 
 class InstallController extends BaseController {
 
@@ -74,7 +74,7 @@ class InstallController extends BaseController {
       Input::get('first_name'),
       Input::get('last_name'),
       Input::get('email'),
-      Input::get('password')      
+      Input::get('password')
     );
 
     if (count($messages) > 0)

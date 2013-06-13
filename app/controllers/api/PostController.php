@@ -1,7 +1,7 @@
 <?php
 
 use Carbon\Carbon;
-use Wardrobe\PostRepositoryInterface;
+use Wardrobe\Repositories\PostRepositoryInterface;
 
 class ApiPostController extends BaseController {
 

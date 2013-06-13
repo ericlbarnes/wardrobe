@@ -1,6 +1,6 @@
 <?php
 
-use Wardrobe\UserRepositoryInterface;
+use Wardrobe\Repositories\UserRepositoryInterface;
 
 class LoginController extends BaseController {
 

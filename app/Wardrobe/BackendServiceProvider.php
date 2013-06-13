@@ -11,9 +11,9 @@ class BackendServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		$this->app->singleton('Wardrobe\PostRepositoryInterface', 'Wardrobe\DbPostRepository');
+		$this->app->singleton('Wardrobe\Repositories\PostRepositoryInterface', 'Wardrobe\Repositories\DbPostRepository');
 
-		$this->app->singleton('Wardrobe\UserRepositoryInterface', 'Wardrobe\DbUserRepository');
+		$this->app->singleton('Wardrobe\Repositories\UserRepositoryInterface', 'Wardrobe\Repositories\DbUserRepository');
 	}
 
 }

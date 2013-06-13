@@ -1,6 +1,6 @@
 <?php
 
-use Wardrobe\PostRepositoryInterface;
+use Wardrobe\Repositories\PostRepositoryInterface;
 
 class HomeController extends BaseController {
 
