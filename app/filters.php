@@ -22,6 +22,11 @@ App::after(function($request, $response)
 	//
 });
 
+App::missing(function($exception)
+{
+	return Response::view('themes/'.Config::get('wardrobe.theme').'/404', array(), 404);
+});
+
 /*
 |--------------------------------------------------------------------------
 | Authentication Filters
