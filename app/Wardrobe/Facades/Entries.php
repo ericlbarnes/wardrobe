@@ -30,13 +30,5 @@ class Entries {
     $per_page = isset($params['per_page']) ? $params['per_page'] : "30";
 
     return $this->posts->active()->paginate($per_page);
-    // return \Paginator::make($posts, count($posts), $per_page);
-    // echo 'Doing something!';
   }
-
-  public function paginate($posts)
-  {
-    return \Paginator::make($posts, count($posts), $per_page);
-  }
-
 }
