@@ -1,6 +1,14 @@
 @extends(theme_path('layout'))
 
 @section('content')
+
+  <?php $posts = Entries::fetch(array('per_page' => 3)); ?>
+  @foreach($posts as $post)
+    <h3>{{ $post->title }}</h3>
+  @endforeach
+
+  {{ $posts->links() }}
+
 	<section class="home">
 		<div class="hero">
 			<p>Te vidit legimus vulputate his. Ea mea quas putent perpetua. Eius voluptaria ullamcorper cu qui, has in evertitur suscipiantur mediocritatem, duo eirmod commune in. In mollis luptatum has, summo noluisse ius an. In cum ubique virtute atomorum, quodsi eloquentiam eu mea, omnesque hendrerit eu vix. Albucius sadipscing ex his. Sit aeterno principes ex.</p>

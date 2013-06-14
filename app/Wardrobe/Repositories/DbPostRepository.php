@@ -26,8 +26,7 @@ class DbPostRepository implements PostRepositoryInterface {
 		return Post::with('tags')
                         ->where('active', 1)
                         ->where('publish_date', '<=', new DateTime)
-                        ->orderBy('publish_date', 'desc')
-                        ->get();
+                        ->orderBy('publish_date', 'desc');
 	}
 
 	/**

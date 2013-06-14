@@ -14,6 +14,11 @@ class BackendServiceProvider extends ServiceProvider {
 		$this->app->singleton('Wardrobe\Repositories\PostRepositoryInterface', 'Wardrobe\Repositories\DbPostRepository');
 
 		$this->app->singleton('Wardrobe\Repositories\UserRepositoryInterface', 'Wardrobe\Repositories\DbUserRepository');
+
+		$this->app->bind('Entries', function()
+		{
+			return new \Wardrobe\Facades\Entries(new Repositories\DbPostRepository);
+		});
 	}
 
 }

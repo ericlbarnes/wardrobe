@@ -144,6 +144,8 @@ return array(
 
 	'aliases' => array(
 
+		'Entries'            => 'Wardrobe\Facades\EntriesFacade',
+
 		'App'             => 'Illuminate\Support\Facades\App',
 		'Artisan'         => 'Illuminate\Support\Facades\Artisan',
 		'Auth'            => 'Illuminate\Support\Facades\Auth',
