@@ -31,15 +31,21 @@ class PostController extends BaseController {
 	 */
 	public function getIndex()
 	{
-		$posts = $this->posts->active();
+		$posts = $this->posts->active(Config::get('wardrobe.per_page'));
 
 		return View::make('themes.'.$this->theme.'.archive')
                                              ->with('posts', $posts);
 	}
 
+	/**
+	 * Get posts by tag
+	 *
+	 * string $tag
+	 * return Response
+	 */
 	public function getTag($tag)
 	{
-		$posts = $this->posts->activeByTag($tag);
+		$posts = $this->posts->activeByTag($tag, Config::get('wardrobe.per_page'));
 
 		return View::make('themes.'.$this->theme.'.archive')
                                              ->with('posts', $posts)

@@ -31,11 +31,11 @@ class RssController extends BaseController {
    */
   public function getIndex()
   {
-    $posts = $this->posts->active();
+    $posts = $this->posts->active(100);
 
     $data = array(
       'posts'   => $posts,
-      'updated' => $posts->first()->atom_date,
+      'updated' => $posts[0]->atom_date,
     );
 
     return Response::view('themes.'.$this->theme.'.atom', $data, 200, array(

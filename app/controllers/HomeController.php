@@ -31,7 +31,7 @@ class HomeController extends BaseController {
 	 */
 	public function getIndex()
 	{
-		$posts = $this->posts->active();
+		$posts = $this->posts->active(Config::get('wardrobe.per_page'));
 
 		return View::make('themes.'.$this->theme.'.index', compact('posts'));
 	}
