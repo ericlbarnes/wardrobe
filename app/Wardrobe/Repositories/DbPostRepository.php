@@ -1,6 +1,6 @@
 <?php namespace Wardrobe\Repositories;
 
-use DateTime, Validator;
+use DateTime, Validator, Config;
 use Wardrobe\Post;
 use Wardrobe\Tag;
 
@@ -27,7 +27,7 @@ class DbPostRepository implements PostRepositoryInterface {
                         ->where('active', 1)
                         ->where('publish_date', '<=', new DateTime)
                         ->orderBy('publish_date', 'desc')
-                        ->get();
+                        ->paginate(Config::get('wardrobe.per_page'));
 	}
 
 	/**
@@ -66,7 +66,7 @@ class DbPostRepository implements PostRepositoryInterface {
                        ->where('tags.tag', '=', $tag)
                        ->orderBy('posts.publish_date', 'desc')
                        ->distinct()
-                       ->get();
+                       ->paginate(Config::get('wardrobe.per_page'));
 	}
 
 	/**
