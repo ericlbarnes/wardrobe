@@ -97,7 +97,7 @@ class ApiPostController extends BaseController {
 
 		if (count($messages) > 0)
 		{
-			return Response::json($messagse->all(), 500);
+			return Response::json($messages->all(), 500);
 		}
 
 		return $this->posts->update(
