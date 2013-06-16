@@ -20,6 +20,10 @@ Next cd to the directory and run the following terminal commands:
 
 Finally visit http://site.com/install and follow the steps.
 
+### Themes
+
+All the theme files are in public/themes/default. You can duplicate this folder and then change the name in app/config/wardrobe.php if you wish to create your own. (Which I do recommend)
+
 ### License
 
 Wardrobe is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
