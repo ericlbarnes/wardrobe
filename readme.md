@@ -2,6 +2,8 @@
 
 Wardrobe is designed to be a very minimal blogging platform with the primary focus on writing. Currently it is a work in progress but you are free to give it a try. (Just be warned this alpha/beta quality). If you have any issues or ideas please report them.
 
+![Wardobe](http://ericlbarnes.com/media/wardrobe-air.png)
+
 ## Installation
 
 I will be adding a full download to make installation easier for those with out composer but for the time being please follow the below instructions.
