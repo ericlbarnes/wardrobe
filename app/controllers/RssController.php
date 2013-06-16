@@ -35,7 +35,7 @@ class RssController extends BaseController {
 
     $data = array(
       'posts'   => $posts,
-      'updated' => $posts[0]->atom_date,
+      'updated' => isset($posts[0]) ? $posts[0]->atom_date : date('Y-m-d H:i:s'),
     );
 
     return Response::view('themes.'.$this->theme.'.atom', $data, 200, array(
