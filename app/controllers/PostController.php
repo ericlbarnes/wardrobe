@@ -31,19 +31,22 @@ class PostController extends BaseController {
 	 */
 	public function getIndex()
 	{
-		$posts = $this->posts->active();
+		$posts = $this->posts->active(Config::get('wardrobe.per_page'));
 
-		return View::make('themes.'.$this->theme.'.archive')
-                                             ->with('posts', $posts);
+		return View::make('themes.'.$this->theme.'.archive', compact('posts'));
 	}
 
+	/**
+	 * Get posts by tag
+	 *
+	 * string $tag
+	 * return Response
+	 */
 	public function getTag($tag)
 	{
-		$posts = $this->posts->activeByTag($tag);
+		$posts = $this->posts->activeByTag($tag, Config::get('wardrobe.per_page'));
 
-		return View::make('themes.'.$this->theme.'.archive')
-                                             ->with('posts', $posts)
-                                             ->with('tag', $tag);
+		return View::make('themes.'.$this->theme.'.archive', compact('posts', 'tag'));
 	}
 
 	/**
@@ -56,7 +59,6 @@ class PostController extends BaseController {
 	{
 		$post = $this->posts->findBySlug($slug);
 
-		return View::make('themes.'.$this->theme.'.post')
-                                             ->with('post', $post);
+		return View::make('themes.'.$this->theme.'.post', compact('post'));
 	}
 }

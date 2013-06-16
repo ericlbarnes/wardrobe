@@ -12,12 +12,17 @@
       <h2 class="title">Archives</h2>
     @endif
 
-    <ul class="archive">
-      @foreach ($posts as $post)
-        <li>
-          <span>{{ date("M/d/Y", strtotime($post->publish_date)) }}</span> <strong><a href="/post/{{ $post->slug }}">{{ $post->title }}</a></strong>
-        </li>
-      @endforeach
-    </ul>
+    @foreach ($posts as $post)
+      <div class="post">
+        <h1><a href="/post/{{ $post->slug }}">{{ $post->title }}</a></h1>
+        <div class="date">{{ date("M/d/Y", strtotime($post->publish_date)) }}</div>
+        <div class="content">
+          {{ md($post->content) }}
+        </div>
+      </div>
+    @endforeach
+
+    {{ $posts->links() }}
+
   </section>
 @stop

@@ -51,13 +51,15 @@ class ApiPostController extends BaseController {
 			return Response::json($messages->all(), 500);
 		}
 
+		$date = (Input::get('publish_date') == "") ? "Now" : Input::get('publish_date');
+
 		return $this->posts->create(
 			Input::get('title'),
 			Input::get('content'),
 			Input::get('slug'),
 			explode(',', Input::get('tags')),
 			(bool) Input::get('active'),
-			Carbon::createFromTimestamp(strtotime(Input::get('publish_date')))
+			Carbon::createFromTimestamp(strtotime($date))
 		);
 	}
 
@@ -95,7 +97,7 @@ class ApiPostController extends BaseController {
 
 		if (count($messages) > 0)
 		{
-			return Response::json($messagse->all(), 500);
+			return Response::json($messages->all(), 500);
 		}
 
 		return $this->posts->update(

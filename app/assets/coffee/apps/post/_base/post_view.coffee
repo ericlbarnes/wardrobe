@@ -26,7 +26,6 @@
 
       if @model.isNew()
         $('#slug').slugify('#title')
-        @$("#publish_date").val "Now"
       else
         publish = moment(@model.get("publish_date"), "YYYY-MM-DD HH:mm")
         @$("#publish_date").val publish.format("MMM Do, YYYY h:mm A")

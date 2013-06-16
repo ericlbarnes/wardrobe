@@ -13,16 +13,19 @@ interface PostRepositoryInterface {
 
 	/**
 	 * Get all the active posts.
+	 *
+	 * @param int $per_page
 	 */
-	public function active();
+	public function active($per_page);
 
 	/**
 	 * Get all posts with a tag
 	 *
 	 * @param  string   $tag
+	 * @param int $per_page
 	 * @return array
 	 */
-	public function activeByTag($tag);
+	public function activeByTag($tag, $per_page);
 
 	/**
 	 * Get a Post by its primary key.
