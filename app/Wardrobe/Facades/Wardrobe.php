@@ -2,7 +2,7 @@
 
 use Wardrobe\Repositories\PostRepositoryInterface;
 
-class Entries {
+class Wardrobe {
 
   /**
    * The post repository implementation.
@@ -24,11 +24,22 @@ class Entries {
 
   /**
    * Fetch Posts
+   *
+   * @param array $params
+   * @return Posts
    */
   public function fetch($params = array())
   {
-    $per_page = isset($params['per_page']) ? $params['per_page'] : "30";
+    $per_page = isset($params['per_page']) ? $params['per_page'] : Config::get('wardrobe.per_page');
 
-    return $this->posts->active()->paginate($per_page);
+    return $this->posts->active($per_page);
+  }
+
+  /**
+   * Fetch all tags
+   */
+  public function tags()
+  {
+    return $this->posts->allTags();
   }
 }
