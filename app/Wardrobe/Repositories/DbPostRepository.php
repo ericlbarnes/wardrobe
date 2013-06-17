@@ -49,7 +49,10 @@ class DbPostRepository implements PostRepositoryInterface {
 	 */
 	public function findBySlug($slug)
 	{
-		return Post::with('tags')->where('slug', $slug)->first();
+		return Post::with('tags')
+                        ->where('active', 1)
+                        ->where('publish_date', '<=', new DateTime)
+                        ->where('slug', $slug)->first();
 	}
 
 	/**
@@ -66,6 +69,8 @@ class DbPostRepository implements PostRepositoryInterface {
                        ->join('tags', 'posts.id', '=', 'tags.post_id')
                        ->where('tags.tag', '=', $tag)
                        ->orderBy('posts.publish_date', 'desc')
+                       ->where('posts.active', 1)
+                       ->where('posts.publish_date', '<=', new DateTime)
                        ->distinct()
                        ->paginate($per_page);
 	}
