@@ -81,6 +81,7 @@ return array(
 	'providers' => array(
 
 		'Wardrobe\BackendServiceProvider',
+		'Wardrobe\Html\HtmlServiceProvider',
 
 		'Illuminate\Foundation\Providers\ArtisanServiceProvider',
 		'Illuminate\Auth\AuthServiceProvider',
@@ -145,6 +146,7 @@ return array(
 	'aliases' => array(
 
 		'Wardrobe'            => 'Wardrobe\Facades\WardrobeFacade',
+		'HTML'                => 'Wardrobe\Facades\HTML',
 
 		'App'             => 'Illuminate\Support\Facades\App',
 		'Artisan'         => 'Illuminate\Support\Facades\Artisan',
@@ -162,7 +164,6 @@ return array(
 		'File'            => 'Illuminate\Support\Facades\File',
 		'Form'            => 'Illuminate\Support\Facades\Form',
 		'Hash'            => 'Illuminate\Support\Facades\Hash',
-		'HTML'            => 'Illuminate\Support\Facades\HTML',
 		'Input'           => 'Illuminate\Support\Facades\Input',
 		'Lang'            => 'Illuminate\Support\Facades\Lang',
 		'Log'             => 'Illuminate\Support\Facades\Log',
