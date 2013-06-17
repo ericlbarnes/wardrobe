@@ -2,7 +2,7 @@
 
 @section('content')
 
-  <section class="contact">
-    <p>This could be a contact page.</p>
+  <section class="about">
+    <p>This could be an about page.</p>
   </section>
 @stop

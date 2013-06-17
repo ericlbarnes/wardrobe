@@ -8,6 +8,6 @@
   <section>
     <h2 class="title">{{ $post->title }}</h2>
     {{ md($post->content) }}
-</section>
+  </section>
 @stop
 

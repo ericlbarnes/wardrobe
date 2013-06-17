@@ -11,7 +11,12 @@
 |
 */
 
-Route::get('/contact', function()
+Route::get('/about', function()
 {
-    return View::make(theme_path('contact'));
+    return View::make(theme_path('about'));
+});
+
+Route::get('/tags', function()
+{
+    return View::make(theme_path('tags'));
 });
