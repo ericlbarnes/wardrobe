@@ -57,7 +57,7 @@ class PostController extends BaseController {
 	 */
 	public function getShow($slug)
 	{
-		$post = $this->posts->findBySlug($slug);
+		$post = $this->posts->findActiveBySlug($slug);
 
 		return View::make('themes.'.$this->theme.'.post', compact('post'));
 	}
