@@ -1,21 +1,21 @@
 {{ '<' }}?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
- <title>Your Site</title>
- <link href="="http://site.com/atom.xml" rel="self"/>
- <link href="="http://site.com/"/>
+ <title>{{ site_title() }}</title>
+ <link href="{{ Config::get('app.url') }}/atom.xml" rel="self"/>
+ <link href="{{ Config::get('app.url') }}"/>
  <updated>{{ $updated }}</updated>
- <id>/</id>
- <author>
-   <name>Eric Barnes</name>
- </author>
+ <id>{{ Config::get('app.url') }}/</id>
 
  @foreach ($posts as $post)
  <entry>
    <title>{{ $post->title }}</title>
-   <link href="http://site.com/post/{{ $post->slug }}"/>
+   <link href="{{ Config::get('app.url') }}/post/{{ $post->slug }}"/>
+   <author>
+      <name>{{ site_title() }}</name>
+    </author>
    <updated>{{ $post->atom_date }}</updated>
-   <id>="http://site.com/post/{{ $post->slug }}</id>
+   <id>{{ Config::get('app.url') }}/post/{{ $post->slug }}</id>
    <content type="html">{{ $post->content }}</content>
  </entry>
  @endforeach

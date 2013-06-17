@@ -1,6 +1,18 @@
 <?php
 
 /**
+ * Site Title
+ *
+ * Helper that allows you to easily get the site title
+ *
+ * @return string
+ */
+function site_title()
+{
+  return Config::get('wardrobe.title');
+}
+
+/**
  * Theme Path
  *
  * Helper that allows you to easily get a theme path inside the views.

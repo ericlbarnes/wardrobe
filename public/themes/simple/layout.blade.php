@@ -10,7 +10,7 @@
   <body>
     <div class="container">
       <header>
-        <h1><a href="/">Default Theme</a></h1>
+        <h1><a href="/">{{ site_title() }}</a></h1>
         <nav>
           <ul>
             <li><a href="/archive">Posts</a></li>

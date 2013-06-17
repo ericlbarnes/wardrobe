@@ -13,7 +13,7 @@ class Wardrobe {
   protected $postsRepo;
 
   /**
-   * Create a new Home controller instance.
+   * Create a new wardrobe facade instance.
    *
    * @param  Wardrobe\PostRepositoryInterface  $postsRepo
    * @return void
