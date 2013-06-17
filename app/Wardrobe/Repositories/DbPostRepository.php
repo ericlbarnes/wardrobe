@@ -56,6 +56,17 @@ class DbPostRepository implements PostRepositoryInterface {
 	}
 
 	/**
+	 * Get a Post by its slug
+	 *
+	 * @param  string 	$slug
+	 * @return Post
+	 */
+	public function findActiveBySlug($slug)
+	{
+		return Post::with('tags')->where('slug', $slug)->where('posts.active', 1)->first();
+	}
+
+	/**
 	 * Get all posts with a tag
 	 *
 	 * @param  string   $tag
@@ -68,6 +79,7 @@ class DbPostRepository implements PostRepositoryInterface {
                        ->select('posts.*')
                        ->join('tags', 'posts.id', '=', 'tags.post_id')
                        ->where('tags.tag', '=', $tag)
+                       ->where('posts.active', 1)
                        ->orderBy('posts.publish_date', 'desc')
                        ->where('posts.active', 1)
                        ->where('posts.publish_date', '<=', new DateTime)
