@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
  <title>{{ site_title() }}</title>
- <link href="{{ Config::get('app.url') }}/atom.xml" rel="self"/>
+ <link href="{{ Config::get('app.url') }}/rss" rel="self"/>
  <link href="{{ Config::get('app.url') }}"/>
  <updated>{{ $updated }}</updated>
  <id>{{ Config::get('app.url') }}/</id>
