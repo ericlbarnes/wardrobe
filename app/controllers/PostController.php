@@ -59,12 +59,12 @@ class PostController extends BaseController {
 	{
 		$post = $this->posts->findBySlug($slug);
 
-
-		if ($post) {
-			return View::make('themes.'.$this->theme.'.post', compact('post'));
+		if ( ! $post)
+		{
+			return App::abort(404, 'Page not found');
 		}
 
-		App::abort(404, 'Page not found');
+		return View::make('themes.'.$this->theme.'.post', compact('post'));
 
 	}
 }
