@@ -1,5 +1,6 @@
 <?php namespace Wardrobe\Facades;
 
+use Config;
 use Wardrobe\Repositories\PostRepositoryInterface;
 
 class Wardrobe {
@@ -9,17 +10,17 @@ class Wardrobe {
    *
    * @var Wardrobe\PostRepositoryInterface
    */
-  protected $posts;
+  protected $postsRepo;
 
   /**
    * Create a new Home controller instance.
    *
-   * @param  Wardrobe\PostRepositoryInterface  $posts
+   * @param  Wardrobe\PostRepositoryInterface  $postsRepo
    * @return void
    */
-  public function __construct(PostRepositoryInterface $posts)
+  public function __construct(PostRepositoryInterface $postsRepo)
   {
-    $this->posts = $posts;
+    $this->postsRepo = $postsRepo;
   }
 
   /**
@@ -28,11 +29,11 @@ class Wardrobe {
    * @param array $params
    * @return Posts
    */
-  public function fetch($params = array())
+  public function posts($params = array())
   {
     $per_page = isset($params['per_page']) ? $params['per_page'] : Config::get('wardrobe.per_page');
 
-    return $this->posts->active($per_page);
+    return $this->postsRepo->active($per_page);
   }
 
   /**
@@ -40,6 +41,6 @@ class Wardrobe {
    */
   public function tags()
   {
-    return $this->posts->allTags();
+    return $this->postsRepo->allTags();
   }
 }
