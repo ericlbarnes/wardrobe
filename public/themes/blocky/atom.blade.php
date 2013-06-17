@@ -16,7 +16,7 @@
     </author>
    <updated>{{ $post->atom_date }}</updated>
    <id>{{ Config::get('app.url') }}/post/{{ $post->slug }}</id>
-   <content type="html">{{ $post->content }}</content>
+   <content type="html">{{ md($post->content) }}</content>
  </entry>
  @endforeach
 
