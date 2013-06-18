@@ -22,7 +22,7 @@
         @yield('content')
       </div>
       <footer>
-      <p>Powered by <a href="https://github.com/ericbarnes/wardrobe">Wardrobe</a></p>
+      <p>Powered by <a href="http://wardrobe.ericlbarnes.com">Wardrobe</a></p>
       </footer>
     </div>
   </body>

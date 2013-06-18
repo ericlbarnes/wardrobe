@@ -13,8 +13,8 @@
         <h1><a href="{{ url('/') }}">{{ site_title() }}</a></h1>
         <nav>
           <ul>
-            <li><a href="{{ url('/archive') }}">Posts</a></li>
-            <li><a href="{{ url('/rss') }}">RSS</a></li>
+            <li><a href="{{ url('archive') }}">Posts</a></li>
+            <li><a href="{{ url('rss') }}">RSS</a></li>
           </ul>
         </nav>
       </header>
@@ -22,7 +22,7 @@
         @yield('content')
       </div>
       <footer>
-      <p>Powered by <a href="https://github.com/ericbarnes/wardrobe">Wardrobe</a></p>
+      <p>Powered by <a href="http://wardrobe.ericlbarnes.com">Wardrobe</a></p>
       </footer>
     </div>
   </body>
