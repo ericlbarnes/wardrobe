@@ -3,7 +3,7 @@
   <channel>
     <title>{{ e(site_title()) }}</title>
     <link>{{ url('/') }}</link>
-    <atom:link href="{{ url('/rss') }}" rel="self" type="application/rss+xml" />
+    <atom:link href="{{ url('rss') }}" rel="self" type="application/rss+xml" />
     <description></description>
     <copyright>{{ url('/') }}</copyright>
     <ttl>30</ttl>
