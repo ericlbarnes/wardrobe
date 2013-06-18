@@ -176,7 +176,7 @@ pre code {
   padding: .5em;
   color: #000;
   background: #f8f8ff;
-  font-family: Inconsolata,Monaco,Verdana,Sans-serif;
+  font-family: Inconsolata,Monaco,"Lucida Console",monospace;
   font-size: 13px;
   line-height: 23px;
   margin: 0;
