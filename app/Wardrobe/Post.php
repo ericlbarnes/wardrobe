@@ -27,6 +27,11 @@ class Post extends \Eloquent {
 		return $this->hasMany('\Wardrobe\Tag', 'post_id');
 	}
 
+	public function getParsedContentAttribute()
+	{
+		return md($this->attributes['content']);
+	}
+
 	/**
 	 * Get the atom date for atom feeds
 	 * @return DateTime
