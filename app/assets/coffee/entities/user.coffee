@@ -1,11 +1,13 @@
 @Wardrobe.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
 
   class Entities.User extends App.Entities.Model
-    urlRoot: "/api/user"
+    urlRoot: ->
+      App.request("get:base:url") + "/api/user"
 
   class Entities.UsersCollection extends App.Entities.Collection
     model: Entities.User
-    url: "/api/user"
+    url: ->
+      App.request("get:base:url") + "/api/user"
 
   API =
     setCurrentUser: (currentUser) ->

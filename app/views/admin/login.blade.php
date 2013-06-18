@@ -12,7 +12,7 @@
 			<p>Your email or password is incorrect. <a href="/wardrobe/login/remind/">Forgot password?</a></p>
 		</div>
 		@endif
-		<form method="post" action="/wardrobe/login" class="form-horizontal">
+		<form method="post" action="{{ url('/wardrobe/login') }}" class="form-horizontal">
 			<p><input type="text" id="inputEmail" name="email" placeholder="Email"></p>
 			<p><input type="password" id="inputPassword" name="password" placeholder="Password"></p>
 			<p><label class="checkbox"><input type="checkbox" name="remember"> Remember me</label></p>

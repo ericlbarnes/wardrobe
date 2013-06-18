@@ -271,10 +271,14 @@ this.Wardrobe = (function(Backbone, Marionette) {
   App = new Backbone.Marionette.Application();
   App.on("initialize:before", function(options) {
     App.environment = $('meta[name=env]').attr("content");
-    return this.currentUser = App.request("set:current:user", options.user);
+    this.currentUser = App.request("set:current:user", options.user);
+    return this.baseUrl = options.base_url;
   });
   App.reqres.setHandler("get:current:user", function() {
     return App.currentUser;
+  });
+  App.reqres.setHandler("get:base:url", function() {
+    return App.baseUrl;
   });
   App.addRegions({
     headerRegion: "#header-region",
@@ -449,7 +453,9 @@ this.Wardrobe.module("Entities", function(Entities, App, Backbone, Marionette, $
       return Post.__super__.constructor.apply(this, arguments);
     }
 
-    Post.prototype.urlRoot = "/api/post";
+    Post.prototype.urlRoot = function() {
+      return App.request("get:base:url") + "/api/post";
+    };
 
     return Post;
 
@@ -464,7 +470,9 @@ this.Wardrobe.module("Entities", function(Entities, App, Backbone, Marionette, $
 
     PostCollection.prototype.model = Entities.Post;
 
-    PostCollection.prototype.url = "/api/post";
+    PostCollection.prototype.url = function() {
+      return App.request("get:base:url") + "/api/post";
+    };
 
     return PostCollection;
 
@@ -514,7 +522,9 @@ this.Wardrobe.module("Entities", function(Entities, App, Backbone, Marionette, $
       return Tag.__super__.constructor.apply(this, arguments);
     }
 
-    Tag.prototype.urlRoot = "/api/tag";
+    Tag.prototype.urlRoot = function() {
+      return App.request("get:base:url") + "/api/tag";
+    };
 
     return Tag;
 
@@ -529,7 +539,9 @@ this.Wardrobe.module("Entities", function(Entities, App, Backbone, Marionette, $
 
     TagCollection.prototype.model = Entities.Tag;
 
-    TagCollection.prototype.url = "/api/tag";
+    TagCollection.prototype.url = function() {
+      return App.request("get:base:url") + "/api/tag";
+    };
 
     return TagCollection;
 
@@ -570,7 +582,9 @@ this.Wardrobe.module("Entities", function(Entities, App, Backbone, Marionette, $
       return User.__super__.constructor.apply(this, arguments);
     }
 
-    User.prototype.urlRoot = "/api/user";
+    User.prototype.urlRoot = function() {
+      return App.request("get:base:url") + "/api/user";
+    };
 
     return User;
 
@@ -585,7 +599,9 @@ this.Wardrobe.module("Entities", function(Entities, App, Backbone, Marionette, $
 
     UsersCollection.prototype.model = Entities.User;
 
-    UsersCollection.prototype.url = "/api/user";
+    UsersCollection.prototype.url = function() {
+      return App.request("get:base:url") + "/api/user";
+    };
 
     return UsersCollection;
 

@@ -1,11 +1,13 @@
 @Wardrobe.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
 
   class Entities.Post extends App.Entities.Model
-    urlRoot: "/api/post"
+    urlRoot: ->
+      App.request("get:base:url") + "/api/post"
 
   class Entities.PostCollection extends App.Entities.Collection
     model: Entities.Post
-    url: "/api/post"
+    url: ->
+      App.request("get:base:url") + "/api/post"
 
   API =
     getAll: ->

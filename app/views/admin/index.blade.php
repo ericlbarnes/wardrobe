@@ -12,7 +12,8 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			Wardrobe.start({
-        user: {{ $user }}
+        user: {{ $user }},
+        base_url: "{{ url('/') }}"
       });
 		});
 	</script>

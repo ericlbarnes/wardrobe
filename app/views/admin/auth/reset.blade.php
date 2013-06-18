@@ -13,7 +13,7 @@
       </div>
     @endif
 
-    <form method="post" action="/password/reset/{{ $token }}" class="form-horizontal">
+    <form method="post" action="{{ url('/password/reset/'.$token) }}" class="form-horizontal">
       <input type="hidden" name="token" value="{{ $token }}">
       <p><input type="text" id="inputEmail" name="email" placeholder="Email"></p>
       <p><input type="password" name="password" placeholder="Password"></p>
