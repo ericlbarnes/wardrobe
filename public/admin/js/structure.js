@@ -13289,6 +13289,7 @@ Editor.prototype.render = function(el) {
     theme: 'paper',
     indentWithTabs: true,
     lineNumbers: false,
+    lineWrapping: true,
     extraKeys: keyMaps
   });
 
