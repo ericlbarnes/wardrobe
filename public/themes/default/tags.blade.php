@@ -14,7 +14,7 @@
 
     @foreach (Wardrobe::tags() as $item)
       @if ($item['tag'] != "")
-        <li>{{ $item['tag'] }}</li>
+        <li><a href="{{ url('/tag/'.$item['tag']) }}">{{ $item['tag'] }}</a></li>
       @endif
     @endforeach
 

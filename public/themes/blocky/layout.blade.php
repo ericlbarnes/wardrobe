@@ -4,17 +4,17 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>@yield('title')</title>
-    <link href="/{{ theme_path('css/style.css') }}" rel="stylesheet" media="screen">
+    <link href="{{ url(theme_path('css/style.css')) }}" rel="stylesheet" media="screen">
   </head>
   <body>
     <div class="container">
       <header>
-        <h1><a href="/">{{ site_title() }}</a></h1>
+        <h1><a href="{{ url('/') }}">{{ site_title() }}</a></h1>
         <nav>
           <ul>
-            <li><a href="/archive">Posts</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/rss">RSS</a></li>
+            <li><a href="{{ url('/archive') }}">Posts</a></li>
+            <li><a href="{{ url('/about') }}">About</a></li>
+            <li><a href="{{ url('/rss') }}">RSS</a></li>
           </ul>
         </nav>
       </header>
