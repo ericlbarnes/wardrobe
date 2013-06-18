@@ -7,7 +7,8 @@
 @section('content')
   <section class="post">
     <h2 class="title">{{ $post->title }}</h2>
-    {{ md($post->content) }}
+
+    {{ $post->parsed_content }}
 
     @include(theme_path('inc.tags'))
 </section>

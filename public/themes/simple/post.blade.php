@@ -7,7 +7,7 @@
 @section('content')
   <section>
     <h2 class="title">{{ $post->title }}</h2>
-    {{ md($post->content) }}
+    {{ $post->parsed_content }}
   </section>
 @stop
 
