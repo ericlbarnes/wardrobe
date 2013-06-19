@@ -6724,6 +6724,9 @@ Editor.prototype.action = function(name, cm) {
     case 'italic':
       replaceSelection('*');
       break;
+    case 'code':
+      replaceSelection('    ');
+      break;
     case 'link':
       replaceSelection('[', '](http://)');
       break;

@@ -34,7 +34,7 @@
       toolbar = [
         'bold', 'italic', '|'
         'quote', 'unordered-list', 'ordered-list', '|'
-        'link', 'image', '|'
+        'link', 'image', 'code', '|'
         'undo', 'redo', '|', 'tags', 'calendar'
       ]
 
@@ -76,6 +76,9 @@
         @$("js-tags").focus()
 
       @tagsShown = !@tagsShown
+
+    insertCode: (e) ->
+      e.preventDefault()
 
     setupCalendar: ->
       @$(".icon-calendar").qtip

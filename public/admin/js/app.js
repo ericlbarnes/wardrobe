@@ -1060,7 +1060,7 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
 
     PostView.prototype.setUpEditor = function() {
       var toolbar;
-      toolbar = ['bold', 'italic', '|', 'quote', 'unordered-list', 'ordered-list', '|', 'link', 'image', '|', 'undo', 'redo', '|', 'tags', 'calendar'];
+      toolbar = ['bold', 'italic', '|', 'quote', 'unordered-list', 'ordered-list', '|', 'link', 'image', 'code', '|', 'undo', 'redo', '|', 'tags', 'calendar'];
       this.editor = new Editor({
         toolbar: toolbar
       });
@@ -1106,6 +1106,10 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
         this.$("js-tags").focus();
       }
       return this.tagsShown = !this.tagsShown;
+    };
+
+    PostView.prototype.insertCode = function(e) {
+      return e.preventDefault();
     };
 
     PostView.prototype.setupCalendar = function() {
