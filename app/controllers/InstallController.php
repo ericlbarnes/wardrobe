@@ -21,7 +21,7 @@ class InstallController extends BaseController {
   {
     parent::__construct();
 
-    if (Config::get("wardrobe.installed"))
+    if (Config::get("wardrobe.installed") === true)
     {
       return App::abort(404, 'Page not found');
     }
