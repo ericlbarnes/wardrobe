@@ -73,6 +73,20 @@ p {
   color: #666;
 }
 
+ul.tags {
+  list-style-type: none;
+  margin: 0 0 10px 0;
+  padding: 0;
+}
+
+ul.tags li {
+  display: inline-block;
+  padding: 3px 5px;
+  background: #efefef;
+  border-radius: 5px;
+  font-size: 12px;
+}
+
 .container {
   margin: 0 auto;
   width: 600px;
