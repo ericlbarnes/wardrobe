@@ -9484,7 +9484,7 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
   content: 'lines: ';
 }
 .editor-statusbar .words:before {
-  content: 'words: ';
+  content: 'characters: ';
 }
 body {
   margin: 0;
