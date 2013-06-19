@@ -8,6 +8,8 @@
   <section>
     <h2 class="title">{{ $post->title }}</h2>
     {{ md($post->content) }}
+    
+    @include(theme_path('inc.tags'))
   </section>
 @stop
 
