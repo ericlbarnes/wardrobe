@@ -9,7 +9,7 @@
 		<h1>Login</h1>
 		@if (Session::has('login_errors'))
 		<div class="alert alert-block alert-error">
-			<p>Your email or password is incorrect. <a href="/wardrobe/login/remind/">Forgot password?</a></p>
+			<p>Your email or password is incorrect. <a href="{{ url('wardrobe/login/remind') }}">Forgot password?</a></p>
 		</div>
 		@endif
 		<form method="post" action="{{ url('/wardrobe/login') }}" class="form-horizontal">

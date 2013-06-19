@@ -15,7 +15,7 @@
       @endforeach
     </div>
     @endif
-    <form method="post" style="text-align: center;" action="/install" class="form-horizontal">
+    <form method="post" style="text-align: center;" action="{{ url('install') }}" class="form-horizontal">
       <button style="text-align: center;" type="submit" class="btn save">Install Database &amp; Continue</button>
     </form>
   </div>
