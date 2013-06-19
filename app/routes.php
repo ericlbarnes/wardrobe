@@ -25,10 +25,7 @@ Route::controller('wardrobe/login', 'LoginController');
 Route::resource('api/post', 'ApiPostController');
 Route::resource('api/tag', 'ApiTagController');
 Route::resource('api/user', 'ApiUserController');
-Route::get('install', 'InstallController@getIndex');
-Route::post('install', 'InstallController@postIndex');
-Route::get('install/step2', 'InstallController@getUser');
-Route::post('install/user', 'InstallController@postUser');
+Route::controller('install', 'InstallController');
 
 $theme_routes = __DIR__.'/../public/themes/'.Config::get('wardrobe.theme').'/routes.php';
 

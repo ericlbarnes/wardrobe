@@ -21,6 +21,11 @@ class InstallController extends BaseController {
   {
     parent::__construct();
 
+    if (Config::get("wardrobe.installed"))
+    {
+      return App::abort(404, 'Page not found');
+    }
+
     $this->users = $users;
   }
 
@@ -41,6 +46,8 @@ class InstallController extends BaseController {
    */
   public function postIndex()
   {
+    Artisan::call('key:generate', array('--env' => App::environment()));
+
     $artisan = Artisan::call('migrate', array('--env' => App::environment()));
 
     if ($artisan > 0)
@@ -50,7 +57,7 @@ class InstallController extends BaseController {
                           ->with('install_errors', true);
     }
 
-    return Redirect::to('install/step2');
+    return Redirect::to('install/user');
   }
 
   /**
@@ -60,7 +67,7 @@ class InstallController extends BaseController {
    */
   public function getUser()
   {
-    return View::make('admin.installer.step2');
+    return View::make('admin.installer.user');
   }
 
   /**
@@ -92,7 +99,39 @@ class InstallController extends BaseController {
       Input::get('password')
     );
 
+    return Redirect::to('install/config');
+  }
+
+  /**
+   * Get the config form.
+   */
+  public function getConfig()
+  {
+    return View::make('admin.installer.config');
+  }
+
+  /**
+   * Save the config files
+   */
+  public function postConfig()
+  {
+    $this->setWardrobeConfig(Input::get('title', 'Site Name'), Input::get('theme', 'Default'), Input::get('per_page', 5));
     return View::make('admin.installer.complete');
   }
 
+  /**
+   * Update the configs based on passed data
+   *
+   * @param string $title
+   */
+  protected function setWardrobeConfig($title, $theme, $per_page)
+  {
+    $path = app_path().'/config/wardrobe.php';
+    $content = str_replace(
+      array('##title##', '##theme##', "'##per_page##'", "'##installed##'"),
+      array($title, $theme, (int) $per_page, 'true'),
+      File::get($path)
+    );
+    return File::put($path, $content);
+  }
 }
