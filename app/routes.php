@@ -18,16 +18,22 @@ Route::get('tag/{tag}', 'PostController@getTag');
 Route::get('archive', 'PostController@getIndex');
 Route::controller('post', 'PostController');
 Route::controller('rss', 'RssController');
+Route::controller('install', 'InstallController');
 
+/**
+ * Admin Routes
+ */
 Route::get('wardrobe', 'AdminController@getIndex');
 Route::get('wardrobe/logout', 'LoginController@getLogout');
 Route::controller('wardrobe/login', 'LoginController');
 Route::resource('api/post', 'ApiPostController');
 Route::resource('api/tag', 'ApiTagController');
 Route::resource('api/user', 'ApiUserController');
-Route::controller('install', 'InstallController');
 
-$theme_routes = __DIR__.'/../public/themes/'.Config::get('wardrobe.theme').'/routes.php';
+/**
+ * Allows themes complete control to over ride routes or add new ones.
+ */
+$theme_routes = base_path().'/public/themes/'.Config::get('wardrobe.theme').'/routes.php';
 
 if (file_exists($theme_routes))
 {
