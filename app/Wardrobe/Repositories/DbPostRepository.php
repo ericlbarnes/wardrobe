@@ -1,6 +1,6 @@
 <?php namespace Wardrobe\Repositories;
 
-use DateTime, Validator;
+use Config, Cache, DateTime, Validator;
 use Wardrobe\Post;
 use Wardrobe\Tag;
 
@@ -110,6 +110,12 @@ class DbPostRepository implements PostRepositoryInterface {
 	public function update($id, $title, $content, $slug, array $tags, $active, DateTime $publish_date)
 	{
 		$post = $this->find($id);
+
+		// Forget the old cache
+		if (Config::get('wardrobe.cache'))
+		{
+			Cache::forget('post-'.$post->id);
+		}
 
 		$post->fill(compact('title', 'content', 'slug', 'active', 'publish_date'))->save();
 

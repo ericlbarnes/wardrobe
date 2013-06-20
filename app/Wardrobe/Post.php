@@ -1,5 +1,6 @@
 <?php namespace Wardrobe;
 
+use Config, Cache;
 use Carbon\Carbon;
 
 class Post extends \Eloquent {
@@ -27,8 +28,21 @@ class Post extends \Eloquent {
 		return $this->hasMany('\Wardrobe\Tag', 'post_id');
 	}
 
+	/**
+	 * Get the content parsed into html
+	 *
+	 * @return string
+	 */
 	public function getParsedContentAttribute()
 	{
+		if (Config::get('wardrobe.cache'))
+		{
+			$content = $this->attributes['content'];
+			return Cache::rememberForever('post-'.$this->attributes['id'], function() use ($content)
+			{
+    				return md($content);
+			});
+		}
 		return md($this->attributes['content']);
 	}
 
