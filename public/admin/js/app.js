@@ -1141,7 +1141,7 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
           }
         },
         hide: "unfocus"
-      }, event);
+      });
     };
 
     PostView.prototype.save = function(e) {

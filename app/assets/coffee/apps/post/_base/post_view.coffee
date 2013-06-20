@@ -101,7 +101,6 @@
               $("#publish_date").val pubDate
               $('.icon-calendar').qtip "hide"
         hide: "unfocus"
-      , event
 
     save: (e) ->
       e.preventDefault()
