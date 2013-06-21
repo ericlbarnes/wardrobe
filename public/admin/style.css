@@ -9577,6 +9577,9 @@ td.title {
 .qtip .qtip-close {
   display: none !important;
 }
+.dz-preview {
+  display: none;
+}
 header .avatar {
   margin-right: 5px;
 }

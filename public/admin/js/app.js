@@ -46,7 +46,7 @@ this["JST"]["post/list/templates/grid.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<table class="table">\n\t<thead>\n\t\t<tr>\n\t\t\t<th>ID</th>\n\t\t\t<th>Title</th>\n\t\t\t<th>Status</th>\n\t\t\t<th>Published</th>\n\t\t\t<th>Delete</th>\n\t\t</tr>\n\t</thead>\n\t<tbody></tbody>\n</table>\n';
+__p += '<table class="table">\n\t<thead>\n\t\t<tr>\n\t\t\t<th>ID</th>\n\t\t\t<th>Title</th>\n\t\t\t<th>Status</th>\n\t\t\t<th>Published</th>\n\t\t\t<th>Delete</th>\n\t\t</tr>\n\t</thead>\n\t<tbody></tbody>\n</table>';
 
 }
 return __p
@@ -918,6 +918,29 @@ this.Wardrobe.module("AccountApp.Edit", function(Edit, App, Backbone, Marionette
 });
 
 
+this.Wardrobe.module("DropzoneApp", function(DropzoneApp, App, Backbone, Marionette, $, _) {
+  var API;
+  API = {
+    setupDropzone: function() {
+      var myDropzone;
+      myDropzone = new Dropzone(document.body, {
+        url: App.request("get:base:url") + "/api/dropzone",
+        method: "POST"
+      });
+      myDropzone.on("drop", function(file) {
+        return App.vent.trigger("post:new");
+      });
+      return myDropzone.on("success", function(file, contents) {
+        return App.vent.trigger("post:new:seed", contents);
+      });
+    }
+  };
+  return DropzoneApp.on("start", function() {
+    return API.setupDropzone();
+  });
+});
+
+
 this.Wardrobe.module("HeaderApp", function(HeaderApp, App, Backbone, Marionette, $, _) {
   var API;
   this.startWithParent = false;
@@ -1071,7 +1094,7 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
     PostView.prototype.setUpTags = function() {
       var _this = this;
       return App.request("tag:entities", function(tags) {
-        return _this.$("#js-tags").selectize({
+        return _this.selectize = _this.$("#js-tags").selectize({
           persist: true,
           maxItems: null,
           valueField: "tag",
@@ -1484,8 +1507,22 @@ this.Wardrobe.module("PostApp.New", function(New, App, Backbone, Marionette, $, 
       return Post.__super__.constructor.apply(this, arguments);
     }
 
+    Post.prototype.initialize = function() {
+      var _this = this;
+      return App.vent.on("post:new:seed", function(contents) {
+        return _this.fillForm(contents);
+      });
+    };
+
     Post.prototype.onRender = function() {
       return this.$(".publish").text("Publish Post");
+    };
+
+    Post.prototype.fillForm = function(contents) {
+      this.$("#slug").val(contents.fields.slug);
+      this.$("#title").val(contents.fields.title);
+      this.editor.codemirror.setValue(contents.content);
+      return this.$("#publish_date").val(contents.fields.date);
     };
 
     return Post;
@@ -1548,7 +1585,7 @@ this.Wardrobe.module("PostApp", function(PostApp, App, Backbone, Marionette, $, 
     App.navigate("post");
     return API.list();
   });
-  App.vent.on("post:new:clicked", function() {
+  App.vent.on("post:new:clicked post:new", function() {
     App.navigate("/", {
       trigger: false
     });

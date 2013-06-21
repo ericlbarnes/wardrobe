@@ -1,7 +1,8 @@
 {
 	"require": {
 		"laravel/framework": "4.0.*",
-		"dflydev/markdown": "1.0.*@dev"
+		"dflydev/markdown": "1.0.*@dev",
+		"symfony/yaml": "2.4.*@dev"
 	},
 	"autoload": {
 		"psr-0": {

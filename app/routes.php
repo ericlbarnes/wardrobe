@@ -29,6 +29,7 @@ Route::controller('wardrobe/login', 'LoginController');
 Route::resource('api/post', 'ApiPostController');
 Route::resource('api/tag', 'ApiTagController');
 Route::resource('api/user', 'ApiUserController');
+Route::controller('api/dropzone', 'ApiDropzoneController');
 
 /**
  * Allows themes complete control to over ride routes or add new ones.

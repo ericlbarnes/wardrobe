@@ -35,7 +35,7 @@
     App.navigate "post"
     API.list()
 
-  App.vent.on "post:new:clicked", ->
+  App.vent.on "post:new:clicked post:new", ->
     App.navigate "/",
       trigger: false
     API.add()

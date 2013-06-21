@@ -50,7 +50,7 @@
 
     setUpTags: ->
       App.request "tag:entities", (tags) =>
-        @$("#js-tags").selectize
+        @selectize = @$("#js-tags").selectize
           persist: true
           maxItems: null
           valueField: "tag"
