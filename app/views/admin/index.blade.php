@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-	<div id="main-region" class="span12"></div>
+	<div id="main-region"></div>
 @stop
 
 @section('footer.js')

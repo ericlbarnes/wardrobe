@@ -2,6 +2,7 @@
 
   class Views.PostView extends App.Views.ItemView
     template: "post/_base/templates/form"
+    className: "span12"
 
     initialize: ->
       @tagsShown = false
