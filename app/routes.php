@@ -12,7 +12,6 @@
 */
 
 Route::get('/', 'HomeController@getIndex');
-Route::get('archive', 'PostController@index');
 Route::get('post/{slug}', 'PostController@getShow');
 Route::get('tag/{tag}', 'PostController@getTag');
 Route::get('archive', 'PostController@getIndex');
