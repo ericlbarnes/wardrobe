@@ -140,9 +140,7 @@ $.fn.showAlert = function(title, msg, type) {
   $el = $(this);
   html = "<div class='alert alert-block " + type + "'>    <button type='button' class='close' data-dismiss='alert'>×</button>    <h4 class='alert-heading'>" + title + "</h4>    <p>" + msg + "</p>  </div>";
   $el.html(html).fadeIn();
-  if (type === "alert-success") {
-    return $(".alert").delay(3000).fadeOut(400);
-  }
+  return $(".alert").delay(3000).fadeOut(400);
 };
 
 
@@ -931,6 +929,11 @@ this.Wardrobe.module("DropzoneApp", function(DropzoneApp, App, Backbone, Marione
       myDropzone.on("drop", function(file) {
         return App.vent.trigger("post:new");
       });
+      myDropzone.on("error", function(file, message, xhr) {
+        var msg;
+        msg = $.parseJSON(message);
+        return $("#js-alert").showAlert("Error!", msg.error.message, "alert-error");
+      });
       return myDropzone.on("success", function(file, contents) {
         return App.vent.trigger("post:new:seed", contents);
       });
@@ -1072,16 +1075,19 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
     };
 
     PostView.prototype.onShow = function() {
-      var publish;
+      var publish,
+        _this = this;
       this.setUpEditor();
-      this.setUpTags();
       this.setupCalendar();
       if (this.model.isNew()) {
-        return $('#slug').slugify('#title');
+        $('#slug').slugify('#title');
       } else {
         publish = moment(this.model.get("publish_date"), "YYYY-MM-DD HH:mm");
-        return this.$("#publish_date").val(publish.format("MMM Do, YYYY h:mm A"));
+        this.$("#publish_date").val(publish.format("MMM Do, YYYY h:mm A"));
       }
+      return App.request("tag:entities", function(tags) {
+        return _this.setUpTags(tags);
+      });
     };
 
     PostView.prototype.setUpEditor = function() {
@@ -1094,30 +1100,10 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
       return this.$('.editor-statusbar').find('.lines').html(this.editor.codemirror.lineCount()).find('.words').html(this.editor.codemirror.getValue().length).find('.cursorActivity').html(this.editor.codemirror.getCursor().line + ':' + this.editor.codemirror.getCursor().ch);
     };
 
-    PostView.prototype.setUpTags = function() {
-      var _this = this;
-      return App.request("tag:entities", function(tags) {
-        return _this.selectize = _this.$("#js-tags").selectize({
-          persist: true,
-          maxItems: null,
-          valueField: "tag",
-          labelField: "tag",
-          searchField: ["tag"],
-          options: tags.toJSON(),
-          render: {
-            item: function(item) {
-              return "<div><i class='icon-tag'></i> " + item.tag + "</div>";
-            },
-            option: function(item) {
-              return "<div><i class='icon-tag'></i> " + item.tag + "</div>";
-            }
-          },
-          create: function(input) {
-            return {
-              "tag": input
-            };
-          }
-        });
+    PostView.prototype.setUpTags = function(tags) {
+      return this.$("#js-tags").select2({
+        tags: _.without(tags.pluck("tag"), ""),
+        allowClear: true
       });
     };
 
@@ -1527,7 +1513,14 @@ this.Wardrobe.module("PostApp.New", function(New, App, Backbone, Marionette, $, 
       this.$("#slug").val(contents.fields.slug);
       this.$("#title").val(contents.fields.title);
       this.editor.codemirror.setValue(contents.content);
-      return this.$("#publish_date").val(contents.fields.date);
+      this.$("#publish_date").val(contents.fields.date);
+      if (contents.fields.tags.length > 0) {
+        return this.fillTags(contents.fields.tags);
+      }
+    };
+
+    Post.prototype.fillTags = function(tags) {
+      return $("#js-tags").val(tags.join());
     };
 
     return Post;

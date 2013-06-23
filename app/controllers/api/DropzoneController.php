@@ -39,12 +39,12 @@ class ApiDropzoneController extends BaseController {
 
     if (substr($contents, 0, 3) !== '---')
     {
-      throw new Exception('Bad Formatting');
+      throw new Exception('Bad Markdown Formatting');
     }
 
     if ( ! ($pos = strpos($contents, '---', 3)))
     {
-      throw new Exception('Bad Formatting');
+      throw new Exception('Bad Markdown Formatting');
     }
 
     $frontMatter = trim(substr($contents, 3, $pos - 3));

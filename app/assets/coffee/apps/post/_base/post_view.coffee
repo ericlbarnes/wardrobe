@@ -22,7 +22,6 @@
 
     onShow: ->
       @setUpEditor()
-      @setUpTags()
       @setupCalendar()
 
       if @model.isNew()
@@ -30,6 +29,9 @@
       else
         publish = moment(@model.get("publish_date"), "YYYY-MM-DD HH:mm")
         @$("#publish_date").val publish.format("MMM Do, YYYY h:mm A")
+
+      App.request "tag:entities", (tags) =>
+        @setUpTags tags
 
     setUpEditor: ->
       toolbar = [
@@ -49,22 +51,11 @@
         .find('.words').html(@editor.codemirror.getValue().length)
         .find('.cursorActivity').html(@editor.codemirror.getCursor().line + ':' + @editor.codemirror.getCursor().ch)
 
-    setUpTags: ->
-      App.request "tag:entities", (tags) =>
-        @selectize = @$("#js-tags").selectize
-          persist: true
-          maxItems: null
-          valueField: "tag"
-          labelField: "tag"
-          searchField: ["tag"]
-          options: tags.toJSON()
-          render:
-            item: (item) ->
-              "<div><i class='icon-tag'></i> #{item.tag}</div>"
-            option: (item) ->
-              "<div><i class='icon-tag'></i> #{item.tag}</div>"
-          create: (input) ->
-            return "tag" : input
+    setUpTags: (tags) ->
+
+      @$("#js-tags").select2
+        tags: _.without tags.pluck("tag"), ""
+        allowClear: true
 
     toggleTags: (e) ->
       if @tagsShown

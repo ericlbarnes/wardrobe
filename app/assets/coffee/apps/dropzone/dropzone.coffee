@@ -12,6 +12,11 @@
       myDropzone.on "drop", (file) ->
         App.vent.trigger "post:new"
 
+      # Show any errors if the file upload fails.
+      myDropzone.on "error", (file, message, xhr) ->
+        msg = $.parseJSON message
+        $("#js-alert").showAlert("Error!", msg.error.message, "alert-error")
+
       # After uploading fill the form.
       myDropzone.on "success", (file, contents) ->
         App.vent.trigger "post:new:seed", contents

@@ -13,5 +13,4 @@ $.fn.showAlert = (title, msg, type) ->
     <p>#{msg}</p>
   </div>"
   $el.html(html).fadeIn()
-  if type is "alert-success"
-    $(".alert").delay(3000).fadeOut 400
+  $(".alert").delay(3000).fadeOut 400
