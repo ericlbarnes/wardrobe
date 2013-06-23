@@ -925,7 +925,8 @@ this.Wardrobe.module("DropzoneApp", function(DropzoneApp, App, Backbone, Marione
       var myDropzone;
       myDropzone = new Dropzone(document.body, {
         url: App.request("get:base:url") + "/api/dropzone",
-        method: "POST"
+        method: "POST",
+        clickable: false
       });
       myDropzone.on("drop", function(file) {
         return App.vent.trigger("post:new");

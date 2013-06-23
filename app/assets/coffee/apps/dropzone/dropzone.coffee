@@ -5,6 +5,7 @@
       myDropzone = new Dropzone(document.body,
         url: App.request("get:base:url") + "/api/dropzone"
         method: "POST"
+        clickable: false
       )
 
       # Once a file is dropped go to the new post page.
