@@ -15,9 +15,6 @@
       <div id="main-region" class="span12"></div>
     </div>
   </div>
-  <footer>
-    <p><a href="http://wardrobecms.com"><span></span>Powered by Wardrobe</a></p>
-  </footer>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script type="text/javascript" src="{{ asset('/admin/js/structure.js') }}"></script>
   <script type="text/javascript" src="{{ asset('/admin/js/app.js') }}"></script>

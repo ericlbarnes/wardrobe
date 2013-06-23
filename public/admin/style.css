@@ -9589,23 +9589,8 @@ td.title {
   font-size: 22px;
   line-height: 1.3em;
 }
-footer {
-  position: absolute;
-  bottom: 0;
-  left: 10px;
-  background-image: url('img/logo.png');
-  background-repeat: no-repeat;
-  background-position: left 2px;
-}
-@media all and (-webkit-min-device-pixel-ratio: 1.5) {
-  footer {
-    background-image: url('img/logo@2x.png');
-    background-size: 48px 20px;
-  }
-}
-footer a {
-  color: #898989;
-  padding-left: 60px;
+button {
+  font-family: 'Open Sans', sans-serif;
 }
 nav {
   font-family: 'Crimson Text', serif;
