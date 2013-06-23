@@ -8,6 +8,6 @@
   <div id="install-region">
     <h1>Success</h1>
     <p>Install complete.</p>
-    <p>Then you can <a href="{{ url('wardrobe') }}">login to the admin</a></p>
+    <p>You can now <a href="{{ url('wardrobe') }}">login to the admin</a></p>
   </div>
 @stop
