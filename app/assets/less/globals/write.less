@@ -1,0 +1,92 @@
+
+#write {
+  padding: 20px;
+  margin-bottom: 20px;
+  .popover {
+    max-width: 376px;
+    form {
+      margin: 0;
+      padding: 10px 0;
+    }
+  }
+  .field {
+    margin: 5px 0;
+  }
+  .details .field {
+    // &:hover {
+    //  opacity: 0.8;
+    // }
+    &:before {
+      opacity: 0.6;
+      display: block;
+      content: ' ';
+      height: 1px;
+      background-color: #bdc3c7;
+      background: -moz-linear-gradient(45deg, #f9f9f9, #bdc3c7, #f9f9f9);
+      background: -webkit-linear-gradient(45deg, #f9f9f9, #bdc3c7, #f9f9f9);
+      background: -ms-linear-gradient(45deg, #f9f9f9, #bdc3c7, #f9f9f9);
+      background: linear-gradient(45deg, #f9f9f9, #bdc3c7, #f9f9f9);
+    }
+  }
+  .info {
+    margin-bottom: 10px;
+    input {
+      margin: 0 0 0 10px;
+    }
+    i {
+      color: #ccc;
+      float: left;
+      margin-top: 16px;
+      margin-right: 6px;
+    }
+  }
+  .content-area {
+    position: relative;
+  }
+  label.radio {
+    display: inline-block;
+    color: #999999;
+    padding: 8px 0 0 0;
+    margin-top: 4px;
+    input {
+      padding: 0;
+      margin: 5px;
+    }
+  }
+}
+
+.editor-toolbar {
+  margin-bottom: 10px;
+}
+
+#write .info input,
+#write .info textarea {
+  padding: 14px 3px;
+  background: none;
+  border: none;
+  box-shadow: none;
+  margin: 0;
+  &:focus {
+    outline: none;
+    box-shadow: none;
+    color: #111;
+  }
+}
+
+.qtip {
+  max-width: none !important;
+  .qtip-close {
+    display: none !important;
+  }
+}
+.CodeMirror pre {
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 1.3em;
+}
+
+#write .info textarea {
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 1.3em;
+}
