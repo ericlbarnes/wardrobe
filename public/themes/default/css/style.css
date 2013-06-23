@@ -122,17 +122,6 @@ ul.archive li span {
 .post blockquote {
   font-style: italic;
 }
-
-.post:after {
-  display: block;
-  content: ' ';
-  height: 1px;
-  background-color: #bdc3c7;
-  background: -moz-linear-gradient(45deg, #f9f9f9, #bdc3c7, #f9f9f9);
-  background: -webkit-linear-gradient(45deg, #f9f9f9, #bdc3c7, #f9f9f9);
-  background: -ms-linear-gradient(45deg, #f9f9f9, #bdc3c7, #f9f9f9);
-  background: linear-gradient(45deg, #f9f9f9, #bdc3c7, #f9f9f9);
-}
 .post h1 {
   margin-bottom: 0;
   text-align: center;
