@@ -32,3 +32,4 @@
     itemView: List.PostItem
     emptyView: List.Empty
     itemViewContainer: "tbody"
+    className: "span8 offset2"

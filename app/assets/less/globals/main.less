@@ -1,6 +1,9 @@
+html, body {
+	height: 100%;
+}
 body {
 	margin: 0;
-	padding: 70px 0 0 0;
+	padding: 0;
 	position: relative;
 }
 
@@ -14,6 +17,7 @@ body {
 td.title {
 	width: 50%;
 }
+
 #write {
 	padding: 20px;
 	margin-bottom: 20px;
@@ -60,11 +64,8 @@ td.title {
 	}
 	label.radio {
 		display: inline-block;
-		font-weight: 400;
-		font-size: 22px;
-		line-height: 1.3em;
 		color: #999999;
-		padding: 5px;
+		padding: 8px 0 0 0;
 		margin-top: 4px;
 		input {
 			padding: 0;
@@ -97,7 +98,21 @@ td.title {
 		display: none !important;
 	}
 }
+.CodeMirror pre {
+	font-weight: 400;
+	font-size: 22px;
+  line-height: 1.3em;
+}
 
+#write .info textarea {
+	font-weight: 400;
+	font-size: 22px;
+  line-height: 1.3em;
+}
+
+button {
+	font-family: 'Open Sans', sans-serif;
+}
 .dz-preview {
 	display: none;
 }

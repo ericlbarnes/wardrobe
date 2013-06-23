@@ -14,7 +14,7 @@ this["JST"]["header/list/templates/header.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div class="navbar navbar-inverse navbar-fixed-top">\n  <div class="navbar-inner">\n    <div class="container">\n      <a class="brand" href="#">Wardrobe</a>\n      <ul class="nav">\n        <li class="active"><a class="write" href="#">Write</a></li>\n        <li><a class="posts" href="#post">Posts</a></li>\n        <li class="divider-vertical"></li>\n      </ul>\n      <ul class="nav pull-right">\n        <li><a href="#" class="edit-account">Edit Account</a></li>\n        <li><a href="/wardrobe/logout">Logout</a></li>\n      </ul>\n    </div>\n  </div>\n</div>';
+__p += '<nav>\n  <ul>\n    <li><a class="write" href="#"><i class="icon-plus"></i> Write </a></li>\n    <li><a class="posts" href="#post"><i class="icon-list"></i> Posts </a></li>\n    <li><a class="edit-account" href="#"><i class="icon-user"></i> Account </a></li>\n    <li><a href="/wardrobe/logout"><i class="icon-off"></i> Logout</a></li>\n  </ul>\n</nav>\n';
 
 }
 return __p
@@ -24,7 +24,7 @@ this["JST"]["post/_base/templates/form.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<form>\n  <input type="hidden" name="publish_date" id="publish_date" value="">\n  <div id="js-errors" class="hide">\n    <div class="alert alert-error">\n      <button type="button" class="close" data-dismiss="alert">×</button>\n      <span></span>\n    </div>\n  </div>\n  <div id="write">\n    <button class="btn large publish pull-right">' +
+__p += '<form>\n  <input type="hidden" name="publish_date" id="publish_date" value="">\n  <div id="js-errors" class="hide">\n    <div class="alert alert-error">\n      <button type="button" class="close" data-dismiss="alert">×</button>\n      <span></span>\n    </div>\n  </div>\n  <div id="write">\n    <button class="btn btn-mini publish pull-right">' +
 ((__t = ( submitBtnText() )) == null ? '' : __t) +
 '</button>\n    <div class="info">\n      <div class="field">\n        <i data-dir="up" class="icon-chevron-sign-right js-toggle" title="Expand for options"></i>\n        <input type="text" style="width: 50%" name="title" id="title" value="" placeholder="Title">\n      </div>\n      <div class="details hide">\n        <div class="field">\n          <i class="icon-terminal" title="URI Slug"></i>\n          <input type="text" style="width: 50%" name="slug" id="slug" value="" placeholder="URI Slug">\n        </div>\n        <div class="field status">\n          <i class="icon-off" title="Status"></i>\n          <label class="radio"><input type="radio" name="active" class="js-active" value="1" checked> Published</label>\n          <label class="radio"><input type="radio" name="active" class="js-active" value="0"> Draft</label>\n        </div>\n      </div>\n    </div>\n    <div class="content-area">\n      <textarea name="content" id="content" placeholder="Content Goes Here..."></textarea>\n      <div class="tags-bar hide">\n        <input type="text" id="js-tags" name="tags" class="tags" style="width: 90%" value="" placeholder="Tags">\n      </div>\n    </div>\n  </div>\n</form>\n\n<div id="date-form" style="display: none">\n  <form class="form-inline">\n    <label for="date">Publish Date</label><br>\n    <input type="text" name="date" class="js-date" id="date" value="" placeholder="Next Thursday 10am">\n    <button class="btn js-setdate">Set</button>\n  </form>\n</div>\n';
 
@@ -46,7 +46,7 @@ this["JST"]["post/list/templates/grid.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<table class="table">\n\t<thead>\n\t\t<tr>\n\t\t\t<th>ID</th>\n\t\t\t<th>Title</th>\n\t\t\t<th>Status</th>\n\t\t\t<th>Published</th>\n\t\t\t<th>Delete</th>\n\t\t</tr>\n\t</thead>\n\t<tbody></tbody>\n</table>';
+__p += '<table class="table">\n\t<thead>\n\t\t<tr>\n\t\t\t<th>Title</th>\n\t\t\t<th>Status</th>\n\t\t\t<th>Published</th>\n\t\t\t<th></th>\n\t\t</tr>\n\t</thead>\n\t<tbody></tbody>\n</table>\n';
 
 }
 return __p
@@ -56,17 +56,15 @@ this["JST"]["post/list/templates/item.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<td class="id">' +
-((__t = ( id )) == null ? '' : __t) +
-'</td>\n<td class="title"><a href="#" class="details">' +
+__p += '<td class="title">\n  <a href="#" class="details">' +
 ((__t = ( title )) == null ? '' : __t) +
-'</a></td>\n<td class="status">' +
+'</a>\n</td>\n<td class="status">' +
 ((__t = ( (active == 1) ? "Active" : "Draft" )) == null ? '' : __t) +
 '</td>\n<td class="date js-format-date" data-date="' +
 ((__t = ( publish_date )) == null ? '' : __t) +
 '">' +
 ((__t = ( publish_date )) == null ? '' : __t) +
-'</td>\n<td class="actions"><button class="btn delete"><i class="icon-trash"></i></button></td>\n';
+'</td>\n<td class="actions"><a href="#" class="delete"><i class="icon-trash"></i></a></td>\n';
 
 }
 return __p
@@ -849,6 +847,8 @@ this.Wardrobe.module("AccountApp.Edit", function(Edit, App, Backbone, Marionette
 
     User.prototype.template = "account/edit/templates/form";
 
+    User.prototype.className = "span6 offset3";
+
     User.prototype.events = {
       "click .save": "save"
     };
@@ -1042,6 +1042,8 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
     }
 
     PostView.prototype.template = "post/_base/templates/form";
+
+    PostView.prototype.className = "span12";
 
     PostView.prototype.initialize = function() {
       return this.tagsShown = false;
@@ -1456,6 +1458,8 @@ this.Wardrobe.module("PostApp.List", function(List, App, Backbone, Marionette, $
     Posts.prototype.emptyView = List.Empty;
 
     Posts.prototype.itemViewContainer = "tbody";
+
+    Posts.prototype.className = "span8 offset2";
 
     return Posts;
 

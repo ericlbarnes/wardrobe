@@ -44,8 +44,9 @@
 
 // Typography
 // -------------------------
-@sansFontFamily:        'Old Standard TT', "Times New Roman", Georgia, serif;
-@serifFontFamily:       Georgia, "Times New Roman", Times, serif;
+
+@sansFontFamily:        'Open Sans', sans-serif;
+@serifFontFamily:       'Crimson Text', serif;
 @monoFontFamily:        Monaco, Menlo, Consolas, "Courier New", monospace;
 
 @baseFontSize:          14px;
@@ -53,8 +54,8 @@
 @baseLineHeight:        20px;
 @altFontFamily:         @serifFontFamily;
 
-@headingsFontFamily:    inherit; // empty to use BS default, @baseFontFamily
-@headingsFontWeight:    bold;    // instead of browser default, bold
+@headingsFontFamily:    @serifFontFamily; // empty to use BS default, @baseFontFamily
+@headingsFontWeight:    400;    // instead of browser default, bold
 @headingsColor:         inherit; // empty to use BS default, @textColor
 
 
