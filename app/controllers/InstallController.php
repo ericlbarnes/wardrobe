@@ -129,7 +129,7 @@ class InstallController extends BaseController {
     $path = app_path().'/config/wardrobe.php';
     $content = str_replace(
       array('##title##', '##theme##', "'##per_page##'", "'##installed##'"),
-      array($title, $theme, (int) $per_page, 'true'),
+      array(addslashes($title), $theme, (int) $per_page, 'true'),
       File::get($path)
     );
     return File::put($path, $content);
