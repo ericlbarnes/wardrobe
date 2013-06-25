@@ -48,12 +48,15 @@ class InstallController extends BaseController {
   {
     Artisan::call('key:generate', array('--env' => App::environment()));
 
-    $artisan = Artisan::call('migrate', array('--env' => App::environment()));
+    $this->doDbConfig(Input::get('host'), Input::get('db'), Input::get('user'), Input::get('pass'));
 
-    if ($artisan > 0)
+    try {
+      Artisan::call('migrate', array('--env' => App::environment()));
+    }
+    catch (Exception $e)
     {
       return Redirect::back()
-                          ->withErrors(array('error' => 'Install Failed'))
+                          ->withErrors(array('error' => $e->getMessage()))
                           ->with('install_errors', true);
     }
 
@@ -120,9 +123,67 @@ class InstallController extends BaseController {
   }
 
   /**
+   * Set database configuration in both the config file, and the current request.
+   *
+   * @param string $host - Database Host, usually localhost
+   * @param string $db - Database Name
+   * @param string $user - Database Username
+   * @param string $pass - Database Password
+   *
+   * @return void
+   */
+
+  protected function doDbConfig($host, $db, $user, $pass) {
+    $config = <<<CONFIG
+<?php
+
+return array(
+
+  'fetch' => PDO::FETCH_CLASS,
+
+  'default' => 'mysql',
+
+  'connections' => array(
+
+    'mysql' => array(
+      'driver'    => 'mysql',
+      'host'      => '$host',
+      'database'  => '$db',
+      'username'  => '$user',
+      'password'  => '$pass',
+      'charset'   => 'utf8',
+      'collation' => 'utf8_unicode_ci',
+      'prefix'    => '',
+    ),
+
+  ),
+
+  'migrations' => 'migrations',
+
+);
+CONFIG;
+
+    file_put_contents(app_path()."/config/database.php", $config); 
+
+    // Set db config for current request
+    Config::set('database.connections.mysql', [
+      'driver'    => 'mysql',
+      'host'      => $host,
+      'database'  => $db,
+      'username'  => $user,
+      'password'  => $pass,
+      'charset'   => 'utf8',
+      'collation' => 'utf8_unicode_ci',
+      'prefix'    => '',
+    ]); 
+  }
+
+  /**
    * Update the configs based on passed data
    *
    * @param string $title
+   * @param string $theme
+   * @param int $per_page
    */
   protected function setWardrobeConfig($title, $theme, $per_page)
   {

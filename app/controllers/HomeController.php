@@ -31,6 +31,10 @@ class HomeController extends BaseController {
 	 */
 	public function getIndex()
 	{
+
+		if(Config::get('wardrobe.installed') != "true")
+			return View::make('landing');
+
 		$posts = $this->posts->active(Config::get('wardrobe.per_page'));
 
 		return View::make('themes.'.$this->theme.'.index', compact('posts'));
