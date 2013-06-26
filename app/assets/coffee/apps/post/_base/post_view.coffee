@@ -4,22 +4,27 @@
     template: "post/_base/templates/form"
     className: "span12"
 
+    # Set a flag so we know when the tags are shown.
     initialize: ->
       @tagsShown = false
 
+    # Standard backbone events
     events:
       "click .publish" : "save"
       "click .js-toggle" : "toggleDetails"
       "click .icon-tags" : "toggleTags"
       "change .js-active" : "changeBtn"
 
+    # Marionette model events.
     modelEvents:
       "change:_errors"  : "changeErrors"
 
+    # Helpers used by the view
     templateHelpers:
       submitBtnText: ->
         if @active? or @active is "1" then "Publish Post" else "Save Post"
 
+    # When the dom is shown setup all the plugins
     onShow: ->
       @setUpEditor()
       @setupCalendar()
@@ -33,6 +38,7 @@
       App.request "tag:entities", (tags) =>
         @setUpTags tags
 
+    # Setup the editor
     setUpEditor: ->
       toolbar = [
         'bold', 'italic', '|'
@@ -51,12 +57,44 @@
         .find('.words').html(@editor.codemirror.getValue().length)
         .find('.cursorActivity').html(@editor.codemirror.getCursor().line + ':' + @editor.codemirror.getCursor().ch)
 
+    # Setup the tags instance
     setUpTags: (tags) ->
+      @$("#js-tags").selectize
+        persist: true
+        delimiter: ','
+        maxItems: null
+        options: @generateTagOptions(tags)
+        render:
+          item: (item) ->
+            "<div><i class='icon-tag'></i> #{item.text}</div>"
+          option: (item) ->
+            "<div><i class='icon-tag'></i> #{item.text}</div>"
+        create: (input) ->
+          value: input
+          text: input
 
-      @$("#js-tags").select2
-        tags: _.without tags.pluck("tag"), ""
-        allowClear: true
+    # Generate tags for selectize
+    generateTagOptions: (tags) ->
+      opts = for tag in tags.pluck("tag") when tag isnt ""
+        value: tag
+        text: tag
+      @customTags(opts)
 
+    # Add any tags from the hidden input. Primarily used when using drag/drop.
+    #
+    # This allows us to keep from going through the selectize api for adding and option and then the item.
+    customTags: (opts) ->
+      val = $("#js-tags").val()
+      if val isnt ""
+        for tag in val.split(",") when tag isnt ""
+          opts.push
+            value: tag
+            text: tag
+      opts
+
+    # Toggle the tags based on toolbar click
+    #
+    # Returns bool
     toggleTags: (e) ->
       if @tagsShown
         @$('.editor-toolbar a, .editor-toolbar i').show()
@@ -69,9 +107,7 @@
 
       @tagsShown = !@tagsShown
 
-    insertCode: (e) ->
-      e.preventDefault()
-
+    # Setup the date selection which is inside a tip
     setupCalendar: ->
       @$(".icon-calendar").qtip
         show:
@@ -94,6 +130,7 @@
               $('.icon-calendar').qtip "hide"
         hide: "unfocus"
 
+    # Save the post data
     save: (e) ->
       e.preventDefault()
 
@@ -105,6 +142,7 @@
         tags: @$("#js-tags").val()
         publish_date: @$("#publish_date").val()
 
+    # Private: Process the form and sync to the server
     processFormSubmit: (data) ->
       @model.save data,
         collection: @collection
@@ -113,26 +151,32 @@
     changeErrors: (model, errors, options) ->
       if _.isEmpty(errors) then @removeErrors() else @addErrors errors
 
+    # Private: Loop through the errors and display
     addErrors: (errors = {}) ->
       @$("#js-errors").show().find("span").html("<strong>Error</strong> Please fix the following errors")
       for name, error of errors
         @addError error
 
+    # Private: Add any errors from the form.
     addError: (error) ->
       sm = $("<li>").text(error)
       @$("#js-errors span").append sm
 
+    # Private: Remove any errors from the form.
     removeErrors: ->
       @$("#js-errors").hide()
 
+    # Private: Collapse the details fields
     collapse: (@$toggle) ->
       @$toggle.data("dir", "up").addClass("icon-chevron-sign-right").removeClass("icon-chevron-sign-down")
       @$(".details.hide").hide()
 
+    # Private: Expand the details fields
     expand: (@$toggle) ->
       @$toggle.data("dir", "down").addClass("icon-chevron-sign-down").removeClass("icon-chevron-sign-right")
       @$(".details.hide").show()
 
+    # Toggle the post details
     toggleDetails: (e) ->
       @$toggle = $(e.currentTarget)
       if @$toggle.data("dir") is "up"

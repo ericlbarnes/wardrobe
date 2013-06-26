@@ -1101,10 +1101,64 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
     };
 
     PostView.prototype.setUpTags = function(tags) {
-      return this.$("#js-tags").select2({
-        tags: _.without(tags.pluck("tag"), ""),
-        allowClear: true
+      return this.$("#js-tags").selectize({
+        persist: true,
+        delimiter: ',',
+        maxItems: null,
+        options: this.generateTagOptions(tags),
+        render: {
+          item: function(item) {
+            return "<div><i class='icon-tag'></i> " + item.text + "</div>";
+          },
+          option: function(item) {
+            return "<div><i class='icon-tag'></i> " + item.text + "</div>";
+          }
+        },
+        create: function(input) {
+          return {
+            value: input,
+            text: input
+          };
+        }
       });
+    };
+
+    PostView.prototype.generateTagOptions = function(tags) {
+      var opts, tag;
+      opts = (function() {
+        var _i, _len, _ref, _results;
+        _ref = tags.pluck("tag");
+        _results = [];
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          tag = _ref[_i];
+          if (tag !== "") {
+            _results.push({
+              value: tag,
+              text: tag
+            });
+          }
+        }
+        return _results;
+      })();
+      return this.customTags(opts);
+    };
+
+    PostView.prototype.customTags = function(opts) {
+      var tag, val, _i, _len, _ref;
+      val = $("#js-tags").val();
+      if (val !== "") {
+        _ref = val.split(",");
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          tag = _ref[_i];
+          if (tag !== "") {
+            opts.push({
+              value: tag,
+              text: tag
+            });
+          }
+        }
+      }
+      return opts;
     };
 
     PostView.prototype.toggleTags = function(e) {
@@ -1118,10 +1172,6 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
         this.$("js-tags").focus();
       }
       return this.tagsShown = !this.tagsShown;
-    };
-
-    PostView.prototype.insertCode = function(e) {
-      return e.preventDefault();
     };
 
     PostView.prototype.setupCalendar = function() {
@@ -1515,12 +1565,8 @@ this.Wardrobe.module("PostApp.New", function(New, App, Backbone, Marionette, $, 
       this.editor.codemirror.setValue(contents.content);
       this.$("#publish_date").val(contents.fields.date);
       if (contents.fields.tags.length > 0) {
-        return this.fillTags(contents.fields.tags);
+        return $("#js-tags").val(contents.fields.tags.join());
       }
-    };
-
-    Post.prototype.fillTags = function(tags) {
-      return $("#js-tags").val(tags.join());
     };
 
     return Post;
