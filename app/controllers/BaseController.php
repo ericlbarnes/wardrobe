@@ -17,6 +17,13 @@ class BaseController extends Controller {
 	public function __construct()
 	{
 		$this->theme = Config::get('wardrobe.theme');
+
+		// Redirect to /install if the db isn't setup.
+		if (Config::get("wardrobe.installed") !== true)
+    {
+    	header('Location: install');
+    	exit;
+    }
 	}
 
 	/**
