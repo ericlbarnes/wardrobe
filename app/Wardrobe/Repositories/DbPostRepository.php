@@ -23,6 +23,8 @@ class DbPostRepository implements PostRepositoryInterface {
 	 */
 	public function active($per_page)
 	{
+		$per_page = is_numeric($per_page) ? $per_page : 5;
+
 		return Post::with('tags')
                         ->where('active', 1)
                         ->where('publish_date', '<=', new DateTime)
@@ -64,6 +66,8 @@ class DbPostRepository implements PostRepositoryInterface {
 	 */
 	public function activeByTag($tag, $per_page)
 	{
+		$per_page = is_numeric($per_page) ? $per_page : 5;
+
 		return Post::with('tags')
                        ->select('posts.*')
                        ->join('tags', 'posts.id', '=', 'tags.post_id')
