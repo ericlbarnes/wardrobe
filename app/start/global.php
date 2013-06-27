@@ -94,7 +94,38 @@ require app_path().'/filters.php';
 
 require app_path().'/theme_helpers.php';
 
-/**
- * Load markdown helper
- */
+/*
+|--------------------------------------------------------------------------
+| Theme Configs
+|--------------------------------------------------------------------------
+|
+| Load any custom theme configs at run time so they can be called via the
+| theme itself. Currently requires the file to be named config.php.
+|
+| This allows for: `{{ Config::get('theme.key') }}` in your views.
+|
+*/
+if (file_exists($theme_config = base_path().'/public/themes/'.Config::get('wardrobe.theme').'/config.php'))
+{
+  $theme = require $theme_config;
+
+  if (is_array($theme))
+  {
+    foreach ($theme as $key => $val)
+    {
+      Config::set('theme.'.$key, $val);
+    }
+  }
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Markdown
+|--------------------------------------------------------------------------
+|
+| Load the markdown helper to convert the posts into html.
+|
+*/
 require_once app_path().'/md.php';
