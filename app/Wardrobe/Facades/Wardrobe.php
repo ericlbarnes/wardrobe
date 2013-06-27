@@ -12,12 +12,13 @@ class Wardrobe {
    */
   protected $postsRepo;
 
-  /**
-   * Create a new wardrobe facade instance.
-   *
-   * @param  Wardrobe\PostRepositoryInterface  $postsRepo
-   * @return void
-   */
+	/**
+	 * Create a new wardrobe facade instance.
+	 *
+	 * @param \Wardrobe\Facades\Wardrobe\PostRepositoryInterface|\Wardrobe\Repositories\PostRepositoryInterface $postsRepo
+	 *
+	 * @return \Wardrobe\Facades\Wardrobe
+	 */
   public function __construct(PostRepositoryInterface $postsRepo)
   {
     $this->postsRepo = $postsRepo;
@@ -43,4 +44,5 @@ class Wardrobe {
   {
     return $this->postsRepo->allTags();
   }
+
 }

@@ -19,6 +19,8 @@ class DbPostRepository implements PostRepositoryInterface {
 	/**
 	 * Get all of the active posts.
 	 *
+	 * @param int $per_page
+	 *
 	 * @return array
 	 */
 	public function active($per_page)
@@ -104,11 +106,14 @@ class DbPostRepository implements PostRepositoryInterface {
 	/**
 	 * Update a post's title and content.
 	 *
-	 * @param  int  $post
-	 * @param  string  $title
-	 * @param  string  $content
-	 * @param  string  $slug
-	 * @param  string  $active
+	 * @param  int      $id
+	 * @param  string   $title
+	 * @param  string   $content
+	 * @param  string   $slug
+	 * @param  array    $tags
+	 * @param  string   $active
+	 * @param \DateTime $publish_date
+	 *
 	 * @return Post
 	 */
 	public function update($id, $title, $content, $slug, array $tags, $active, DateTime $publish_date)

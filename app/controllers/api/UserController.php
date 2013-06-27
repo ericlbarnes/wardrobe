@@ -12,12 +12,13 @@ class ApiUserController extends BaseController {
    */
   protected $users;
 
-  /**
-   * Create a new API User controller.
-   *
-   * @param  Wardrobe\UserRepositoryInterface  $user
-   * @return void
-   */
+	/**
+	 * Create a new API User controller.
+	 *
+	 * @param UserRepositoryInterface $users
+	 *
+	 * @return ApiUserController
+	 */
   public function __construct(UserRepositoryInterface $users)
   {
     parent::__construct();

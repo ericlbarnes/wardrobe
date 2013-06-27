@@ -33,9 +33,7 @@ Route::controller('api/dropzone', 'ApiDropzoneController');
 /**
  * Allows themes complete control to over ride routes or add new ones.
  */
-$theme_routes = base_path().'/public/themes/'.Config::get('wardrobe.theme').'/routes.php';
-
-if (file_exists($theme_routes))
+if (file_exists($theme_routes = base_path().'/public/themes/'.Config::get('wardrobe.theme').'/routes.php'))
 {
   include $theme_routes;
 }

@@ -15,8 +15,9 @@ class ApiPostController extends BaseController {
 	/**
 	 * Create a new API Posts controller.
 	 *
-	 * @param  Wardrobe\PostRepositoryInterface  $posts
-	 * @return void
+	 * @param PostRepositoryInterface $posts
+	 *
+	 * @return ApiPostController
 	 */
 	public function __construct(PostRepositoryInterface $posts)
 	{

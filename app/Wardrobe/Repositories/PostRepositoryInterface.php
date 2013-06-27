@@ -59,13 +59,14 @@ interface PostRepositoryInterface {
 	/**
 	 * Update a post's title and content.
 	 *
-	 * @param  int  $post
-	 * @param  string  $title
-	 * @param  string  $content
-	 * @param  string  $slug
-	 * @param  array  $tags
-	 * @param  bool  $active
-	 * @param  DateTime  $publish_date
+	 * @param  int      $id
+	 * @param  string   $title
+	 * @param  string   $content
+	 * @param  string   $slug
+	 * @param  array    $tags
+	 * @param  bool     $active
+	 * @param  DateTime $publish_date
+	 *
 	 * @return Post
 	 */
 	public function update($id, $title, $content, $slug, array $tags, $active, DateTime $publish_date);

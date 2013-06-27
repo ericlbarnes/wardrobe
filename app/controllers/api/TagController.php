@@ -15,8 +15,9 @@ class ApiTagController extends BaseController {
 	/**
 	 * Create a new API Tag controller.
 	 *
-	 * @param  Wardrobe\PostRepositoryInterface  $posts
-	 * @return void
+	 * @param PostRepositoryInterface $posts
+	 *
+	 * @return ApiTagController
 	 */
 	public function __construct(PostRepositoryInterface $posts)
 	{

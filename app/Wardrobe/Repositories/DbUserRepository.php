@@ -95,10 +95,12 @@ class DbUserRepository implements UserRepositoryInterface {
 	/**
 	 * Validate the given user data.
 	 *
-	 * @param  string  $first_name
-	 * @param  stirng  $last_name
-	 * @param  string  $password
-	 * @param  int  $id
+	 * @param  string $first_name
+	 * @param  stirng $last_name
+	 * @param  string $email
+	 * @param  string $password
+	 * @param  int    $id
+	 *
 	 * @return \Illuminate\Support\MessageBag
 	 */
 	protected function validateUser($first_name, $last_name, $email, $password, $id = null)

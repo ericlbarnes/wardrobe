@@ -5,11 +5,11 @@ use Symfony\Component\Yaml\Parser;
 
 class ApiDropzoneController extends BaseController {
 
-  /**
-   * Create a new API Dropzone controller.
-   *
-   * @return void
-   */
+	/**
+	 * Create a new API Dropzone controller.
+	 *
+	 * @return \ApiDropzoneController
+	 */
   public function __construct()
   {
     parent::__construct();
@@ -23,11 +23,12 @@ class ApiDropzoneController extends BaseController {
     die;
   }
 
-  /**
-   * Display a listing of the resource.
-   *
-   * @return Response
-   */
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @throws Exception
+	 * @return Response
+	 */
   public function postIndex()
   {
     if ( ! Input::hasFile('file'))
