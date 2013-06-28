@@ -5,7 +5,7 @@ class AdminController extends BaseController {
 	/**
 	 * Create a new admin controller instance.
 	 *
-	 * @return void
+	 * @return AdminController
 	 */
 	public function __construct()
 	{

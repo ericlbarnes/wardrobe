@@ -11,12 +11,13 @@ class RssController extends BaseController {
    */
   protected $posts;
 
-  /**
-   * Create a new API Posts controller.
-   *
-   * @param  Wardrobe\PostRepositoryInterface  $posts
-   * @return void
-   */
+	/**
+	 * Create a new API Posts controller.
+	 *
+	 * @param PostRepositoryInterface $posts
+	 *
+	 * @return RssController
+	 */
   public function __construct(PostRepositoryInterface $posts)
   {
     parent::__construct();
@@ -42,4 +43,5 @@ class RssController extends BaseController {
       'Content-Type' => 'application/rss+xml; charset=UTF-8',
     ));
   }
+
 }

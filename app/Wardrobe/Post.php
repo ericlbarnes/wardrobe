@@ -67,4 +67,5 @@ class Post extends \Eloquent {
 
 		return $dt->toRSSString();
 	}
+
 }

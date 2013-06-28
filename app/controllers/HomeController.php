@@ -14,8 +14,9 @@ class HomeController extends BaseController {
 	/**
 	 * Create a new Home controller instance.
 	 *
-	 * @param  Wardrobe\PostRepositoryInterface  $posts
-	 * @return void
+	 * @param PostRepositoryInterface $posts
+	 *
+	 * @return HomeController
 	 */
 	public function __construct(PostRepositoryInterface $posts)
 	{

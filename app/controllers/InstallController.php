@@ -11,12 +11,14 @@ class InstallController extends Controller {
    */
   protected $users;
 
-  /**
-   * Create a new API User controller.
-   *
-   * @param  Wardrobe\UserRepositoryInterface  $user
-   * @return void
-   */
+	/**
+	 * Create a new API User controller.
+	 *
+	 * @param UserRepositoryInterface $users
+	 *
+	 * @internal param UserRepositoryInterface $user
+	 * @return InstallController
+	 */
   public function __construct(UserRepositoryInterface $users)
   {
     // If the config is marked as installed then bail with a 404.
@@ -118,11 +120,15 @@ class InstallController extends Controller {
     return View::make('admin.installer.complete');
   }
 
-  /**
-   * Update the configs based on passed data
-   *
-   * @param string $title
-   */
+	/**
+	 * Update the configs based on passed data
+	 *
+	 * @param string $title
+	 * @param string $theme
+	 * @param int    $per_page
+	 *
+	 * @return
+	 */
   protected function setWardrobeConfig($title, $theme, $per_page)
   {
     $path = $this->getConfigFile('wardrobe.php');
@@ -140,7 +146,8 @@ class InstallController extends Controller {
    * Use the current environment to load the config file. With a fall back on the original.
    *
    * @param string $file
-   */
+	 * @return string
+	 */
   protected function getConfigFile($file)
   {
     if (file_exists(app_path().'/config/'.App::environment().'/'.$file))

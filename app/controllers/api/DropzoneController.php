@@ -59,6 +59,6 @@ class ApiDropzoneController extends BaseController {
       'fields' => $fields,
       'content' => $contents
     ));
-
   }
+
 }

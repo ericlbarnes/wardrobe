@@ -14,8 +14,9 @@ class LoginController extends BaseController {
 	/**
 	 * Create a new login controller instance.
 	 *
-	 * @param  \Wardrobe\UserRepositoryInterface  $users
-	 * @return void
+	 * @param UserRepositoryInterface $users
+	 *
+	 * @return LoginController
 	 */
 	public function __construct(UserRepositoryInterface $users)
 	{
@@ -80,4 +81,5 @@ class LoginController extends BaseController {
 			$message->subject('Reset your password');
 		});
 	}
+
 }

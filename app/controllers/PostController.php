@@ -14,8 +14,9 @@ class PostController extends BaseController {
 	/**
 	 * Create a new API Posts controller.
 	 *
-	 * @param  Wardrobe\PostRepositoryInterface  $posts
-	 * @return void
+	 * @param PostRepositoryInterface $posts
+	 *
+	 * @return PostController
 	 */
 	public function __construct(PostRepositoryInterface $posts)
 	{
@@ -52,7 +53,8 @@ class PostController extends BaseController {
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param  int  $id
+	 * @param $slug
+	 *
 	 * @return Response
 	 */
 	public function getShow($slug)
@@ -65,6 +67,6 @@ class PostController extends BaseController {
 		}
 
 		return View::make('themes.'.$this->theme.'.post', compact('post'));
-
 	}
+
 }
