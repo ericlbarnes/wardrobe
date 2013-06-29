@@ -1354,7 +1354,7 @@ this.Wardrobe.module("PostApp.Edit", function(Edit, App, Backbone, Marionette, $
     };
 
     Post.prototype._setActive = function() {
-      if (this.model.get("active") === "1" || this.model.get("active") === 1) {
+      if (parseInt(this.model.get("active")) === 1) {
         this.$(".publish").text("Publish Post");
         return this.$('input:radio[name="active"]').filter('[value="1"]').attr('checked', true);
       } else {

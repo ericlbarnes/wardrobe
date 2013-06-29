@@ -13,7 +13,7 @@
       @$(".js-date").val date.format "MMM Do YYYY, hh:mma"
 
     _setActive: ->
-      if @model.get("active") is "1" or @model.get("active") is 1
+      if parseInt(@model.get("active")) is 1
         @$(".publish").text("Publish Post")
         @$('input:radio[name="active"]').filter('[value="1"]').attr('checked', true);
       else
