@@ -2,7 +2,7 @@
 
   class Edit.User extends App.Views.ItemView
     template: "account/edit/templates/form"
-    className: "span8 offset2"
+    className: "span12"
 
     events:
       "click .save" : "save"
