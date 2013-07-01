@@ -12,15 +12,9 @@ class ApiDropzoneController extends BaseController {
 	 */
   public function __construct()
   {
-    parent::__construct();
+		parent::__construct();
 
-    // $this->beforeFilter('auth');
-  }
-
-  public function getIndex()
-  {
-    var_dump('index');
-    die;
+		$this->beforeFilter('auth');
   }
 
 	/**
