@@ -73,7 +73,9 @@ __p += '<td class="title">\n  <a href="#" class="details">' +
 ((__t = ( publish_date )) == null ? '' : __t) +
 '">' +
 ((__t = ( publish_date )) == null ? '' : __t) +
-'</td>\n<td class="actions"><a href="#" class="delete"><i class="icon-trash"></i></a></td>\n';
+'</td>\n<td class="actions">\n  <a href="' +
+((__t = ( previewUrl() )) == null ? '' : __t) +
+'" target="_blank" title="Preview"><i class="icon-zoom-in"></i></a>\n  <a href="#" class="delete" title="Delete Post"><i class="icon-trash"></i></a>\n</td>\n';
 
 }
 return __p
@@ -1474,6 +1476,12 @@ this.Wardrobe.module("PostApp.List", function(List, App, Backbone, Marionette, $
 
     PostItem.prototype.onShow = function() {
       return this.$('.js-format-date').formatDates();
+    };
+
+    PostItem.prototype.templateHelpers = {
+      previewUrl: function() {
+        return "" + (App.request("get:base:url")) + "/post/preview/" + this.id;
+      }
     };
 
     PostItem.prototype.edit = function(e) {

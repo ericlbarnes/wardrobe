@@ -19,6 +19,10 @@
     onShow: ->
       @$('.js-format-date').formatDates()
 
+    templateHelpers:
+      previewUrl: ->
+        "#{App.request("get:base:url")}/post/preview/#{@id}"
+
     edit: (e) ->
       e.preventDefault()
       App.vent.trigger "post:item:clicked", @model
