@@ -13,6 +13,7 @@
 
 Route::get('/', 'HomeController@getIndex');
 Route::get('post/{slug}', 'PostController@getShow');
+Route::get('post/preview/{id}', 'PostController@getPreview');
 Route::get('tag/{tag}', 'PostController@getTag');
 Route::get('archive', 'PostController@getIndex');
 Route::controller('post', 'PostController');

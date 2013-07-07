@@ -40,8 +40,9 @@ class PostController extends BaseController {
 	/**
 	 * Get posts by tag
 	 *
-	 * string $tag
-	 * return Response
+	 * @param string $tag
+	 *
+	 * @return Response
 	 */
 	public function getTag($tag)
 	{
@@ -53,7 +54,7 @@ class PostController extends BaseController {
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param $slug
+	 * @param string $slug
 	 *
 	 * @return Response
 	 */
@@ -62,6 +63,25 @@ class PostController extends BaseController {
 		$post = $this->posts->findBySlug($slug);
 
 		if ( ! $post)
+		{
+			return App::abort(404, 'Page not found');
+		}
+
+		return View::make('themes.'.$this->theme.'.post', compact('post'));
+	}
+
+	/**
+	 * Show a post preview.
+	 *
+	 * @param int $id
+	 *
+	 * @return Response
+	 */
+	public function getPreview($id)
+	{
+		$post = $this->posts->find($id);
+
+		if ( ! Auth::check() or ! $post)
 		{
 			return App::abort(404, 'Page not found');
 		}

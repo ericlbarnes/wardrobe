@@ -11,6 +11,11 @@
     onRender: ->
       @generateAvatar App.request "get:current:user"
 
+    # Helpers used by the view
+    templateHelpers:
+      logoutUrl: ->
+        "#{App.request("get:base:url")}/wardrobe/logout"
+
     generateAvatar: (user) ->
       $avEl = @$(".avatar")
       $avEl.avatar user.get("email"), $avEl.attr("width")

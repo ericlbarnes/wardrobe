@@ -4,7 +4,7 @@ this["JST"]["account/edit/templates/form.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<form class="form-horizontal">\n  <div id="js-errors" class="hide">\n    <div class="alert alert-error">\n      <button type="button" class="close" data-dismiss="alert">×</button>\n      <span></span>\n    </div>\n  </div>\n  <div class="alert alert-success hide">\n    <strong>Success!</strong> Your account has been saved!\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="first_name">First Name</label>\n    <div class="controls">\n      <input type="text" id="first_name" name="first_name" placeholder="First Name">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="last_name">Last Name</label>\n    <div class="controls">\n      <input type="text" id="last_name" name="last_name" placeholder="Last Name">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="email">Email</label>\n    <div class="controls">\n      <input type="text" id="email" name="email" placeholder="Email">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="password">Password</label>\n    <div class="controls">\n      <input id="password" type="password" name="password" value="">\n      <span class="help-block">Leave this empty to keep the same password</span>\n    </div>\n  </div>\n  <div class="control-group">\n    <div class="controls">\n      <button type="submit" class="btn save">Save</button>\n    </div>\n  </div>\n</form>';
+__p += '<form class="form-horizontal center-col">\n  <div id="js-errors" class="hide">\n    <div class="alert alert-error">\n      <button type="button" class="close" data-dismiss="alert">×</button>\n      <span></span>\n    </div>\n  </div>\n  <div class="alert alert-success hide">\n    <strong>Success!</strong> Your account has been saved!\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="first_name">First Name</label>\n    <div class="controls">\n      <input type="text" id="first_name" name="first_name" placeholder="First Name">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="last_name">Last Name</label>\n    <div class="controls">\n      <input type="text" id="last_name" name="last_name" placeholder="Last Name">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="email">Email</label>\n    <div class="controls">\n      <input type="text" id="email" name="email" placeholder="Email">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="password">Password</label>\n    <div class="controls">\n      <input id="password" type="password" name="password" value="">\n      <span class="help-block">Leave this empty to keep the same password</span>\n    </div>\n  </div>\n  <div class="control-group">\n    <div class="controls">\n      <button type="submit" class="btn save">Save</button>\n    </div>\n  </div>\n</form>\n';
 
 }
 return __p
@@ -14,7 +14,9 @@ this["JST"]["header/list/templates/header.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<nav>\n  <ul>\n    <li><a class="write" href="#"><i class="icon-plus"></i> Write </a></li>\n    <li><a class="posts" href="#post"><i class="icon-list"></i> Posts </a></li>\n    <li><a class="edit-account" href="#"><i class="icon-user"></i> Account </a></li>\n    <li><a href="/wardrobe/logout"><i class="icon-off"></i> Logout</a></li>\n  </ul>\n</nav>\n';
+__p += '<nav>\n  <ul>\n    <li><a class="write" href="#"><i class="icon-plus"></i> Write </a></li>\n    <li><a class="posts" href="#post"><i class="icon-list"></i> Posts </a></li>\n    <li><a class="edit-account" href="#"><i class="icon-user"></i> Account </a></li>\n    <li><a href="' +
+((__t = ( logoutUrl() )) == null ? '' : __t) +
+'"><i class="icon-off"></i> Logout</a></li>\n  </ul>\n</nav>\n';
 
 }
 return __p
@@ -22,11 +24,18 @@ return __p
 
 this["JST"]["post/_base/templates/form.html"] = function(obj) {
 obj || (obj = {});
-var __t, __p = '', __e = _.escape;
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
 with (obj) {
-__p += '<form>\n  <input type="hidden" name="publish_date" id="publish_date" value="">\n  <div id="js-errors" class="hide">\n    <div class="alert alert-error">\n      <button type="button" class="close" data-dismiss="alert">×</button>\n      <span></span>\n    </div>\n  </div>\n  <div id="write">\n    <div class="info">\n      <div class="field">\n        <button class="btn btn-mini publish pull-right">' +
+__p += '<form>\n  <input type="hidden" name="publish_date" id="publish_date" value="">\n  <div id="js-errors" class="hide">\n    <div class="alert alert-error">\n      <button type="button" class="close" data-dismiss="alert">×</button>\n      <span></span>\n    </div>\n  </div>\n  <div id="write">\n    <div class="info">\n      <div class="field">\n\n        ';
+ if (typeof id !== 'undefined') { ;
+__p += '\n          <a href="' +
+((__t = ( previewUrl() )) == null ? '' : __t) +
+'" target="_blank" class="btn btn-mini preview pull-right">Preview</a>\n        ';
+ } ;
+__p += '\n\n        <button class="btn btn-mini btn-success publish pull-right">' +
 ((__t = ( submitBtnText() )) == null ? '' : __t) +
-'</button>\n        <i data-dir="up" class="icon-chevron-sign-right js-toggle" title="Expand for options"></i>\n        <input type="text" style="width: 50%" name="title" id="title" value="" placeholder="Title">\n      </div>\n      <div class="details hide">\n        <div class="field">\n          <i class="icon-terminal" title="URI Slug"></i>\n          <input type="text" style="width: 50%" name="slug" id="slug" value="" placeholder="URI Slug">\n        </div>\n        <div class="field status">\n          <i class="icon-off" title="Status"></i>\n          <label class="radio"><input type="radio" name="active" class="js-active" value="1" checked> Published</label>\n          <label class="radio"><input type="radio" name="active" class="js-active" value="0"> Draft</label>\n        </div>\n      </div>\n    </div>\n    <div class="content-area">\n      <textarea name="content" id="content" placeholder="Content Goes Here..."></textarea>\n      <div class="tags-bar hide">\n        <input type="text" id="js-tags" name="tags" class="tags" style="width: 90%" value="" placeholder="Tags">\n      </div>\n    </div>\n  </div>\n</form>\n\n<div id="date-form" style="display: none">\n  <form class="form-inline">\n    <label for="date">Publish Date</label><br>\n    <input type="text" name="date" class="js-date" id="date" value="" placeholder="Next Thursday 10am">\n    <button class="btn js-setdate">Set</button>\n  </form>\n</div>\n';
+'</button>\n\n        <i data-dir="up" class="icon-chevron-sign-right js-toggle" title="Expand for options"></i>\n        <input type="text" style="width: 50%" name="title" id="title" value="" placeholder="Title">\n      </div>\n      <div class="details hide">\n        <div class="field">\n          <i class="icon-terminal" title="URI Slug"></i>\n          <input type="text" style="width: 50%" name="slug" id="slug" value="" placeholder="URI Slug">\n        </div>\n        <div class="field status">\n          <i class="icon-off" title="Status"></i>\n          <label class="radio"><input type="radio" name="active" class="js-active" value="1" checked> Published</label>\n          <label class="radio"><input type="radio" name="active" class="js-active" value="0"> Draft</label>\n        </div>\n      </div>\n    </div>\n    <div class="content-area">\n      <textarea name="content" id="content" placeholder="Content Goes Here..."></textarea>\n      <div class="tags-bar hide">\n        <input type="text" id="js-tags" name="tags" class="tags" style="width: 90%" value="" placeholder="Tags">\n      </div>\n    </div>\n  </div>\n</form>\n\n<div id="date-form" style="display: none">\n  <form class="form-inline">\n    <label for="date">Publish Date</label><br>\n    <input type="text" name="date" class="js-date" id="date" value="" placeholder="Next Thursday 10am">\n    <button class="btn js-setdate">Set</button>\n  </form>\n</div>\n';
 
 }
 return __p
@@ -46,7 +55,7 @@ this["JST"]["post/list/templates/grid.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<table class="table">\n\t<thead>\n\t\t<tr>\n\t\t\t<th>Title</th>\n\t\t\t<th>Status</th>\n\t\t\t<th>Published</th>\n\t\t\t<th></th>\n\t\t</tr>\n\t</thead>\n\t<tbody></tbody>\n</table>\n';
+__p += '<table class="table center-col">\n\t<thead>\n\t\t<tr>\n\t\t\t<th>Title</th>\n\t\t\t<th>Status</th>\n\t\t\t<th>Published</th>\n\t\t\t<th></th>\n\t\t</tr>\n\t</thead>\n\t<tbody></tbody>\n</table>\n';
 
 }
 return __p
@@ -845,7 +854,7 @@ this.Wardrobe.module("AccountApp.Edit", function(Edit, App, Backbone, Marionette
 
     User.prototype.template = "account/edit/templates/form";
 
-    User.prototype.className = "span8 offset2";
+    User.prototype.className = "span12";
 
     User.prototype.events = {
       "click .save": "save"
@@ -1012,6 +1021,12 @@ this.Wardrobe.module("HeaderApp.List", function(List, App, Backbone, Marionette,
       return this.generateAvatar(App.request("get:current:user"));
     };
 
+    Header.prototype.templateHelpers = {
+      logoutUrl: function() {
+        return "" + (App.request("get:base:url")) + "/wardrobe/logout";
+      }
+    };
+
     Header.prototype.generateAvatar = function(user) {
       var $avEl;
       $avEl = this.$(".avatar");
@@ -1071,6 +1086,9 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
         } else {
           return "Save Post";
         }
+      },
+      previewUrl: function() {
+        return "" + (App.request("get:base:url")) + "/post/preview/" + this.id;
       }
     };
 
@@ -1497,7 +1515,7 @@ this.Wardrobe.module("PostApp.List", function(List, App, Backbone, Marionette, $
 
     Posts.prototype.itemViewContainer = "tbody";
 
-    Posts.prototype.className = "span8 offset2";
+    Posts.prototype.className = "span12";
 
     return Posts;
 

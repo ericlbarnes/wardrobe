@@ -23,6 +23,8 @@
     templateHelpers:
       submitBtnText: ->
         if @active? or @active is "1" then "Publish Post" else "Save Post"
+      previewUrl: ->
+        "#{App.request("get:base:url")}/post/preview/#{@id}"
 
     # When the dom is shown setup all the plugins
     onShow: ->

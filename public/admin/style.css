@@ -9521,8 +9521,14 @@ button {
   padding: 20px;
   margin-bottom: 20px;
 }
-#write .publish {
+#write .publish,
+#write .preview {
   margin-top: 16px;
+}
+#write .preview {
+  margin-left: 5px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 10.5px;
 }
 #write .popover {
   max-width: 376px;
