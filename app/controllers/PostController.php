@@ -63,7 +63,7 @@ class PostController extends BaseController {
 
 		if ( ! $post)
 		{
-			return App::abort(404, 'Page not found');
+			return App::abort(404, 'Post not found');
 		}
 
 		return View::make('themes.'.$this->theme.'.post', compact('post'));
