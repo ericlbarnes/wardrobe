@@ -1,10 +1,9 @@
 Options +FollowSymLinks
 
-<FilesMatch "*\.blade.php$">
+<FilesMatch "\.blade.php$">
    Order Deny,Allow
    Deny from all
 </FilesMatch>
-
 
 RewriteEngine On
 
