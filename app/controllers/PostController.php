@@ -32,9 +32,17 @@ class PostController extends BaseController {
 	 */
 	public function getIndex()
 	{
-		$posts = $this->posts->active(Config::get('wardrobe.per_page'));
+		$search = trim(Input::get('q'));
+		if ($search)
+		{
+			$posts = $this->posts->search(Input::get('q'), Config::get('wardrobe.per_page'));
+		}
+		else
+		{
+			$posts = $this->posts->active(Config::get('wardrobe.per_page'));
+		}
 
-		return View::make('themes.'.$this->theme.'.archive', compact('posts'));
+		return View::make('themes.'.$this->theme.'.archive', compact('posts', 'search'));
 	}
 
 	/**

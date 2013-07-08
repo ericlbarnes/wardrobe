@@ -82,6 +82,32 @@ class DbPostRepository implements PostRepositoryInterface {
 	}
 
 	/**
+	 * Search all active posts
+	 *
+	 * @param  string   $tag
+	 * @param  int      $per_page
+	 * @return array
+	 */
+	public function search($search, $per_page)
+	{
+		$per_page = is_numeric($per_page) ? $per_page : 5;
+
+		return Post::with('tags')
+                       ->select('posts.*')
+                       ->join('tags', 'posts.id', '=', 'tags.post_id')
+                       ->orWhere(function($query) use ($search)
+                       {
+                         $query->orWhere('title', 'like', '%'.$search.'%')
+                         ->orWhere('content', 'like', '%'.$search.'%');
+                       })
+                       ->orderBy('posts.publish_date', 'desc')
+                       ->where('posts.active', 1)
+                       ->where('posts.publish_date', '<=', new DateTime)
+                       ->distinct()
+                       ->paginate($per_page);
+	}
+
+	/**
 	 * Create a new post.
 	 *
 	 * @param  string  $title

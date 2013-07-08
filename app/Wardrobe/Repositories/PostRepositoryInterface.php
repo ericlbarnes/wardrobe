@@ -28,6 +28,15 @@ interface PostRepositoryInterface {
 	public function activeByTag($tag, $per_page);
 
 	/**
+	 * Get all posts by a search term
+	 *
+	 * @param string   $search
+	 * @param int $per_page
+	 * @return array
+	 */
+	public function search($search, $per_page);
+
+	/**
 	 * Get a Post by its primary key.
 	 *
 	 * @param  int   $id
