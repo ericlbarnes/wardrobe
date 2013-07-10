@@ -9617,6 +9617,37 @@ button {
   font-size: 22px;
   line-height: 1.3em;
 }
+.accounts {
+  *zoom: 1;
+  text-align: center;
+  margin: 0 auto;
+  width: 550px;
+}
+.accounts:before,
+.accounts:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.accounts:after {
+  clear: both;
+}
+.accounts:before,
+.accounts:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.accounts:after {
+  clear: both;
+}
+.accounts img {
+  display: block;
+  margin: 10px;
+}
+.accounts i {
+  margin-left: 10px;
+}
 nav {
   font-family: 'Crimson Text', serif;
   text-align: center;
