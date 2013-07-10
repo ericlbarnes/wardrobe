@@ -3,10 +3,17 @@
 interface UserRepositoryInterface {
 
 	/**
+	 * Get all users
+	 *
+	 * @return User
+	 */
+	public function all();
+
+	/**
 	 * Get a User by their primary key.
 	 *
 	 * @param  int   $id
-	 * @return Post
+	 * @return User
 	 */
 	public function find($id);
 

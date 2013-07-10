@@ -13,6 +13,7 @@
 		$(document).ready(function() {
 			Wardrobe.start({
         user: {{ $user }},
+        users: {{ $users }},
         base_url: "{{ url('/') }}"
       });
 		});

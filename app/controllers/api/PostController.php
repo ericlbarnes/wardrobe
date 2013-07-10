@@ -109,7 +109,7 @@ class ApiPostController extends BaseController {
 			Input::get('slug'),
 			explode(',', Input::get('tags')),
 			(bool) Input::get('active'),
-			Input::get('user_id'),
+			(int) Input::get('user_id'),
 			Carbon::createFromTimestamp(strtotime(Input::get('publish_date')))
 		);
 	}

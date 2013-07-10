@@ -9569,6 +9569,11 @@ button {
 #write .content-area {
   position: relative;
 }
+#write .author select {
+  height: 25px;
+  margin-top: 11px;
+  margin-left: 5px;
+}
 #write label.radio {
   display: inline-block;
   color: #999999;

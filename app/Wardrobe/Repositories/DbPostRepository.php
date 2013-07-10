@@ -13,7 +13,7 @@ class DbPostRepository implements PostRepositoryInterface {
 	 */
 	public function all()
 	{
-		return Post::with('tags')->orderBy('publish_date', 'desc')->get();
+		return Post::with(array('tags', 'user'))->orderBy('publish_date', 'desc')->get();
 	}
 
 	/**

@@ -13,6 +13,7 @@
       "click .publish" : "save"
       "click .js-toggle" : "toggleDetails"
       "click .icon-tags" : "toggleTags"
+      "click .icon-user" : "showUsers"
       "change .js-active" : "changeBtn"
 
     # Marionette model events.
@@ -29,6 +30,7 @@
     # When the dom is shown setup all the plugins
     onShow: ->
       @setUpEditor()
+      @setupUsers()
       @setupCalendar()
 
       if @model.isNew()
@@ -46,7 +48,7 @@
         'bold', 'italic', '|'
         'quote', 'unordered-list', 'ordered-list', '|'
         'link', 'image', 'code', '|'
-        'undo', 'redo', '|', 'tags', 'calendar'
+        'undo', 'redo', '|', 'tags', 'calendar', 'user'
       ]
 
       @editor = new Editor
@@ -58,6 +60,19 @@
         .find('.lines').html(@editor.codemirror.lineCount())
         .find('.words').html(@editor.codemirror.getValue().length)
         .find('.cursorActivity').html(@editor.codemirror.getCursor().line + ':' + @editor.codemirror.getCursor().ch)
+
+    # Populate the user select list.
+    setupUsers: ->
+      $userSelect = @$("#js-user")
+      users = App.request "get:all:users"
+      users.each (item) ->
+        $userSelect.append $("<option></option>").val(item.id).html(item.get("first_name") + " " + item.get("last_name"))
+
+      if not @model.isNew() # Set the default to yourself.
+        user = App.request "get:current:user"
+        $userSelect.val user.id
+      else
+        $userSelect.val @model.get("user_id")
 
     # Setup the tags instance
     setUpTags: (tags) ->
@@ -142,6 +157,7 @@
         active: @$('input[type=radio]:checked').val()
         content: @editor.codemirror.getValue()
         tags: @$("#js-tags").val()
+        user_id: @$("#js-user").val()
         publish_date: @$("#publish_date").val()
 
     # Private: Process the form and sync to the server

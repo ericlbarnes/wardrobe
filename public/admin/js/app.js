@@ -45,7 +45,7 @@ __p += '\n          <a href="' +
  } ;
 __p += '\n\n        <button class="btn btn-mini btn-success publish pull-right">' +
 ((__t = ( submitBtnText() )) == null ? '' : __t) +
-'</button>\n\n        <i data-dir="up" class="icon-chevron-sign-right js-toggle" title="Expand for options"></i>\n        <input type="text" style="width: 50%" name="title" id="title" value="" placeholder="Title">\n      </div>\n      <div class="details hide">\n        <div class="field">\n          <i class="icon-terminal" title="URI Slug"></i>\n          <input type="text" style="width: 50%" name="slug" id="slug" value="" placeholder="URI Slug">\n        </div>\n        <div class="field status">\n          <i class="icon-off" title="Status"></i>\n          <label class="radio"><input type="radio" name="active" class="js-active" value="1" checked> Published</label>\n          <label class="radio"><input type="radio" name="active" class="js-active" value="0"> Draft</label>\n        </div>\n      </div>\n    </div>\n    <div class="content-area">\n      <textarea name="content" id="content" placeholder="Content Goes Here..."></textarea>\n      <div class="tags-bar hide">\n        <input type="text" id="js-tags" name="tags" class="tags" style="width: 90%" value="" placeholder="Tags">\n      </div>\n    </div>\n  </div>\n</form>\n\n<div id="date-form" style="display: none">\n  <form class="form-inline">\n    <label for="date">Publish Date</label><br>\n    <input type="text" name="date" class="js-date" id="date" value="" placeholder="Next Thursday 10am">\n    <button class="btn js-setdate">Set</button>\n  </form>\n</div>\n';
+'</button>\n\n        <i data-dir="up" class="icon-chevron-sign-right js-toggle" title="Expand for options"></i>\n        <input type="text" style="width: 50%" name="title" id="title" value="" placeholder="Title">\n      </div>\n      <div class="details hide">\n        <div class="field">\n          <i class="icon-terminal" title="URI Slug"></i>\n          <input type="text" style="width: 50%" name="slug" id="slug" value="" placeholder="URI Slug">\n        </div>\n        <div class="field author">\n          <i class="icon-user" title="Author"></i>\n          <select id="js-user" name="user_id"></select>\n        </div>\n        <div class="field status">\n          <i class="icon-off" title="Status"></i>\n          <label class="radio"><input type="radio" name="active" class="js-active" value="1" checked> Published</label>\n          <label class="radio"><input type="radio" name="active" class="js-active" value="0"> Draft</label>\n        </div>\n      </div>\n    </div>\n    <div class="content-area">\n      <textarea name="content" id="content" placeholder="Content Goes Here..."></textarea>\n      <div class="tags-bar hide">\n        <input type="text" id="js-tags" name="tags" class="tags" style="width: 90%" value="" placeholder="Tags">\n      </div>\n    </div>\n  </div>\n</form>\n\n<div id="date-form" style="display: none">\n  <form class="form-inline">\n    <label for="date">Publish Date</label><br>\n    <input type="text" name="date" class="js-date" id="date" value="" placeholder="Next Thursday 10am">\n    <button class="btn js-setdate">Set</button>\n  </form>\n</div>\n';
 
 }
 return __p
@@ -289,10 +289,14 @@ this.Wardrobe = (function(Backbone, Marionette) {
   App.on("initialize:before", function(options) {
     App.environment = $('meta[name=env]').attr("content");
     this.currentUser = App.request("set:current:user", options.user);
+    this.allUsers = App.request("set:all:users", options.users);
     return this.baseUrl = options.base_url;
   });
   App.reqres.setHandler("get:current:user", function() {
     return App.currentUser;
+  });
+  App.reqres.setHandler("get:all:users", function() {
+    return App.allUsers;
   });
   App.reqres.setHandler("get:base:url", function() {
     return App.baseUrl;
@@ -627,6 +631,9 @@ this.Wardrobe.module("Entities", function(Entities, App, Backbone, Marionette, $
     setCurrentUser: function(currentUser) {
       return new Entities.User(currentUser);
     },
+    setAllUsers: function(users) {
+      return new Entities.UsersCollection(users);
+    },
     getUserEntities: function(cb) {
       var users;
       users = new Entities.UsersCollection;
@@ -642,6 +649,9 @@ this.Wardrobe.module("Entities", function(Entities, App, Backbone, Marionette, $
   };
   App.reqres.setHandler("set:current:user", function(currentUser) {
     return API.setCurrentUser(currentUser);
+  });
+  App.reqres.setHandler("set:all:users", function(users) {
+    return API.setAllUsers(users);
   });
   App.reqres.setHandler("user:entities", function(cb) {
     return API.getUserEntities(cb);
@@ -1214,6 +1224,7 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
       "click .publish": "save",
       "click .js-toggle": "toggleDetails",
       "click .icon-tags": "toggleTags",
+      "click .icon-user": "showUsers",
       "change .js-active": "changeBtn"
     };
 
@@ -1238,6 +1249,7 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
       var publish,
         _this = this;
       this.setUpEditor();
+      this.setupUsers();
       this.setupCalendar();
       if (this.model.isNew()) {
         $('#slug').slugify('#title');
@@ -1252,12 +1264,27 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
 
     PostView.prototype.setUpEditor = function() {
       var toolbar;
-      toolbar = ['bold', 'italic', '|', 'quote', 'unordered-list', 'ordered-list', '|', 'link', 'image', 'code', '|', 'undo', 'redo', '|', 'tags', 'calendar'];
+      toolbar = ['bold', 'italic', '|', 'quote', 'unordered-list', 'ordered-list', '|', 'link', 'image', 'code', '|', 'undo', 'redo', '|', 'tags', 'calendar', 'user'];
       this.editor = new Editor({
         toolbar: toolbar
       });
       this.editor.render(document.getElementById("content"));
       return this.$('.editor-statusbar').find('.lines').html(this.editor.codemirror.lineCount()).find('.words').html(this.editor.codemirror.getValue().length).find('.cursorActivity').html(this.editor.codemirror.getCursor().line + ':' + this.editor.codemirror.getCursor().ch);
+    };
+
+    PostView.prototype.setupUsers = function() {
+      var $userSelect, user, users;
+      $userSelect = this.$("#js-user");
+      users = App.request("get:all:users");
+      users.each(function(item) {
+        return $userSelect.append($("<option></option>").val(item.id).html(item.get("first_name") + " " + item.get("last_name")));
+      });
+      if (!this.model.isNew()) {
+        user = App.request("get:current:user");
+        return $userSelect.val(user.id);
+      } else {
+        return $userSelect.val(this.model.get("user_id"));
+      }
     };
 
     PostView.prototype.setUpTags = function(tags) {
@@ -1374,6 +1401,7 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
         active: this.$('input[type=radio]:checked').val(),
         content: this.editor.codemirror.getValue(),
         tags: this.$("#js-tags").val(),
+        user_id: this.$("#js-user").val(),
         publish_date: this.$("#publish_date").val()
       });
     };
