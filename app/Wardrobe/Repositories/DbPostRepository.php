@@ -115,12 +115,13 @@ class DbPostRepository implements PostRepositoryInterface {
 	 * @param  string  $slug
 	 * @param  array  $tags
 	 * @param  bool  $active
+	 * @param  int  $user_id
 	 * @param  DateTime  $publish_date
 	 * @return Post
 	 */
-	public function create($title, $content, $slug, array $tags, $active, DateTime $publish_date)
+	public function create($title, $content, $slug, array $tags, $active, $user_id, DateTime $publish_date)
 	{
-		$post = Post::create(compact('title', 'content', 'slug', 'active', 'publish_date'));
+		$post = Post::create(compact('title', 'content', 'slug', 'active', 'user_id', 'publish_date'));
 
 		$post->tags()->delete();
 
@@ -138,11 +139,12 @@ class DbPostRepository implements PostRepositoryInterface {
 	 * @param  string   $slug
 	 * @param  array    $tags
 	 * @param  string   $active
+	 * @param  int      $user_id
 	 * @param \DateTime $publish_date
 	 *
 	 * @return Post
 	 */
-	public function update($id, $title, $content, $slug, array $tags, $active, DateTime $publish_date)
+	public function update($id, $title, $content, $slug, array $tags, $active, $user_id, DateTime $publish_date)
 	{
 		$post = $this->find($id);
 
@@ -152,7 +154,7 @@ class DbPostRepository implements PostRepositoryInterface {
 			Cache::forget('post-'.$post->id);
 		}
 
-		$post->fill(compact('title', 'content', 'slug', 'active', 'publish_date'))->save();
+		$post->fill(compact('title', 'content', 'slug', 'active', 'user_id', 'publish_date'))->save();
 
 		$post->tags()->delete();
 

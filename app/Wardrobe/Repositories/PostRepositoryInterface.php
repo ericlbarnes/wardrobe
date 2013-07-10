@@ -55,15 +55,16 @@ interface PostRepositoryInterface {
 	/**
 	 * Create a new post.
 	 *
-	 * @param  string  $title
-	 * @param  string  $content
-	 * @param  string  $slug
-	 * @param  array  $tags
-	 * @param  bool  $active
+	 * @param  string    $title
+	 * @param  string    $content
+	 * @param  string    $slug
+	 * @param  array     $tags
+	 * @param  bool      $active
+	 * @param  int       $user_id
 	 * @param  DateTime  $publish_date
 	 * @return Post
 	 */
-	public function create($title, $content, $slug, array $tags, $active, DateTime $publish_date);
+	public function create($title, $content, $slug, array $tags, $active, $user_id, DateTime $publish_date);
 
 	/**
 	 * Update a post's title and content.
@@ -74,11 +75,12 @@ interface PostRepositoryInterface {
 	 * @param  string   $slug
 	 * @param  array    $tags
 	 * @param  bool     $active
+	 * @param  int      $user_id
 	 * @param  DateTime $publish_date
 	 *
 	 * @return Post
 	 */
-	public function update($id, $title, $content, $slug, array $tags, $active, DateTime $publish_date);
+	public function update($id, $title, $content, $slug, array $tags, $active, $user_id, DateTime $publish_date);
 
 	/**
 	 * Delete the post with the given ID.
