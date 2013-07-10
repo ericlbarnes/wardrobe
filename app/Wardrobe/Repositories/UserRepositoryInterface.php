@@ -77,4 +77,11 @@ interface UserRepositoryInterface {
 	 */
 	public function login($email, $password, $remember = false);
 
+	/**
+	 * Delete a user
+	 *
+	 * @param int $id
+	 */
+	public function delete($id);
+
 }

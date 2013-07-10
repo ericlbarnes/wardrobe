@@ -163,4 +163,13 @@ class DbUserRepository implements UserRepositoryInterface {
 		return false;
 	}
 
+	/**
+	 * Delete an account
+	 * @param int $id
+	 */
+	public function delete($id)
+	{
+		return User::where('id', $id)->delete();
+	}
+
 }

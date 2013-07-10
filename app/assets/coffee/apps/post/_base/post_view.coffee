@@ -48,7 +48,7 @@
         'bold', 'italic', '|'
         'quote', 'unordered-list', 'ordered-list', '|'
         'link', 'image', 'code', '|'
-        'undo', 'redo', '|', 'tags', 'calendar', 'user'
+        'undo', 'redo', '|', 'tags', 'calendar'
       ]
 
       @editor = new Editor

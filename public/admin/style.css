@@ -9641,6 +9641,12 @@ button {
 .accounts:after {
   clear: both;
 }
+.accounts .account {
+  display: inline-block;
+}
+.accounts button {
+  margin-top: 50px;
+}
 .accounts img {
   display: block;
   margin: 10px;

@@ -14,9 +14,10 @@
       new AccountApp.New.Controller
         region: App.mainRegion
 
-    edit: ->
+    edit: (account = {}) ->
       new AccountApp.Edit.Controller
         region: App.mainRegion
+        account: account
 
   App.vent.on "account:clicked", ->
     App.navigate "/accounts"
@@ -26,9 +27,9 @@
     App.navigate "/account/new"
     API.new()
 
-  App.vent.on "account:edit:clicked", ->
+  App.vent.on "account:edit:clicked", (account) ->
     App.navigate "/account/edit"
-    API.edit()
+    API.edit account
 
   App.addInitializer ->
     new AccountApp.Router

@@ -128,6 +128,7 @@ class ApiUserController extends BaseController {
   public function destroy($id)
   {
     $this->users->delete($id);
+    return Response::json(array('success'));
   }
 
 }

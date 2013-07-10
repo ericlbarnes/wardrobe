@@ -8,9 +8,9 @@
       view = @getListView users
       @show view
 
-      @listenTo view, "childview:post:delete:clicked", (child, args) ->
+      @listenTo view, "childview:account:delete:clicked", (child, args) ->
         model = args.model
-        if confirm "Are you sure you want to delete #{model.get("title")}?" then model.destroy() else false
+        if confirm "Are you sure you want to delete #{_.escape(model.get("first_name"))} #{_.escape(model.get("last_name"))}?" then model.destroy() else false
 
     getListView: (users) ->
       new List.Accounts

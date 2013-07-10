@@ -14,7 +14,7 @@ this["JST"]["account/list/templates/grid.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div class="accounts"></div>\n';
+__p += '<div class="holder"></div>\n<button class="btn add-new"><i class="icon-plus-sign"></i> Add New Account</button>';
 
 }
 return __p
@@ -22,13 +22,18 @@ return __p
 
 this["JST"]["account/list/templates/item.html"] = function(obj) {
 obj || (obj = {});
-var __t, __p = '', __e = _.escape;
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
 with (obj) {
-__p += '  <img src="" class="avatar img-polaroid" width="100">\n  <a href="#" class="details">' +
+__p += '<a href="#" class="details">\n  <img src="" class="avatar img-polaroid" width="100" height="100">\n  ' +
 ((__t = ( first_name )) == null ? '' : __t) +
 ' ' +
 ((__t = ( last_name )) == null ? '' : __t) +
-'</a>\n  <a href="#" class="delete" title="Delete User"><i class="icon-trash"></i></a>\n';
+'\n</a>\n';
+ if (canDelete()) { ;
+__p += '\n  <a href="#" class="delete" title="Delete User"><i class="icon-trash"></i></a>\n';
+ } ;
+__p += '\n';
 
 }
 return __p
@@ -855,9 +860,13 @@ this.Wardrobe.module("AccountApp", function(AccountApp, App, Backbone, Marionett
         region: App.mainRegion
       });
     },
-    edit: function() {
+    edit: function(account) {
+      if (account == null) {
+        account = {};
+      }
       return new AccountApp.Edit.Controller({
-        region: App.mainRegion
+        region: App.mainRegion,
+        account: account
       });
     }
   };
@@ -869,9 +878,9 @@ this.Wardrobe.module("AccountApp", function(AccountApp, App, Backbone, Marionett
     App.navigate("/account/new");
     return API["new"]();
   });
-  App.vent.on("account:edit:clicked", function() {
+  App.vent.on("account:edit:clicked", function(account) {
     App.navigate("/account/edit");
-    return API.edit();
+    return API.edit(account);
   });
   return App.addInitializer(function() {
     return new AccountApp.Router({
@@ -892,9 +901,10 @@ this.Wardrobe.module("AccountApp.Edit", function(Edit, App, Backbone, Marionette
       return Controller.__super__.constructor.apply(this, arguments);
     }
 
-    Controller.prototype.initialize = function() {
+    Controller.prototype.initialize = function(opts) {
       var user, view;
-      user = App.request("get:current:user");
+      user = opts.account;
+      user || (user = App.request("get:current:user"));
       view = this.getEditView(user);
       return this.show(view);
     };
@@ -1011,10 +1021,10 @@ this.Wardrobe.module("AccountApp.List", function(List, App, Backbone, Marionette
       users = App.request("get:all:users");
       view = this.getListView(users);
       this.show(view);
-      return this.listenTo(view, "childview:post:delete:clicked", function(child, args) {
+      return this.listenTo(view, "childview:account:delete:clicked", function(child, args) {
         var model;
         model = args.model;
-        if (confirm("Are you sure you want to delete " + (model.get("title")) + "?")) {
+        if (confirm("Are you sure you want to delete " + (_.escape(model.get("first_name"))) + " " + (_.escape(model.get("last_name"))) + "?")) {
           return model.destroy();
         } else {
           return false;
@@ -1047,14 +1057,28 @@ this.Wardrobe.module("AccountApp.List", function(List, App, Backbone, Marionette
 
     AccountItem.prototype.template = "account/list/templates/item";
 
-    AccountItem.prototype.className = "account pull-left";
+    AccountItem.prototype.className = "account";
 
     AccountItem.prototype.triggers = {
-      "click .delete": "post:delete:clicked"
+      "click .delete": "account:delete:clicked"
     };
 
     AccountItem.prototype.events = {
       "click .details": "edit"
+    };
+
+    AccountItem.prototype.templateHelpers = function() {
+      return {
+        canDelete: function() {
+          var me;
+          me = App.request("get:current:user");
+          if (me.id !== this.id) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+      };
     };
 
     AccountItem.prototype.onShow = function() {
@@ -1065,7 +1089,7 @@ this.Wardrobe.module("AccountApp.List", function(List, App, Backbone, Marionette
 
     AccountItem.prototype.edit = function(e) {
       e.preventDefault();
-      return App.vent.trigger("post:item:clicked", this.model);
+      return App.vent.trigger("account:edit:clicked", this.model);
     };
 
     return AccountItem;
@@ -1083,9 +1107,18 @@ this.Wardrobe.module("AccountApp.List", function(List, App, Backbone, Marionette
 
     Accounts.prototype.itemView = List.AccountItem;
 
-    Accounts.prototype.itemViewContainer = ".accounts";
+    Accounts.prototype.itemViewContainer = ".holder";
 
-    Accounts.prototype.className = "";
+    Accounts.prototype.className = "accounts";
+
+    Accounts.prototype.events = {
+      "click .add-new": "new"
+    };
+
+    Accounts.prototype["new"] = function(e) {
+      e.preventDefault();
+      return App.vent.trigger("account:new:clicked");
+    };
 
     return Accounts;
 
@@ -1394,7 +1427,7 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
 
     PostView.prototype.setUpEditor = function() {
       var toolbar;
-      toolbar = ['bold', 'italic', '|', 'quote', 'unordered-list', 'ordered-list', '|', 'link', 'image', 'code', '|', 'undo', 'redo', '|', 'tags', 'calendar', 'user'];
+      toolbar = ['bold', 'italic', '|', 'quote', 'unordered-list', 'ordered-list', '|', 'link', 'image', 'code', '|', 'undo', 'redo', '|', 'tags', 'calendar'];
       this.editor = new Editor({
         toolbar: toolbar
       });
