@@ -10,6 +10,16 @@ __p += '<form class="form-horizontal center-col">\n  <div id="js-errors" class="
 return __p
 };
 
+this["JST"]["account/new/templates/form.html"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<form class="form-horizontal center-col">\n  <div id="js-errors" class="hide">\n    <div class="alert alert-error">\n      <button type="button" class="close" data-dismiss="alert">×</button>\n      <span></span>\n    </div>\n  </div>\n  <div class="alert alert-success hide">\n    <strong>Success!</strong> The account has been created!\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="first_name">First Name</label>\n    <div class="controls">\n      <input type="text" id="first_name" name="first_name" placeholder="First Name">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="last_name">Last Name</label>\n    <div class="controls">\n      <input type="text" id="last_name" name="last_name" placeholder="Last Name">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="email">Email</label>\n    <div class="controls">\n      <input type="text" id="email" name="email" placeholder="Email">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="password">Password</label>\n    <div class="controls">\n      <input id="password" type="password" name="password" value="">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="password_confirm">Confirm Password</label>\n    <div class="controls">\n      <input id="password_confirm" type="password" name="password_confirm" value="">\n    </div>\n  </div>\n  <div class="control-group">\n    <div class="controls">\n      <button type="submit" class="btn save">Add User</button>\n    </div>\n  </div>\n</form>\n';
+
+}
+return __p
+};
+
 this["JST"]["header/list/templates/header.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
@@ -625,13 +635,19 @@ this.Wardrobe.module("Entities", function(Entities, App, Backbone, Marionette, $
           return cb(users);
         }
       });
+    },
+    newUser: function() {
+      return new Entities.User;
     }
   };
   App.reqres.setHandler("set:current:user", function(currentUser) {
     return API.setCurrentUser(currentUser);
   });
-  return App.reqres.setHandler("user:entities", function(cb) {
+  App.reqres.setHandler("user:entities", function(cb) {
     return API.getUserEntities(cb);
+  });
+  return App.reqres.setHandler("new:user:entity", function() {
+    return API.newUser();
   });
 });
 
@@ -788,6 +804,7 @@ this.Wardrobe.module("AccountApp", function(AccountApp, App, Backbone, Marionett
     }
 
     Router.prototype.appRoutes = {
+      "account/new": "new",
       "account/edit": "edit"
     };
 
@@ -795,12 +812,21 @@ this.Wardrobe.module("AccountApp", function(AccountApp, App, Backbone, Marionett
 
   })(Marionette.AppRouter);
   API = {
+    "new": function() {
+      return new AccountApp.New.Controller({
+        region: App.mainRegion
+      });
+    },
     edit: function() {
       return new AccountApp.Edit.Controller({
         region: App.mainRegion
       });
     }
   };
+  App.vent.on("account:new:clicked", function() {
+    App.navigate("/account/new");
+    return API["new"]();
+  });
   App.vent.on("account:edit:clicked", function() {
     App.navigate("/account/edit");
     return API.edit();
@@ -855,6 +881,120 @@ this.Wardrobe.module("AccountApp.Edit", function(Edit, App, Backbone, Marionette
     }
 
     User.prototype.template = "account/edit/templates/form";
+
+    User.prototype.className = "span12";
+
+    User.prototype.events = {
+      "click .save": "save"
+    };
+
+    User.prototype.modelEvents = {
+      "change:_errors": "changeErrors"
+    };
+
+    User.prototype.onRender = function() {
+      return this.fillJSON();
+    };
+
+    User.prototype.save = function(e) {
+      var data,
+        _this = this;
+      e.preventDefault();
+      data = {
+        first_name: this.$('#first_name').val(),
+        last_name: this.$('#last_name').val(),
+        email: this.$('#email').val(),
+        password: this.$('#password').val(),
+        active: 1
+      };
+      return this.model.save(data, {
+        success: function(model, response) {
+          App.request("set:current:user", data);
+          return _this.$(".alert-success").show();
+        }
+      });
+    };
+
+    User.prototype.changeErrors = function(model, errors, options) {
+      if (_.isEmpty(errors)) {
+        return this.removeErrors();
+      } else {
+        return this.addErrors(errors);
+      }
+    };
+
+    User.prototype.addErrors = function(errors) {
+      var error, name, _results;
+      if (errors == null) {
+        errors = {};
+      }
+      this.$("#js-errors").show().find("span").html("<strong>Error</strong> Please fix the following errors");
+      _results = [];
+      for (name in errors) {
+        error = errors[name];
+        _results.push(this.addError(error));
+      }
+      return _results;
+    };
+
+    User.prototype.addError = function(error) {
+      var sm;
+      sm = $("<li>").text(error);
+      return this.$("#js-errors span").append(sm);
+    };
+
+    User.prototype.removeErrors = function() {
+      return this.$("#js-errors").hide();
+    };
+
+    return User;
+
+  })(App.Views.ItemView);
+});
+
+var __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+this.Wardrobe.module("AccountApp.New", function(New, App, Backbone, Marionette, $, _) {
+  return New.Controller = (function(_super) {
+
+    __extends(Controller, _super);
+
+    function Controller() {
+      return Controller.__super__.constructor.apply(this, arguments);
+    }
+
+    Controller.prototype.initialize = function() {
+      var user, view;
+      user = App.request("new:user:entity");
+      view = this.getNewView(user);
+      return this.show(view);
+    };
+
+    Controller.prototype.getNewView = function(user) {
+      return new New.User({
+        model: user
+      });
+    };
+
+    return Controller;
+
+  })(App.Controllers.Base);
+});
+
+var __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+this.Wardrobe.module("AccountApp.New", function(New, App, Backbone, Marionette, $, _) {
+  return New.User = (function(_super) {
+
+    __extends(User, _super);
+
+    function User() {
+      return User.__super__.constructor.apply(this, arguments);
+    }
+
+    User.prototype.template = "account/new/templates/form";
 
     User.prototype.className = "span12";
 
