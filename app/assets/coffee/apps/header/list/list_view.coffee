@@ -6,7 +6,7 @@
 
     events:
       "click .write" : "newPost"
-      "click .edit-account" : "editAccount"
+      "click .accounts" : "accounts"
 
     onRender: ->
       @generateAvatar App.request "get:current:user"
@@ -20,9 +20,9 @@
       $avEl = @$(".avatar")
       $avEl.avatar user.get("email"), $avEl.attr("width")
 
-    editAccount: (e) ->
+    accounts: (e) ->
       e.preventDefault()
-      App.vent.trigger "account:edit:clicked"
+      App.vent.trigger "account:clicked"
 
     newPost: (e) ->
       e.preventDefault()

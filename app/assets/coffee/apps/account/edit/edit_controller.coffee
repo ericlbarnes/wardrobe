@@ -2,11 +2,14 @@
 
   class Edit.Controller extends App.Controllers.Base
 
-    initialize: ->
-      user = App.request "get:current:user"
-      view = @getEditView user
-      @show view
+    initialize: (options) ->
+      { account, id } = options
+      account or= App.request "user:entity", id
 
-    getEditView: (user) ->
+      App.execute "when:fetched", account, =>
+        view = @getEditView account
+        @show view
+
+    getEditView: (account) ->
       new Edit.User
-        model: user
+        model: account

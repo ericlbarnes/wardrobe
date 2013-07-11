@@ -27,6 +27,16 @@ class User extends \Eloquent implements UserInterface, RemindableInterface {
 	protected $hidden = array('password');
 
 	/**
+	 * Post relationship
+	 *
+	 * @return Relationship
+	 */
+	public function posts()
+  {
+		return $this->hasMany('Wardrobe\Post');
+	}
+
+	/**
 	 * Get the unique identifier for the user.
 	 *
 	 * @return mixed

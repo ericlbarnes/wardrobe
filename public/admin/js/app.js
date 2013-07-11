@@ -4,7 +4,36 @@ this["JST"]["account/edit/templates/form.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<form class="form-horizontal center-col">\n  <div id="js-errors" class="hide">\n    <div class="alert alert-error">\n      <button type="button" class="close" data-dismiss="alert">×</button>\n      <span></span>\n    </div>\n  </div>\n  <div class="alert alert-success hide">\n    <strong>Success!</strong> Your account has been saved!\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="first_name">First Name</label>\n    <div class="controls">\n      <input type="text" id="first_name" name="first_name" placeholder="First Name">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="last_name">Last Name</label>\n    <div class="controls">\n      <input type="text" id="last_name" name="last_name" placeholder="Last Name">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="email">Email</label>\n    <div class="controls">\n      <input type="text" id="email" name="email" placeholder="Email">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="password">Password</label>\n    <div class="controls">\n      <input id="password" type="password" name="password" value="">\n      <span class="help-block">Leave this empty to keep the same password</span>\n    </div>\n  </div>\n  <div class="control-group">\n    <div class="controls">\n      <button type="submit" class="btn save">Save</button>\n    </div>\n  </div>\n</form>\n';
+__p += '<form class="form-horizontal center">\n  <div id="js-errors" class="hide">\n    <div class="alert alert-error">\n      <button type="button" class="close" data-dismiss="alert">×</button>\n      <span></span>\n    </div>\n  </div>\n  <div class="alert alert-success hide">\n    <strong>Success!</strong> Your account has been saved!\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="first_name">First Name</label>\n    <div class="controls">\n      <input type="text" id="first_name" name="first_name" placeholder="First Name">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="last_name">Last Name</label>\n    <div class="controls">\n      <input type="text" id="last_name" name="last_name" placeholder="Last Name">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="email">Email</label>\n    <div class="controls">\n      <input type="text" id="email" name="email" placeholder="Email">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="password">Password</label>\n    <div class="controls">\n      <input id="password" type="password" name="password" value="">\n      <span class="help-block">Leave this empty to keep the same password</span>\n    </div>\n  </div>\n  <div class="control-group">\n    <div class="controls">\n      <button type="submit" class="btn save">Save</button>\n    </div>\n  </div>\n</form>\n';
+
+}
+return __p
+};
+
+this["JST"]["account/list/templates/grid.html"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<div class="holder"></div>\n<button class="btn add-new"><i class="icon-plus-sign"></i> Add New Account</button>';
+
+}
+return __p
+};
+
+this["JST"]["account/list/templates/item.html"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
+with (obj) {
+__p += '<a href="#" class="details">\n  <img src="" class="avatar img-polaroid" width="100" height="100">\n  ' +
+((__t = ( first_name )) == null ? '' : __t) +
+' ' +
+((__t = ( last_name )) == null ? '' : __t) +
+'\n</a>\n';
+ if (canDelete()) { ;
+__p += '\n  <a href="#" class="delete" title="Delete User"><i class="icon-trash"></i></a>\n';
+ } ;
+__p += '\n';
 
 }
 return __p
@@ -14,7 +43,7 @@ this["JST"]["account/new/templates/form.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<form class="form-horizontal center-col">\n  <div id="js-errors" class="hide">\n    <div class="alert alert-error">\n      <button type="button" class="close" data-dismiss="alert">×</button>\n      <span></span>\n    </div>\n  </div>\n  <div class="alert alert-success hide">\n    <strong>Success!</strong> The account has been created!\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="first_name">First Name</label>\n    <div class="controls">\n      <input type="text" id="first_name" name="first_name" placeholder="First Name">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="last_name">Last Name</label>\n    <div class="controls">\n      <input type="text" id="last_name" name="last_name" placeholder="Last Name">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="email">Email</label>\n    <div class="controls">\n      <input type="text" id="email" name="email" placeholder="Email">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="password">Password</label>\n    <div class="controls">\n      <input id="password" type="password" name="password" value="">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="password_confirm">Confirm Password</label>\n    <div class="controls">\n      <input id="password_confirm" type="password" name="password_confirm" value="">\n    </div>\n  </div>\n  <div class="control-group">\n    <div class="controls">\n      <button type="submit" class="btn save">Add User</button>\n    </div>\n  </div>\n</form>\n';
+__p += '<form class="form-horizontal center">\n  <div id="js-errors" class="hide">\n    <div class="alert alert-error">\n      <button type="button" class="close" data-dismiss="alert">×</button>\n      <span></span>\n    </div>\n  </div>\n  <div class="alert alert-success hide">\n    <strong>Success!</strong> The account has been created!\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="first_name">First Name</label>\n    <div class="controls">\n      <input type="text" id="first_name" name="first_name" placeholder="First Name">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="last_name">Last Name</label>\n    <div class="controls">\n      <input type="text" id="last_name" name="last_name" placeholder="Last Name">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="email">Email</label>\n    <div class="controls">\n      <input type="text" id="email" name="email" placeholder="Email">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="password">Password</label>\n    <div class="controls">\n      <input id="password" type="password" name="password" value="">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="password_confirm">Confirm Password</label>\n    <div class="controls">\n      <input id="password_confirm" type="password" name="password_confirm" value="">\n    </div>\n  </div>\n  <div class="control-group">\n    <div class="controls">\n      <button type="submit" class="btn save">Add User</button>\n    </div>\n  </div>\n</form>\n';
 
 }
 return __p
@@ -24,7 +53,7 @@ this["JST"]["header/list/templates/header.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<nav>\n  <ul>\n    <li><a class="write" href="#"><i class="icon-plus"></i> Write </a></li>\n    <li><a class="posts" href="#post"><i class="icon-list"></i> Posts </a></li>\n    <li><a class="edit-account" href="#"><i class="icon-user"></i> Account </a></li>\n    <li><a href="' +
+__p += '<nav>\n  <ul>\n    <li><a class="write" href="#"><i class="icon-plus"></i> Write </a></li>\n    <li><a class="posts" href="#post"><i class="icon-list"></i> Posts </a></li>\n    <li><a class="accounts" href="#"><i class="icon-user"></i> Accounts </a></li>\n    <li><a href="' +
 ((__t = ( logoutUrl() )) == null ? '' : __t) +
 '"><i class="icon-off"></i> Logout</a></li>\n  </ul>\n</nav>\n';
 
@@ -45,7 +74,7 @@ __p += '\n          <a href="' +
  } ;
 __p += '\n\n        <button class="btn btn-mini btn-success publish pull-right">' +
 ((__t = ( submitBtnText() )) == null ? '' : __t) +
-'</button>\n\n        <i data-dir="up" class="icon-chevron-sign-right js-toggle" title="Expand for options"></i>\n        <input type="text" style="width: 50%" name="title" id="title" value="" placeholder="Title">\n      </div>\n      <div class="details hide">\n        <div class="field">\n          <i class="icon-terminal" title="URI Slug"></i>\n          <input type="text" style="width: 50%" name="slug" id="slug" value="" placeholder="URI Slug">\n        </div>\n        <div class="field status">\n          <i class="icon-off" title="Status"></i>\n          <label class="radio"><input type="radio" name="active" class="js-active" value="1" checked> Published</label>\n          <label class="radio"><input type="radio" name="active" class="js-active" value="0"> Draft</label>\n        </div>\n      </div>\n    </div>\n    <div class="content-area">\n      <textarea name="content" id="content" placeholder="Content Goes Here..."></textarea>\n      <div class="tags-bar hide">\n        <input type="text" id="js-tags" name="tags" class="tags" style="width: 90%" value="" placeholder="Tags">\n      </div>\n    </div>\n  </div>\n</form>\n\n<div id="date-form" style="display: none">\n  <form class="form-inline">\n    <label for="date">Publish Date</label><br>\n    <input type="text" name="date" class="js-date" id="date" value="" placeholder="Next Thursday 10am">\n    <button class="btn js-setdate">Set</button>\n  </form>\n</div>\n';
+'</button>\n\n        <i data-dir="up" class="icon-chevron-sign-right js-toggle" title="Expand for options"></i>\n        <input type="text" style="width: 50%" name="title" id="title" value="" placeholder="Title">\n      </div>\n      <div class="details hide">\n        <div class="field">\n          <i class="icon-terminal" title="URI Slug"></i>\n          <input type="text" style="width: 50%" name="slug" id="slug" value="" placeholder="URI Slug">\n        </div>\n        <div class="field author">\n          <i class="icon-user" title="Author"></i>\n          <select id="js-user" name="user_id"></select>\n        </div>\n        <div class="field status">\n          <i class="icon-off" title="Status"></i>\n          <label class="radio"><input type="radio" name="active" class="js-active" value="1" checked> Published</label>\n          <label class="radio"><input type="radio" name="active" class="js-active" value="0"> Draft</label>\n        </div>\n      </div>\n    </div>\n    <div class="content-area">\n      <textarea name="content" id="content" placeholder="Content Goes Here..."></textarea>\n      <div class="tags-bar hide">\n        <input type="text" id="js-tags" name="tags" class="tags" style="width: 90%" value="" placeholder="Tags">\n      </div>\n    </div>\n  </div>\n</form>\n\n<div id="date-form" style="display: none">\n  <form class="form-inline">\n    <label for="date">Publish Date</label><br>\n    <input type="text" name="date" class="js-date" id="date" value="" placeholder="Next Thursday 10am">\n    <button class="btn js-setdate">Set</button>\n  </form>\n</div>\n';
 
 }
 return __p
@@ -75,7 +104,7 @@ this["JST"]["post/list/templates/item.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<td class="title">\n  <a href="#" class="details">' +
+__p += '<td class="title">\n  <img src="" class="avatar img-polaroid" width="18" height="18">\n  <a href="#" class="details">' +
 ((__t = ( title )) == null ? '' : __t) +
 '</a>\n</td>\n<td class="status">' +
 ((__t = ( (active == 1) ? "Active" : "Draft" )) == null ? '' : __t) +
@@ -289,10 +318,14 @@ this.Wardrobe = (function(Backbone, Marionette) {
   App.on("initialize:before", function(options) {
     App.environment = $('meta[name=env]').attr("content");
     this.currentUser = App.request("set:current:user", options.user);
+    this.allUsers = App.request("set:all:users", options.users);
     return this.baseUrl = options.base_url;
   });
   App.reqres.setHandler("get:current:user", function() {
     return App.currentUser;
+  });
+  App.reqres.setHandler("get:all:users", function() {
+    return App.allUsers;
   });
   App.reqres.setHandler("get:base:url", function() {
     return App.baseUrl;
@@ -627,6 +660,17 @@ this.Wardrobe.module("Entities", function(Entities, App, Backbone, Marionette, $
     setCurrentUser: function(currentUser) {
       return new Entities.User(currentUser);
     },
+    setAllUsers: function(users) {
+      return new Entities.UsersCollection(users);
+    },
+    getUser: function(id) {
+      var user;
+      user = new Entities.User({
+        id: id
+      });
+      user.fetch();
+      return user;
+    },
     getUserEntities: function(cb) {
       var users;
       users = new Entities.UsersCollection;
@@ -643,8 +687,14 @@ this.Wardrobe.module("Entities", function(Entities, App, Backbone, Marionette, $
   App.reqres.setHandler("set:current:user", function(currentUser) {
     return API.setCurrentUser(currentUser);
   });
+  App.reqres.setHandler("set:all:users", function(users) {
+    return API.setAllUsers(users);
+  });
   App.reqres.setHandler("user:entities", function(cb) {
     return API.getUserEntities(cb);
+  });
+  App.reqres.setHandler("user:entity", function(id) {
+    return API.getUser(id);
   });
   return App.reqres.setHandler("new:user:entity", function() {
     return API.newUser();
@@ -804,32 +854,42 @@ this.Wardrobe.module("AccountApp", function(AccountApp, App, Backbone, Marionett
     }
 
     Router.prototype.appRoutes = {
+      "accounts": "list",
       "account/new": "new",
-      "account/edit": "edit"
+      "account/edit/:id": "edit"
     };
 
     return Router;
 
   })(Marionette.AppRouter);
   API = {
+    list: function() {
+      return new AccountApp.List.Controller;
+    },
     "new": function() {
       return new AccountApp.New.Controller({
         region: App.mainRegion
       });
     },
-    edit: function() {
+    edit: function(id, account) {
       return new AccountApp.Edit.Controller({
-        region: App.mainRegion
+        region: App.mainRegion,
+        id: id,
+        account: account
       });
     }
   };
+  App.vent.on("account:clicked", function() {
+    App.navigate("/accounts");
+    return API.list();
+  });
   App.vent.on("account:new:clicked", function() {
     App.navigate("/account/new");
     return API["new"]();
   });
-  App.vent.on("account:edit:clicked", function() {
-    App.navigate("/account/edit");
-    return API.edit();
+  App.vent.on("account:edit:clicked", function(account) {
+    App.navigate("/account/edit/" + account.id);
+    return API.edit(account.id, account);
   });
   return App.addInitializer(function() {
     return new AccountApp.Router({
@@ -850,16 +910,21 @@ this.Wardrobe.module("AccountApp.Edit", function(Edit, App, Backbone, Marionette
       return Controller.__super__.constructor.apply(this, arguments);
     }
 
-    Controller.prototype.initialize = function() {
-      var user, view;
-      user = App.request("get:current:user");
-      view = this.getEditView(user);
-      return this.show(view);
+    Controller.prototype.initialize = function(options) {
+      var account, id,
+        _this = this;
+      account = options.account, id = options.id;
+      account || (account = App.request("user:entity", id));
+      return App.execute("when:fetched", account, function() {
+        var view;
+        view = _this.getEditView(account);
+        return _this.show(view);
+      });
     };
 
-    Controller.prototype.getEditView = function(user) {
+    Controller.prototype.getEditView = function(account) {
       return new Edit.User({
-        model: user
+        model: account
       });
     };
 
@@ -950,6 +1015,127 @@ this.Wardrobe.module("AccountApp.Edit", function(Edit, App, Backbone, Marionette
     return User;
 
   })(App.Views.ItemView);
+});
+
+var __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+this.Wardrobe.module("AccountApp.List", function(List, App, Backbone, Marionette, $, _) {
+  return List.Controller = (function(_super) {
+
+    __extends(Controller, _super);
+
+    function Controller() {
+      return Controller.__super__.constructor.apply(this, arguments);
+    }
+
+    Controller.prototype.initialize = function() {
+      var users, view;
+      users = App.request("get:all:users");
+      view = this.getListView(users);
+      this.show(view);
+      return this.listenTo(view, "childview:account:delete:clicked", function(child, args) {
+        var model;
+        model = args.model;
+        if (confirm("Are you sure you want to delete " + (_.escape(model.get("first_name"))) + " " + (_.escape(model.get("last_name"))) + "?")) {
+          return model.destroy();
+        } else {
+          return false;
+        }
+      });
+    };
+
+    Controller.prototype.getListView = function(users) {
+      return new List.Accounts({
+        collection: users
+      });
+    };
+
+    return Controller;
+
+  })(App.Controllers.Base);
+});
+
+var __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+this.Wardrobe.module("AccountApp.List", function(List, App, Backbone, Marionette, $, _) {
+  List.AccountItem = (function(_super) {
+
+    __extends(AccountItem, _super);
+
+    function AccountItem() {
+      return AccountItem.__super__.constructor.apply(this, arguments);
+    }
+
+    AccountItem.prototype.template = "account/list/templates/item";
+
+    AccountItem.prototype.className = "account";
+
+    AccountItem.prototype.triggers = {
+      "click .delete": "account:delete:clicked"
+    };
+
+    AccountItem.prototype.events = {
+      "click .details": "edit"
+    };
+
+    AccountItem.prototype.templateHelpers = function() {
+      return {
+        canDelete: function() {
+          var me;
+          me = App.request("get:current:user");
+          if (me.id !== this.id) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+      };
+    };
+
+    AccountItem.prototype.onShow = function() {
+      var $avEl;
+      $avEl = this.$(".avatar");
+      return $avEl.avatar(this.model.get("email"), $avEl.attr("width"));
+    };
+
+    AccountItem.prototype.edit = function(e) {
+      e.preventDefault();
+      return App.vent.trigger("account:edit:clicked", this.model);
+    };
+
+    return AccountItem;
+
+  })(App.Views.ItemView);
+  return List.Accounts = (function(_super) {
+
+    __extends(Accounts, _super);
+
+    function Accounts() {
+      return Accounts.__super__.constructor.apply(this, arguments);
+    }
+
+    Accounts.prototype.template = "account/list/templates/grid";
+
+    Accounts.prototype.itemView = List.AccountItem;
+
+    Accounts.prototype.itemViewContainer = ".holder";
+
+    Accounts.prototype.className = "accounts";
+
+    Accounts.prototype.events = {
+      "click .add-new": "new"
+    };
+
+    Accounts.prototype["new"] = function(e) {
+      e.preventDefault();
+      return App.vent.trigger("account:new:clicked");
+    };
+
+    return Accounts;
+
+  })(App.Views.CompositeView);
 });
 
 var __hasProp = {}.hasOwnProperty,
@@ -1156,7 +1342,7 @@ this.Wardrobe.module("HeaderApp.List", function(List, App, Backbone, Marionette,
 
     Header.prototype.events = {
       "click .write": "newPost",
-      "click .edit-account": "editAccount"
+      "click .accounts": "accounts"
     };
 
     Header.prototype.onRender = function() {
@@ -1175,9 +1361,9 @@ this.Wardrobe.module("HeaderApp.List", function(List, App, Backbone, Marionette,
       return $avEl.avatar(user.get("email"), $avEl.attr("width"));
     };
 
-    Header.prototype.editAccount = function(e) {
+    Header.prototype.accounts = function(e) {
       e.preventDefault();
-      return App.vent.trigger("account:edit:clicked");
+      return App.vent.trigger("account:clicked");
     };
 
     Header.prototype.newPost = function(e) {
@@ -1214,6 +1400,7 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
       "click .publish": "save",
       "click .js-toggle": "toggleDetails",
       "click .icon-tags": "toggleTags",
+      "click .icon-user": "showUsers",
       "change .js-active": "changeBtn"
     };
 
@@ -1238,6 +1425,7 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
       var publish,
         _this = this;
       this.setUpEditor();
+      this.setupUsers();
       this.setupCalendar();
       if (this.model.isNew()) {
         $('#slug').slugify('#title');
@@ -1258,6 +1446,21 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
       });
       this.editor.render(document.getElementById("content"));
       return this.$('.editor-statusbar').find('.lines').html(this.editor.codemirror.lineCount()).find('.words').html(this.editor.codemirror.getValue().length).find('.cursorActivity').html(this.editor.codemirror.getCursor().line + ':' + this.editor.codemirror.getCursor().ch);
+    };
+
+    PostView.prototype.setupUsers = function() {
+      var $userSelect, user, users;
+      $userSelect = this.$("#js-user");
+      users = App.request("get:all:users");
+      users.each(function(item) {
+        return $userSelect.append($("<option></option>").val(item.id).html(item.get("first_name") + " " + item.get("last_name")));
+      });
+      if (!this.model.isNew()) {
+        user = App.request("get:current:user");
+        return $userSelect.val(user.id);
+      } else {
+        return $userSelect.val(this.model.get("user_id"));
+      }
     };
 
     PostView.prototype.setUpTags = function(tags) {
@@ -1374,6 +1577,7 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
         active: this.$('input[type=radio]:checked').val(),
         content: this.editor.codemirror.getValue(),
         tags: this.$("#js-tags").val(),
+        user_id: this.$("#js-user").val(),
         publish_date: this.$("#publish_date").val()
       });
     };
@@ -1615,6 +1819,10 @@ this.Wardrobe.module("PostApp.List", function(List, App, Backbone, Marionette, $
     };
 
     PostItem.prototype.onShow = function() {
+      var $avEl, user;
+      $avEl = this.$(".avatar");
+      user = this.model.get("user");
+      $avEl.avatar(user.email, $avEl.attr("width"));
       return this.$('.js-format-date').formatDates();
     };
 

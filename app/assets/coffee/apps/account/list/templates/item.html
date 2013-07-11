@@ -1,0 +1,7 @@
+<a href="#" class="details">
+  <img src="" class="avatar img-polaroid" width="100" height="100">
+  <%= first_name %> <%= last_name %>
+</a>
+<% if (canDelete()) { %>
+  <a href="#" class="delete" title="Delete User"><i class="icon-trash"></i></a>
+<% } %>

@@ -17,15 +17,26 @@ class Post extends \Eloquent {
 	 *
 	 * @var array
 	 */
-	protected $fillable = array('title', 'slug', 'content', 'active', 'publish_date');
+	protected $fillable = array('title', 'slug', 'content', 'active', 'publish_date', 'user_id');
 
 	/**
 	 * Tags Relationship
+	 *
 	 * @return Relationship
 	 */
 	public function tags()
   {
 		return $this->hasMany('\Wardrobe\Tag', 'post_id');
+	}
+
+	/**
+	 * User relationship
+	 *
+	 * @return Relationship
+	 */
+	public function user()
+  {
+		return $this->belongsTo('Wardrobe\User', 'id');
 	}
 
 	/**

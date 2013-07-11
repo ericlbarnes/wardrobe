@@ -17,6 +17,9 @@
       "click .details" : "edit"
 
     onShow: ->
+      $avEl = @$(".avatar")
+      user = @model.get("user")
+      $avEl.avatar user.email, $avEl.attr("width")
       @$('.js-format-date').formatDates()
 
     templateHelpers:

@@ -6,11 +6,15 @@
   App.on "initialize:before", (options) ->
     App.environment = $('meta[name=env]').attr("content")
     @currentUser = App.request "set:current:user", options.user
+    @allUsers = App.request "set:all:users", options.users
     @baseUrl = options.base_url
 
   # Set a handler so that other parts of the app can grab the current user.
   App.reqres.setHandler "get:current:user", ->
     App.currentUser
+
+  App.reqres.setHandler "get:all:users", ->
+    App.allUsers
 
   App.reqres.setHandler "get:base:url", ->
     App.baseUrl

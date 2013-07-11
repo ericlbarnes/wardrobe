@@ -6,6 +6,16 @@ use Wardrobe\User;
 class DbUserRepository implements UserRepositoryInterface {
 
 	/**
+	 * Get all of the users.
+	 *
+	 * @return array
+	 */
+	public function all()
+	{
+		return User::all();
+	}
+
+	/**
 	 * Get a User by their primary key.
 	 *
 	 * @param  int   $id
@@ -151,6 +161,15 @@ class DbUserRepository implements UserRepositoryInterface {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Delete an account
+	 * @param int $id
+	 */
+	public function delete($id)
+	{
+		return User::where('id', $id)->delete();
 	}
 
 }

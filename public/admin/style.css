@@ -9506,8 +9506,19 @@ body {
 td.title {
   width: 50%;
 }
-.actions a {
+td .img-polaroid {
+  padding: 1px;
+  margin-right: 5px;
+}
+td.actions {
+  text-align: right;
+}
+td.actions a {
   margin-left: 5px;
+}
+form.center {
+  margin: 0 auto;
+  width: 500px;
 }
 button {
   font-family: 'Open Sans', sans-serif;
@@ -9518,7 +9529,7 @@ button {
 .center-col {
   margin: 0 auto;
   padding: 0 20px;
-  max-width: 600px;
+  max-width: 80%;
 }
 #write {
   padding: 20px;
@@ -9569,6 +9580,11 @@ button {
 #write .content-area {
   position: relative;
 }
+#write .author select {
+  height: 25px;
+  margin-top: 11px;
+  margin-left: 5px;
+}
 #write label.radio {
   display: inline-block;
   color: #999999;
@@ -9611,6 +9627,43 @@ button {
   font-weight: 400;
   font-size: 22px;
   line-height: 1.3em;
+}
+.accounts {
+  *zoom: 1;
+  text-align: center;
+  margin: 0 auto;
+  width: 550px;
+}
+.accounts:before,
+.accounts:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.accounts:after {
+  clear: both;
+}
+.accounts:before,
+.accounts:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.accounts:after {
+  clear: both;
+}
+.accounts .account {
+  display: inline-block;
+}
+.accounts button {
+  margin-top: 50px;
+}
+.accounts img {
+  display: block;
+  margin: 10px;
+}
+.accounts i {
+  margin-left: 10px;
 }
 nav {
   font-family: 'Crimson Text', serif;

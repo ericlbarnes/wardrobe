@@ -13,6 +13,15 @@
     setCurrentUser: (currentUser) ->
       new Entities.User currentUser
 
+    setAllUsers: (users) ->
+      new Entities.UsersCollection users
+
+    getUser: (id) ->
+      user = new Entities.User
+        id: id
+      user.fetch()
+      user
+
     getUserEntities: (cb) ->
       users = new Entities.UsersCollection
       users.fetch
@@ -25,8 +34,14 @@
   App.reqres.setHandler "set:current:user", (currentUser) ->
     API.setCurrentUser currentUser
 
+  App.reqres.setHandler "set:all:users", (users) ->
+    API.setAllUsers users
+
   App.reqres.setHandler "user:entities", (cb) ->
     API.getUserEntities cb
+
+  App.reqres.setHandler "user:entity", (id) ->
+    API.getUser id
 
   App.reqres.setHandler "new:user:entity", ->
     API.newUser()

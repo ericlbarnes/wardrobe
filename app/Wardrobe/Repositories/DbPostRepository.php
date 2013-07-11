@@ -13,7 +13,7 @@ class DbPostRepository implements PostRepositoryInterface {
 	 */
 	public function all()
 	{
-		return Post::with('tags')->orderBy('publish_date', 'desc')->get();
+		return Post::with(array('tags', 'user'))->orderBy('publish_date', 'desc')->get();
 	}
 
 	/**
@@ -27,7 +27,7 @@ class DbPostRepository implements PostRepositoryInterface {
 	{
 		$per_page = is_numeric($per_page) ? $per_page : 5;
 
-		return Post::with('tags')
+		return Post::with(array('tags', 'user'))
                         ->where('active', 1)
                         ->where('publish_date', '<=', new DateTime)
                         ->orderBy('publish_date', 'desc')
@@ -42,7 +42,7 @@ class DbPostRepository implements PostRepositoryInterface {
 	 */
 	public function find($id)
 	{
-		return Post::with('tags')->findOrFail($id);
+		return Post::with(array('tags', 'user'))->findOrFail($id);
 	}
 
 	/**
@@ -53,7 +53,7 @@ class DbPostRepository implements PostRepositoryInterface {
 	 */
 	public function findBySlug($slug)
 	{
-		return Post::with('tags')
+		return Post::with(array('tags', 'user'))
                         ->where('active', 1)
                         ->where('publish_date', '<=', new DateTime)
                         ->where('slug', $slug)->first();
@@ -70,7 +70,7 @@ class DbPostRepository implements PostRepositoryInterface {
 	{
 		$per_page = is_numeric($per_page) ? $per_page : 5;
 
-		return Post::with('tags')
+		return Post::with(array('tags', 'user'))
                        ->select('posts.*')
                        ->join('tags', 'posts.id', '=', 'tags.post_id')
                        ->where('tags.tag', '=', $tag)
@@ -92,7 +92,7 @@ class DbPostRepository implements PostRepositoryInterface {
 	{
 		$per_page = is_numeric($per_page) ? $per_page : 5;
 
-		return Post::with('tags')
+		return Post::with(array('tags', 'user'))
                        ->select('posts.*')
                        ->join('tags', 'posts.id', '=', 'tags.post_id')
                        ->orWhere(function($query) use ($search)
