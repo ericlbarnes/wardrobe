@@ -17,14 +17,26 @@
       "click .details" : "edit"
 
     onShow: ->
+      allUsers = App.request "get:all:users"
       $avEl = @$(".avatar")
-      user = @model.get("user")
-      $avEl.avatar user.email, $avEl.attr("width")
-      @$('.js-format-date').formatDates()
+      if allUsers.length is 1
+        $avEl.hide()
+      else
+        user = @model.get("user")
+        $avEl.avatar user.email, $avEl.attr("width")
+        @$('.js-format-date').formatDates()
 
     templateHelpers:
       previewUrl: ->
         "#{App.request("get:base:url")}/post/preview/#{@id}"
+
+      status: ->
+        if @active is "1" and @publish_date > moment().format('YYYY-MM-DD HH:mm:ss')
+          "Scheduled"
+        else if @active is "1"
+          "Active"
+        else
+          "Draft"
 
     edit: (e) ->
       e.preventDefault()

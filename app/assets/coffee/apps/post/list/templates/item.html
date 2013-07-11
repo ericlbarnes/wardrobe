@@ -2,7 +2,7 @@
   <img src="" class="avatar img-polaroid" width="18" height="18">
   <a href="#" class="details"><%= title %></a>
 </td>
-<td class="status"><%= (active == 1) ? "Active" : "Draft" %></td>
+<td class="status"><%= status() %></td>
 <td class="date js-format-date" data-date="<%= publish_date %>"><%= publish_date %></td>
 <td class="actions">
   <a href="<%= previewUrl() %>" target="_blank" title="Preview"><i class="icon-zoom-in"></i></a>
