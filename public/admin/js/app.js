@@ -4,7 +4,7 @@ this["JST"]["account/edit/templates/form.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<form class="form-horizontal center-col">\n  <div id="js-errors" class="hide">\n    <div class="alert alert-error">\n      <button type="button" class="close" data-dismiss="alert">×</button>\n      <span></span>\n    </div>\n  </div>\n  <div class="alert alert-success hide">\n    <strong>Success!</strong> Your account has been saved!\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="first_name">First Name</label>\n    <div class="controls">\n      <input type="text" id="first_name" name="first_name" placeholder="First Name">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="last_name">Last Name</label>\n    <div class="controls">\n      <input type="text" id="last_name" name="last_name" placeholder="Last Name">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="email">Email</label>\n    <div class="controls">\n      <input type="text" id="email" name="email" placeholder="Email">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="password">Password</label>\n    <div class="controls">\n      <input id="password" type="password" name="password" value="">\n      <span class="help-block">Leave this empty to keep the same password</span>\n    </div>\n  </div>\n  <div class="control-group">\n    <div class="controls">\n      <button type="submit" class="btn save">Save</button>\n    </div>\n  </div>\n</form>\n';
+__p += '<form class="form-horizontal center">\n  <div id="js-errors" class="hide">\n    <div class="alert alert-error">\n      <button type="button" class="close" data-dismiss="alert">×</button>\n      <span></span>\n    </div>\n  </div>\n  <div class="alert alert-success hide">\n    <strong>Success!</strong> Your account has been saved!\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="first_name">First Name</label>\n    <div class="controls">\n      <input type="text" id="first_name" name="first_name" placeholder="First Name">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="last_name">Last Name</label>\n    <div class="controls">\n      <input type="text" id="last_name" name="last_name" placeholder="Last Name">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="email">Email</label>\n    <div class="controls">\n      <input type="text" id="email" name="email" placeholder="Email">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="password">Password</label>\n    <div class="controls">\n      <input id="password" type="password" name="password" value="">\n      <span class="help-block">Leave this empty to keep the same password</span>\n    </div>\n  </div>\n  <div class="control-group">\n    <div class="controls">\n      <button type="submit" class="btn save">Save</button>\n    </div>\n  </div>\n</form>\n';
 
 }
 return __p
@@ -43,7 +43,7 @@ this["JST"]["account/new/templates/form.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<form class="form-horizontal center-col">\n  <div id="js-errors" class="hide">\n    <div class="alert alert-error">\n      <button type="button" class="close" data-dismiss="alert">×</button>\n      <span></span>\n    </div>\n  </div>\n  <div class="alert alert-success hide">\n    <strong>Success!</strong> The account has been created!\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="first_name">First Name</label>\n    <div class="controls">\n      <input type="text" id="first_name" name="first_name" placeholder="First Name">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="last_name">Last Name</label>\n    <div class="controls">\n      <input type="text" id="last_name" name="last_name" placeholder="Last Name">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="email">Email</label>\n    <div class="controls">\n      <input type="text" id="email" name="email" placeholder="Email">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="password">Password</label>\n    <div class="controls">\n      <input id="password" type="password" name="password" value="">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="password_confirm">Confirm Password</label>\n    <div class="controls">\n      <input id="password_confirm" type="password" name="password_confirm" value="">\n    </div>\n  </div>\n  <div class="control-group">\n    <div class="controls">\n      <button type="submit" class="btn save">Add User</button>\n    </div>\n  </div>\n</form>\n';
+__p += '<form class="form-horizontal center">\n  <div id="js-errors" class="hide">\n    <div class="alert alert-error">\n      <button type="button" class="close" data-dismiss="alert">×</button>\n      <span></span>\n    </div>\n  </div>\n  <div class="alert alert-success hide">\n    <strong>Success!</strong> The account has been created!\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="first_name">First Name</label>\n    <div class="controls">\n      <input type="text" id="first_name" name="first_name" placeholder="First Name">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="last_name">Last Name</label>\n    <div class="controls">\n      <input type="text" id="last_name" name="last_name" placeholder="Last Name">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="email">Email</label>\n    <div class="controls">\n      <input type="text" id="email" name="email" placeholder="Email">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="password">Password</label>\n    <div class="controls">\n      <input id="password" type="password" name="password" value="">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="password_confirm">Confirm Password</label>\n    <div class="controls">\n      <input id="password_confirm" type="password" name="password_confirm" value="">\n    </div>\n  </div>\n  <div class="control-group">\n    <div class="controls">\n      <button type="submit" class="btn save">Add User</button>\n    </div>\n  </div>\n</form>\n';
 
 }
 return __p
@@ -104,7 +104,7 @@ this["JST"]["post/list/templates/item.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<td class="title">\n  <a href="#" class="details">' +
+__p += '<td class="title">\n  <img src="" class="avatar img-polaroid" width="18" height="18">\n  <a href="#" class="details">' +
 ((__t = ( title )) == null ? '' : __t) +
 '</a>\n</td>\n<td class="status">' +
 ((__t = ( (active == 1) ? "Active" : "Draft" )) == null ? '' : __t) +
@@ -663,6 +663,14 @@ this.Wardrobe.module("Entities", function(Entities, App, Backbone, Marionette, $
     setAllUsers: function(users) {
       return new Entities.UsersCollection(users);
     },
+    getUser: function(id) {
+      var user;
+      user = new Entities.User({
+        id: id
+      });
+      user.fetch();
+      return user;
+    },
     getUserEntities: function(cb) {
       var users;
       users = new Entities.UsersCollection;
@@ -684,6 +692,9 @@ this.Wardrobe.module("Entities", function(Entities, App, Backbone, Marionette, $
   });
   App.reqres.setHandler("user:entities", function(cb) {
     return API.getUserEntities(cb);
+  });
+  App.reqres.setHandler("user:entity", function(id) {
+    return API.getUser(id);
   });
   return App.reqres.setHandler("new:user:entity", function() {
     return API.newUser();
@@ -845,7 +856,7 @@ this.Wardrobe.module("AccountApp", function(AccountApp, App, Backbone, Marionett
     Router.prototype.appRoutes = {
       "accounts": "list",
       "account/new": "new",
-      "account/edit": "edit"
+      "account/edit/:id": "edit"
     };
 
     return Router;
@@ -860,12 +871,10 @@ this.Wardrobe.module("AccountApp", function(AccountApp, App, Backbone, Marionett
         region: App.mainRegion
       });
     },
-    edit: function(account) {
-      if (account == null) {
-        account = {};
-      }
+    edit: function(id, account) {
       return new AccountApp.Edit.Controller({
         region: App.mainRegion,
+        id: id,
         account: account
       });
     }
@@ -879,8 +888,8 @@ this.Wardrobe.module("AccountApp", function(AccountApp, App, Backbone, Marionett
     return API["new"]();
   });
   App.vent.on("account:edit:clicked", function(account) {
-    App.navigate("/account/edit");
-    return API.edit(account);
+    App.navigate("/account/edit/" + account.id);
+    return API.edit(account.id, account);
   });
   return App.addInitializer(function() {
     return new AccountApp.Router({
@@ -901,17 +910,21 @@ this.Wardrobe.module("AccountApp.Edit", function(Edit, App, Backbone, Marionette
       return Controller.__super__.constructor.apply(this, arguments);
     }
 
-    Controller.prototype.initialize = function(opts) {
-      var user, view;
-      user = opts.account;
-      user || (user = App.request("get:current:user"));
-      view = this.getEditView(user);
-      return this.show(view);
+    Controller.prototype.initialize = function(options) {
+      var account, id,
+        _this = this;
+      account = options.account, id = options.id;
+      account || (account = App.request("user:entity", id));
+      return App.execute("when:fetched", account, function() {
+        var view;
+        view = _this.getEditView(account);
+        return _this.show(view);
+      });
     };
 
-    Controller.prototype.getEditView = function(user) {
+    Controller.prototype.getEditView = function(account) {
       return new Edit.User({
-        model: user
+        model: account
       });
     };
 
@@ -1806,6 +1819,10 @@ this.Wardrobe.module("PostApp.List", function(List, App, Backbone, Marionette, $
     };
 
     PostItem.prototype.onShow = function() {
+      var $avEl, user;
+      $avEl = this.$(".avatar");
+      user = this.model.get("user");
+      $avEl.avatar(user.email, $avEl.attr("width"));
       return this.$('.js-format-date').formatDates();
     };
 

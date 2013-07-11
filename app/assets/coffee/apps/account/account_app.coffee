@@ -4,7 +4,7 @@
     appRoutes:
       "accounts" : "list"
       "account/new" : "new"
-      "account/edit" : "edit"
+      "account/edit/:id" : "edit"
 
   API =
     list: ->
@@ -14,9 +14,10 @@
       new AccountApp.New.Controller
         region: App.mainRegion
 
-    edit: (account = {}) ->
+    edit: (id, account) ->
       new AccountApp.Edit.Controller
         region: App.mainRegion
+        id: id
         account: account
 
   App.vent.on "account:clicked", ->
@@ -28,8 +29,8 @@
     API.new()
 
   App.vent.on "account:edit:clicked", (account) ->
-    App.navigate "/account/edit"
-    API.edit account
+    App.navigate "/account/edit/#{account.id}"
+    API.edit account.id, account
 
   App.addInitializer ->
     new AccountApp.Router

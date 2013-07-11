@@ -9506,8 +9506,19 @@ body {
 td.title {
   width: 50%;
 }
-.actions a {
+td .img-polaroid {
+  padding: 1px;
+  margin-right: 5px;
+}
+td.actions {
+  text-align: right;
+}
+td.actions a {
   margin-left: 5px;
+}
+form.center {
+  margin: 0 auto;
+  width: 500px;
 }
 button {
   font-family: 'Open Sans', sans-serif;
@@ -9518,7 +9529,7 @@ button {
 .center-col {
   margin: 0 auto;
   padding: 0 20px;
-  max-width: 600px;
+  max-width: 80%;
 }
 #write {
   padding: 20px;
