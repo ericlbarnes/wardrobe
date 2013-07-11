@@ -4,9 +4,14 @@
 
     initialize: ->
       user = App.request "new:user:entity"
+
+      @listenTo user, "created", ->
+        App.vent.trigger "account:created", user
+
       view = @getNewView user
       @show view
 
     getNewView: (user) ->
       new New.User
         model: user
+        collection: App.request "get:all:users"

@@ -35,8 +35,8 @@ class Post extends \Eloquent {
 	 * @return Relationship
 	 */
 	public function user()
-  {
-		return $this->belongsTo('Wardrobe\User', 'id');
+	{
+		return $this->belongsTo('Wardrobe\User');
 	}
 
 	/**

@@ -23,9 +23,7 @@
         active: 1 # @$('input[type=radio]:checked').val()
 
       @model.save data,
-        success: (model, response) =>
-          App.request "set:current:user", data
-          @$(".alert-success").show()
+        collection: @collection
 
     # Show the errors based on validation failure.
     changeErrors: (model, errors, options) ->

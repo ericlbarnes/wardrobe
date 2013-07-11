@@ -6,6 +6,9 @@
       { account, id } = options
       account or= App.request "user:entity", id
 
+      @listenTo account, "updated", ->
+        App.vent.trigger "account:updated", account
+
       App.execute "when:fetched", account, =>
         view = @getEditView account
         @show view

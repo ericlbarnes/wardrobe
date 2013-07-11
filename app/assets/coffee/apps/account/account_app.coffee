@@ -32,6 +32,12 @@
     App.navigate "/account/edit/#{account.id}"
     API.edit account.id, account
 
+  # Listen for the user created or saved then show alert and redirect.
+  App.vent.on "account:created account:updated", ->
+    $("#js-alert").showAlert("Success!", "Account was successfully saved.", "alert-success")
+    App.navigate "accounts"
+    API.list()
+
   App.addInitializer ->
     new AccountApp.Router
       controller: API

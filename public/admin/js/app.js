@@ -891,6 +891,11 @@ this.Wardrobe.module("AccountApp", function(AccountApp, App, Backbone, Marionett
     App.navigate("/account/edit/" + account.id);
     return API.edit(account.id, account);
   });
+  App.vent.on("account:created account:updated", function() {
+    $("#js-alert").showAlert("Success!", "Account was successfully saved.", "alert-success");
+    App.navigate("accounts");
+    return API.list();
+  });
   return App.addInitializer(function() {
     return new AccountApp.Router({
       controller: API
@@ -915,6 +920,9 @@ this.Wardrobe.module("AccountApp.Edit", function(Edit, App, Backbone, Marionette
         _this = this;
       account = options.account, id = options.id;
       account || (account = App.request("user:entity", id));
+      this.listenTo(account, "updated", function() {
+        return App.vent.trigger("account:updated", account);
+      });
       return App.execute("when:fetched", account, function() {
         var view;
         view = _this.getEditView(account);
@@ -962,8 +970,7 @@ this.Wardrobe.module("AccountApp.Edit", function(Edit, App, Backbone, Marionette
     };
 
     User.prototype.save = function(e) {
-      var data,
-        _this = this;
+      var data;
       e.preventDefault();
       data = {
         first_name: this.$('#first_name').val(),
@@ -972,12 +979,7 @@ this.Wardrobe.module("AccountApp.Edit", function(Edit, App, Backbone, Marionette
         password: this.$('#password').val(),
         active: 1
       };
-      return this.model.save(data, {
-        success: function(model, response) {
-          App.request("set:current:user", data);
-          return _this.$(".alert-success").show();
-        }
-      });
+      return this.model.save(data);
     };
 
     User.prototype.changeErrors = function(model, errors, options) {
@@ -1153,13 +1155,17 @@ this.Wardrobe.module("AccountApp.New", function(New, App, Backbone, Marionette, 
     Controller.prototype.initialize = function() {
       var user, view;
       user = App.request("new:user:entity");
+      this.listenTo(user, "created", function() {
+        return App.vent.trigger("account:created", user);
+      });
       view = this.getNewView(user);
       return this.show(view);
     };
 
     Controller.prototype.getNewView = function(user) {
       return new New.User({
-        model: user
+        model: user,
+        collection: App.request("get:all:users")
       });
     };
 
@@ -1197,8 +1203,7 @@ this.Wardrobe.module("AccountApp.New", function(New, App, Backbone, Marionette, 
     };
 
     User.prototype.save = function(e) {
-      var data,
-        _this = this;
+      var data;
       e.preventDefault();
       data = {
         first_name: this.$('#first_name').val(),
@@ -1208,10 +1213,7 @@ this.Wardrobe.module("AccountApp.New", function(New, App, Backbone, Marionette, 
         active: 1
       };
       return this.model.save(data, {
-        success: function(model, response) {
-          App.request("set:current:user", data);
-          return _this.$(".alert-success").show();
-        }
+        collection: this.collection
       });
     };
 
