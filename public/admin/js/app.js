@@ -107,7 +107,7 @@ with (obj) {
 __p += '<td class="title">\n  <img src="" class="avatar img-polaroid" width="18" height="18">\n  <a href="#" class="details">' +
 ((__t = ( title )) == null ? '' : __t) +
 '</a>\n</td>\n<td class="status">' +
-((__t = ( (active == 1) ? "Active" : "Draft" )) == null ? '' : __t) +
+((__t = ( status() )) == null ? '' : __t) +
 '</td>\n<td class="date js-format-date" data-date="' +
 ((__t = ( publish_date )) == null ? '' : __t) +
 '">' +
@@ -167,7 +167,7 @@ $.fn.formatDates = function() {
     if (typeof format === "undefined") {
       format = "MMM Do YYYY, hh:mma";
     }
-    time = isNaN(originalDate) ? moment.utc(originalDate, "YYYY-MM-DD HH:mm:ss") : moment.unix(originalDate);
+    time = isNaN(originalDate) ? moment(originalDate, "YYYY-MM-DD HH:mm:ss") : moment.unix(originalDate);
     return item.text(time.local().format(format));
   });
 };
@@ -1821,16 +1821,30 @@ this.Wardrobe.module("PostApp.List", function(List, App, Backbone, Marionette, $
     };
 
     PostItem.prototype.onShow = function() {
-      var $avEl, user;
+      var $avEl, allUsers, user;
+      allUsers = App.request("get:all:users");
       $avEl = this.$(".avatar");
-      user = this.model.get("user");
-      $avEl.avatar(user.email, $avEl.attr("width"));
-      return this.$('.js-format-date').formatDates();
+      if (allUsers.length === 1) {
+        return $avEl.hide();
+      } else {
+        user = this.model.get("user");
+        $avEl.avatar(user.email, $avEl.attr("width"));
+        return this.$('.js-format-date').formatDates();
+      }
     };
 
     PostItem.prototype.templateHelpers = {
       previewUrl: function() {
         return "" + (App.request("get:base:url")) + "/post/preview/" + this.id;
+      },
+      status: function() {
+        if (this.active === "1" && this.publish_date > moment().format('YYYY-MM-DD HH:mm:ss')) {
+          return "Scheduled";
+        } else if (this.active === "1") {
+          return "Active";
+        } else {
+          return "Draft";
+        }
       }
     };
 

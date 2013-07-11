@@ -6,5 +6,5 @@ $.fn.formatDates = ->
     originalDate = item.data("date")
     if typeof format is "undefined"
       format = "MMM Do YYYY, hh:mma"
-    time = if isNaN(originalDate) then moment.utc(originalDate, "YYYY-MM-DD HH:mm:ss") else moment.unix(originalDate)
+    time = if isNaN(originalDate) then moment(originalDate, "YYYY-MM-DD HH:mm:ss") else moment.unix(originalDate)
     item.text time.local().format(format)
