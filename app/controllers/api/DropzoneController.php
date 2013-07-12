@@ -55,4 +55,15 @@ class ApiDropzoneController extends BaseController {
     ));
   }
 
+  public function postImage()
+  {
+    $file = Input::file('file');
+    // @todo - Set the real upload path
+    // $destinationPath = 'uploads/'.str_random(8);
+    $filename = $file->getClientOriginalName();
+    //$extension =$file->getClientOriginalExtension(); //if you need extension of the file
+    $uploadSuccess = Input::file('file')->move($destinationPath, $filename);
+    return Response::json(array('filename' => $filename));
+  }
+
 }

@@ -56,6 +56,8 @@
 
       @editor.render(document.getElementById("content"))
 
+      @imageUpload @editor
+
       @$('.editor-statusbar')
         .find('.lines').html(@editor.codemirror.lineCount())
         .find('.words').html(@editor.codemirror.getValue().length)
@@ -208,3 +210,18 @@
         @$(".publish").text "Publish Post"
       else
         @$(".publish").text "Save Post"
+
+    # Setup the image uploading.
+    imageUpload: (editor) ->
+      options =
+        uploadUrl: App.request("get:base:url") + "/api/dropzone/image"
+        allowedTypes: ["image/jpeg", "image/png", "image/jpg", "image/gif"]
+        progressText: "![Uploading file...]()"
+        urlText: "![file]({filename})"
+        onReceivedFile: (file) ->
+          debugger
+        onUploadedFile: (json) ->
+          debugger
+        errorText: "Error uploading file"
+
+      inlineAttach.attachToCodeMirror(editor.codemirror, options)

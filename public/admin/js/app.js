@@ -1447,6 +1447,7 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
         toolbar: toolbar
       });
       this.editor.render(document.getElementById("content"));
+      this.imageUpload(this.editor);
       return this.$('.editor-statusbar').find('.lines').html(this.editor.codemirror.lineCount()).find('.words').html(this.editor.codemirror.getValue().length).find('.cursorActivity').html(this.editor.codemirror.getCursor().line + ':' + this.editor.codemirror.getCursor().ch);
     };
 
@@ -1649,6 +1650,24 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
       } else {
         return this.$(".publish").text("Save Post");
       }
+    };
+
+    PostView.prototype.imageUpload = function(editor) {
+      var options;
+      options = {
+        uploadUrl: App.request("get:base:url") + "/api/dropzone/image",
+        allowedTypes: ["image/jpeg", "image/png", "image/jpg", "image/gif"],
+        progressText: "![Uploading file...]()",
+        urlText: "![file]({filename})",
+        onReceivedFile: function(file) {
+          debugger;
+        },
+        onUploadedFile: function(json) {
+          debugger;
+        },
+        errorText: "Error uploading file"
+      };
+      return inlineAttach.attachToCodeMirror(editor.codemirror, options);
     };
 
     return PostView;
