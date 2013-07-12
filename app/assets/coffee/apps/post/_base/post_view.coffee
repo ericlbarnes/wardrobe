@@ -218,8 +218,6 @@
         allowedTypes: ["image/jpeg", "image/png", "image/jpg", "image/gif"]
         progressText: "![Uploading file...]()"
         urlText: "![file]({filename})"
-        onReceivedFile: (file) ->
-          debugger
         onUploadedFile: (json) ->
           debugger
         errorText: "Error uploading file"

@@ -10,12 +10,12 @@ class ApiDropzoneController extends BaseController {
 	 *
 	 * @return \ApiDropzoneController
 	 */
-  public function __construct()
-  {
+	public function __construct()
+	{
 		parent::__construct();
 
 		$this->beforeFilter('auth');
-  }
+	}
 
 	/**
 	 * Display a listing of the resource.
@@ -23,47 +23,54 @@ class ApiDropzoneController extends BaseController {
 	 * @throws Exception
 	 * @return Response
 	 */
-  public function postIndex()
-  {
-    if ( ! Input::hasFile('file'))
-    {
-      return Response::json(array('error' => 'File is required'), 500);
-    }
+	public function postIndex()
+	{
+		if ( ! Input::hasFile('file'))
+		{
+			return Response::json(array('error' => 'File is required'), 500);
+		}
 
-    $contents = trim(File::get(Input::file('file')->getRealPath()));
+		$contents = trim(File::get(Input::file('file')->getRealPath()));
 
-    if (substr($contents, 0, 3) !== '---')
-    {
-      throw new Exception('Bad Markdown Formatting');
-    }
+		if (substr($contents, 0, 3) !== '---')
+		{
+			throw new Exception('Bad Markdown Formatting');
+		}
 
-    if ( ! ($pos = strpos($contents, '---', 3)))
-    {
-      throw new Exception('Bad Markdown Formatting');
-    }
+		if ( ! ($pos = strpos($contents, '---', 3)))
+		{
+			throw new Exception('Bad Markdown Formatting');
+		}
 
-    $frontMatter = trim(substr($contents, 3, $pos - 3));
-    $contents = trim(substr($contents, $pos + 3));
+		$frontMatter = trim(substr($contents, 3, $pos - 3));
+		$contents = trim(substr($contents, $pos + 3));
 
-    $yaml = new Parser();
+		$yaml = new Parser();
 
-    $fields = $yaml->parse($frontMatter);
+		$fields = $yaml->parse($frontMatter);
 
-    return Response::json(array(
-      'fields' => $fields,
-      'content' => $contents
-    ));
-  }
+		return Response::json(array(
+			'fields' => $fields,
+			'content' => $contents
+		));
+	}
 
-  public function postImage()
-  {
-    $file = Input::file('file');
-    // @todo - Set the real upload path
-    // $destinationPath = 'uploads/'.str_random(8);
-    $filename = $file->getClientOriginalName();
-    //$extension =$file->getClientOriginalExtension(); //if you need extension of the file
-    $uploadSuccess = Input::file('file')->move($destinationPath, $filename);
-    return Response::json(array('filename' => $filename));
-  }
+	/**
+	 * Post an image from the admin
+	 *
+	 * @return Json
+	 */
+	public function postImage()
+	{
+		$file = Input::file('file');
+		$destinationPath = public_path().'/img/';
+		$filename = $file->getClientOriginalName();
+		if (Input::file('file')->move($destinationPath, $filename))
+		{
+			// @todo - Figure out common path to img folder. Using base slash for now
+			return Response::json(array('filename' => '/img/'.$filename));
+		}
+		return Response::json(array('error' => 'Upload failed. Please ensure your public/img directory is writable.'));
+	}
 
 }

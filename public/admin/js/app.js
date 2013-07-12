@@ -1659,9 +1659,6 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
         allowedTypes: ["image/jpeg", "image/png", "image/jpg", "image/gif"],
         progressText: "![Uploading file...]()",
         urlText: "![file]({filename})",
-        onReceivedFile: function(file) {
-          debugger;
-        },
         onUploadedFile: function(json) {
           debugger;
         },
