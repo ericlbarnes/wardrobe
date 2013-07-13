@@ -8,6 +8,7 @@
 
     onRender: ->
       @$(".publish").text("Publish Post")
+      @$("#date").attr("placeholder", moment().format("MMM Do, YYYY [9am]"))
 
     # Fill the form from a drag and dropped md file
     fillForm: (contents) ->

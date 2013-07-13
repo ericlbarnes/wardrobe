@@ -1963,7 +1963,8 @@ this.Wardrobe.module("PostApp.New", function(New, App, Backbone, Marionette, $, 
     };
 
     Post.prototype.onRender = function() {
-      return this.$(".publish").text("Publish Post");
+      this.$(".publish").text("Publish Post");
+      return this.$("#date").attr("placeholder", moment().format("MMM Do, YYYY [9am]"));
     };
 
     Post.prototype.fillForm = function(contents) {
