@@ -67,8 +67,9 @@ class ApiDropzoneController extends BaseController {
 		$filename = $file->getClientOriginalName();
 		if (Input::file('file')->move($destinationPath, $filename))
 		{
-			// @todo - Figure out common path to img folder. Using base slash for now
-			return Response::json(array('filename' => '/img/'.$filename));
+			// @note - Using the absolute url so it loads images when ran in sub folder
+			// this will make exporting less portable and may need to re-address at a later point.
+			return Response::json(array('filename' => url('/img/'.$filename)));
 		}
 		return Response::json(array('error' => 'Upload failed. Please ensure your public/img directory is writable.'));
 	}
