@@ -6,36 +6,36 @@
     </div>
   </div>
   <div class="alert alert-success hide">
-    <strong>Success!</strong> Your account has been saved!
+    <%= Lang.account_saved %>
   </div>
   <div class="control-group">
-    <label class="control-label" for="first_name">First Name</label>
+    <label class="control-label" for="first_name"><%= Lang.account_first_name %></label>
     <div class="controls">
-      <input type="text" id="first_name" name="first_name" placeholder="First Name">
+      <input type="text" id="first_name" name="first_name" placeholder="<%= Lang.account_first_name %>">
     </div>
   </div>
   <div class="control-group">
-    <label class="control-label" for="last_name">Last Name</label>
+    <label class="control-label" for="last_name"><%= Lang.account_last_name %></label>
     <div class="controls">
-      <input type="text" id="last_name" name="last_name" placeholder="Last Name">
+      <input type="text" id="last_name" name="last_name" placeholder="<%= Lang.account_last_name %>">
     </div>
   </div>
   <div class="control-group">
-    <label class="control-label" for="email">Email</label>
+    <label class="control-label" for="email"><%= Lang.account_email %></label>
     <div class="controls">
-      <input type="text" id="email" name="email" placeholder="Email">
+      <input type="text" id="email" name="email" placeholder="<%= Lang.account_email %>">
     </div>
   </div>
   <div class="control-group">
-    <label class="control-label" for="password">Password</label>
+    <label class="control-label" for="password"><%= Lang.account_password %></label>
     <div class="controls">
       <input id="password" type="password" name="password" value="">
-      <span class="help-block">Leave this empty to keep the same password</span>
+      <span class="help-block"><%= Lang.account_password_keep %></span>
     </div>
   </div>
   <div class="control-group">
     <div class="controls">
-      <button type="submit" class="btn save">Save</button>
+      <button type="submit" class="btn save"><%= Lang.account_save %></button>
     </div>
   </div>
 </form>

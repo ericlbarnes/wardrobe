@@ -17,5 +17,6 @@
         base_url: "{{ url('/') }}"
       });
 		});
+    window.Lang = {@foreach($locale as $key => $item) {{ $key }}: "{{ $item }}", @endforeach}
 	</script>
 @stop

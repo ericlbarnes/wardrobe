@@ -173,7 +173,7 @@
 
     # Private: Loop through the errors and display
     addErrors: (errors = {}) ->
-      @$("#js-errors").show().find("span").html("<strong>Error</strong> Please fix the following errors")
+      @$("#js-errors").show().find("span").html(Lang.post_errors)
       for name, error of errors
         @addError error
 
