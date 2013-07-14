@@ -54,4 +54,10 @@ return array(
   'login_sign_in' => 'Sign in',
   'login_incorrect' => 'Your email or password is incorrect.',
   'login_forgot' => 'Forgot password?',
+
+  'forgot_password' => 'Forgot Password',
+  'forgot_sent' => 'An e-mail with the password reset has been sent.',
+  'forgot_send' => 'Send reset email',
+  'forgot_pass_reset' => 'Password Reset',
+  'forgot_pass_reset_send' => 'Send reset email',
 );
