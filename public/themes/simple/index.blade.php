@@ -1,5 +1,9 @@
 @extends(theme_path('layout'))
 
+@section('title')
+  {{ site_title() }}
+@stop
+
 @section('content')
 	<section class="home">
     <h2>Recent Posts</h2>
