@@ -1430,7 +1430,9 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
       this.setupUsers();
       this.setupCalendar();
       if (this.model.isNew()) {
-        $('#slug').slugify('#title');
+        $('#title').slugIt({
+          output: "#slug"
+        });
       } else {
         publish = moment(this.model.get("publish_date"), "YYYY-MM-DD HH:mm");
         this.$("#publish_date").val(publish.format("MMM Do, YYYY h:mm A"));
