@@ -22182,15 +22182,15 @@ jQuery.fn.slugIt = function(options) {
     jQuery(this).bind(defaults.events, function() {
         var text = jQuery(this).val();
         if ( opts.before ) text = opts.before(text);
-        text = jQuery.trim(text.toString());
+        slug = jQuery.trim(text.toString());
 
-        var slug = new String();
-        for (var i = 0; i < text.length; i++) {
-            if ( chars[text.charAt(i)] ) { slug += chars[text.charAt(i)] }
-            else                         { slug += text.charAt(i) }
-        }
+        // var slug = new String();
+        // for (var i = 0; i < text.length; i++) {
+        //     if ( chars[text.charAt(i)] ) { slug += chars[text.charAt(i)] }
+        //     else                         { slug += text.charAt(i) }
+        // }
 
-        slug = slug.replace(/[^-\w\s$\*\(\)\'\!\_]/g, '-');  // remove unneeded chars
+        // slug = slug.replace(/[^-\w\s$\*\(\)\'\!\_]/g, '-');  // remove unneeded chars
         slug = slug.replace(/^\s+|\s+$/g, ''); // trim leading/trailing spaces
         slug = slug.replace(/[-\s]+/g, '-');   // convert spaces
         slug = slug.replace(/-$/, '');         // remove trailing separator
