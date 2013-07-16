@@ -10,7 +10,11 @@
 
       @listenTo view, "childview:account:delete:clicked", (child, args) ->
         model = args.model
-        if confirm "Are you sure you want to delete #{_.escape(model.get("first_name"))} #{_.escape(model.get("last_name"))}?" then model.destroy() else false
+        confirmMsg = Lang.account_delete_confirm
+          .replace("##first_name##", _.escape(model.get("first_name")))
+          .replace("##last_name##", _.escape(model.get("last_name")))
+
+        if confirm confirmMsg then model.destroy() else false
 
     getListView: (users) ->
       new List.Accounts

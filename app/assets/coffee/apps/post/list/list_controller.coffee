@@ -11,9 +11,8 @@
 
         @listenTo view, "childview:post:delete:clicked", (child, args) ->
           model = args.model
-          if confirm "Are you sure you want to delete #{model.get("title")}?" then model.destroy() else false
+          if confirm Lang.post_delete_confirm.replace("##post##", _.escape(model.get("title"))) then model.destroy() else false
 
     getListView: (post) ->
       new List.Posts
         collection: post
-

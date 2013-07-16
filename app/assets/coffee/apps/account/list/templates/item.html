@@ -3,5 +3,5 @@
   <%= first_name %> <%= last_name %>
 </a>
 <% if (canDelete()) { %>
-  <a href="#" class="delete" title="Delete User"><i class="icon-trash"></i></a>
+  <a href="#" class="delete" title="<%= Lang.account_delete %>"><i class="icon-trash"></i></a>
 <% } %>
