@@ -239,7 +239,7 @@ class DbPostRepository implements PostRepositoryInterface {
 	{
 		$rules = array(
 			'title' => 'required',
-			'slug'  => 'required|alpha_dash|unique:posts,slug',
+			'slug'  => 'required|unique:posts,slug',
 		);
 
 		if ($id)
