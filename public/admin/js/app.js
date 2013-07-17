@@ -4,7 +4,27 @@ this["JST"]["account/edit/templates/form.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<form class="form-horizontal center">\n  <div id="js-errors" class="hide">\n    <div class="alert alert-error">\n      <button type="button" class="close" data-dismiss="alert">×</button>\n      <span></span>\n    </div>\n  </div>\n  <div class="alert alert-success hide">\n    <strong>Success!</strong> Your account has been saved!\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="first_name">First Name</label>\n    <div class="controls">\n      <input type="text" id="first_name" name="first_name" placeholder="First Name">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="last_name">Last Name</label>\n    <div class="controls">\n      <input type="text" id="last_name" name="last_name" placeholder="Last Name">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="email">Email</label>\n    <div class="controls">\n      <input type="text" id="email" name="email" placeholder="Email">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="password">Password</label>\n    <div class="controls">\n      <input id="password" type="password" name="password" value="">\n      <span class="help-block">Leave this empty to keep the same password</span>\n    </div>\n  </div>\n  <div class="control-group">\n    <div class="controls">\n      <button type="submit" class="btn save">Save</button>\n    </div>\n  </div>\n</form>\n';
+__p += '<form class="form-horizontal center">\n  <div id="js-errors" class="hide">\n    <div class="alert alert-error">\n      <button type="button" class="close" data-dismiss="alert">×</button>\n      <span></span>\n    </div>\n  </div>\n  <div class="alert alert-success hide">\n    ' +
+((__t = ( Lang.account_saved )) == null ? '' : __t) +
+'\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="first_name">' +
+((__t = ( Lang.account_first_name )) == null ? '' : __t) +
+'</label>\n    <div class="controls">\n      <input type="text" id="first_name" name="first_name" placeholder="' +
+((__t = ( Lang.account_first_name )) == null ? '' : __t) +
+'">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="last_name">' +
+((__t = ( Lang.account_last_name )) == null ? '' : __t) +
+'</label>\n    <div class="controls">\n      <input type="text" id="last_name" name="last_name" placeholder="' +
+((__t = ( Lang.account_last_name )) == null ? '' : __t) +
+'">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="email">' +
+((__t = ( Lang.account_email )) == null ? '' : __t) +
+'</label>\n    <div class="controls">\n      <input type="text" id="email" name="email" placeholder="' +
+((__t = ( Lang.account_email )) == null ? '' : __t) +
+'">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="password">' +
+((__t = ( Lang.account_password )) == null ? '' : __t) +
+'</label>\n    <div class="controls">\n      <input id="password" type="password" name="password" value="">\n      <span class="help-block">' +
+((__t = ( Lang.account_password_keep )) == null ? '' : __t) +
+'</span>\n    </div>\n  </div>\n  <div class="control-group">\n    <div class="controls">\n      <button type="submit" class="btn save">' +
+((__t = ( Lang.account_save )) == null ? '' : __t) +
+'</button>\n    </div>\n  </div>\n</form>\n';
 
 }
 return __p
@@ -14,7 +34,9 @@ this["JST"]["account/list/templates/grid.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div class="holder"></div>\n<button class="btn add-new"><i class="icon-plus-sign"></i> Add New Account</button>';
+__p += '<div class="holder"></div>\n<button class="btn add-new"><i class="icon-plus-sign"></i> ' +
+((__t = ( Lang.account_add_new )) == null ? '' : __t) +
+'</button>';
 
 }
 return __p
@@ -31,7 +53,9 @@ __p += '<a href="#" class="details">\n  <img src="" class="avatar img-polaroid" 
 ((__t = ( last_name )) == null ? '' : __t) +
 '\n</a>\n';
  if (canDelete()) { ;
-__p += '\n  <a href="#" class="delete" title="Delete User"><i class="icon-trash"></i></a>\n';
+__p += '\n  <a href="#" class="delete" title="' +
+((__t = ( Lang.account_delete )) == null ? '' : __t) +
+'"><i class="icon-trash"></i></a>\n';
  } ;
 __p += '\n';
 
@@ -43,7 +67,27 @@ this["JST"]["account/new/templates/form.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<form class="form-horizontal center">\n  <div id="js-errors" class="hide">\n    <div class="alert alert-error">\n      <button type="button" class="close" data-dismiss="alert">×</button>\n      <span></span>\n    </div>\n  </div>\n  <div class="alert alert-success hide">\n    <strong>Success!</strong> The account has been created!\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="first_name">First Name</label>\n    <div class="controls">\n      <input type="text" id="first_name" name="first_name" placeholder="First Name">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="last_name">Last Name</label>\n    <div class="controls">\n      <input type="text" id="last_name" name="last_name" placeholder="Last Name">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="email">Email</label>\n    <div class="controls">\n      <input type="text" id="email" name="email" placeholder="Email">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="password">Password</label>\n    <div class="controls">\n      <input id="password" type="password" name="password" value="">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="password_confirm">Confirm Password</label>\n    <div class="controls">\n      <input id="password_confirm" type="password" name="password_confirm" value="">\n    </div>\n  </div>\n  <div class="control-group">\n    <div class="controls">\n      <button type="submit" class="btn save">Add User</button>\n    </div>\n  </div>\n</form>\n';
+__p += '<form class="form-horizontal center">\n  <div id="js-errors" class="hide">\n    <div class="alert alert-error">\n      <button type="button" class="close" data-dismiss="alert">×</button>\n      <span></span>\n    </div>\n  </div>\n  <div class="alert alert-success hide">\n    ' +
+((__t = ( Lang.account_saved )) == null ? '' : __t) +
+'\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="first_name">' +
+((__t = ( Lang.account_first_name )) == null ? '' : __t) +
+'</label>\n    <div class="controls">\n      <input type="text" id="first_name" name="first_name" placeholder="' +
+((__t = ( Lang.account_first_name )) == null ? '' : __t) +
+'">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="last_name">' +
+((__t = ( Lang.account_last_name )) == null ? '' : __t) +
+'</label>\n    <div class="controls">\n      <input type="text" id="last_name" name="last_name" placeholder="' +
+((__t = ( Lang.account_last_name )) == null ? '' : __t) +
+'">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="email">' +
+((__t = ( Lang.account_email )) == null ? '' : __t) +
+'</label>\n    <div class="controls">\n      <input type="text" id="email" name="email" placeholder="' +
+((__t = ( Lang.account_email )) == null ? '' : __t) +
+'">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="password">' +
+((__t = ( Lang.account_password )) == null ? '' : __t) +
+'</label>\n    <div class="controls">\n      <input id="password" type="password" name="password" value="">\n    </div>\n  </div>\n  <div class="control-group">\n    <label class="control-label" for="password_confirm">' +
+((__t = ( Lang.account_password_confirm )) == null ? '' : __t) +
+'</label>\n    <div class="controls">\n      <input id="password_confirm" type="password" name="password_confirm" value="">\n    </div>\n  </div>\n  <div class="control-group">\n    <div class="controls">\n      <button type="submit" class="btn save">' +
+((__t = ( Lang.account_add )) == null ? '' : __t) +
+'</button>\n    </div>\n  </div>\n</form>\n';
 
 }
 return __p
@@ -53,9 +97,17 @@ this["JST"]["header/list/templates/header.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<nav>\n  <ul>\n    <li><a class="write" href="#"><i class="icon-plus"></i> Write </a></li>\n    <li><a class="posts" href="#post"><i class="icon-list"></i> Posts </a></li>\n    <li><a class="accounts" href="#"><i class="icon-user"></i> Accounts </a></li>\n    <li><a href="' +
+__p += '<nav>\n  <ul>\n    <li><a class="write" href="#"><i class="icon-plus"></i> ' +
+((__t = ( Lang.write )) == null ? '' : __t) +
+'</a></li>\n    <li><a class="posts" href="#post"><i class="icon-list"></i> ' +
+((__t = ( Lang.posts )) == null ? '' : __t) +
+'</a></li>\n    <li><a class="accounts" href="#"><i class="icon-user"></i> ' +
+((__t = ( Lang.accounts )) == null ? '' : __t) +
+'</a></li>\n    <li><a href="' +
 ((__t = ( logoutUrl() )) == null ? '' : __t) +
-'"><i class="icon-off"></i> Logout</a></li>\n  </ul>\n</nav>\n';
+'"><i class="icon-off"></i> ' +
+((__t = ( Lang.logout )) == null ? '' : __t) +
+'</a></li>\n  </ul>\n</nav>\n';
 
 }
 return __p
@@ -70,11 +122,35 @@ __p += '<form>\n  <input type="hidden" name="publish_date" id="publish_date" val
  if (typeof id !== 'undefined') { ;
 __p += '\n          <a href="' +
 ((__t = ( previewUrl() )) == null ? '' : __t) +
-'" target="_blank" class="btn btn-mini preview pull-right">Preview</a>\n        ';
+'" target="_blank" class="btn btn-mini preview pull-right">' +
+((__t = ( Lang.post_preview )) == null ? '' : __t) +
+'</a>\n        ';
  } ;
 __p += '\n\n        <button class="btn btn-mini btn-success publish pull-right">' +
 ((__t = ( submitBtnText() )) == null ? '' : __t) +
-'</button>\n\n        <i data-dir="up" class="icon-chevron-sign-right js-toggle" title="Expand for options"></i>\n        <input type="text" style="width: 50%" name="title" id="title" value="" placeholder="Title">\n      </div>\n      <div class="details hide">\n        <div class="field">\n          <i class="icon-terminal" title="URI Slug"></i>\n          <input type="text" style="width: 50%" name="slug" id="slug" value="" placeholder="URI Slug">\n        </div>\n        <div class="field author">\n          <i class="icon-user" title="Author"></i>\n          <select id="js-user" name="user_id"></select>\n        </div>\n        <div class="field status">\n          <i class="icon-off" title="Status"></i>\n          <label class="radio"><input type="radio" name="active" class="js-active" value="1" checked> Published</label>\n          <label class="radio"><input type="radio" name="active" class="js-active" value="0"> Draft</label>\n        </div>\n      </div>\n    </div>\n    <div class="content-area">\n      <textarea name="content" id="content" placeholder="Content Goes Here..."></textarea>\n      <div class="tags-bar hide">\n        <input type="text" id="js-tags" name="tags" class="tags" style="width: 90%" value="" placeholder="Tags">\n      </div>\n    </div>\n  </div>\n</form>\n\n<div id="date-form" style="display: none">\n  <form class="form-inline">\n    <label for="date">Publish Date</label><br>\n    <input type="text" name="date" class="js-date" id="date" value="" placeholder="Next Thursday 10am">\n    <button class="btn js-setdate">Set</button>\n  </form>\n</div>\n';
+'</button>\n\n        <i data-dir="up" class="icon-chevron-sign-right js-toggle" title="' +
+((__t = ( Lang.post_expand )) == null ? '' : __t) +
+'"></i>\n        <input type="text" style="width: 50%" name="title" id="title" value="" placeholder="' +
+((__t = ( Lang.post_title )) == null ? '' : __t) +
+'">\n      </div>\n      <div class="details hide">\n        <div class="field">\n          <i class="icon-terminal" title="' +
+((__t = ( Lang.post_slug )) == null ? '' : __t) +
+'"></i>\n          <input type="text" style="width: 50%" name="slug" id="slug" value="" placeholder="' +
+((__t = ( Lang.post_slug )) == null ? '' : __t) +
+'">\n        </div>\n        <div class="field author">\n          <i class="icon-user" title="' +
+((__t = ( Lang.post_author )) == null ? '' : __t) +
+'"></i>\n          <select id="js-user" name="user_id"></select>\n        </div>\n        <div class="field status">\n          <i class="icon-off" title="Status"></i>\n          <label class="radio"><input type="radio" name="active" class="js-active" value="1" checked> ' +
+((__t = ( Lang.post_published )) == null ? '' : __t) +
+'</label>\n          <label class="radio"><input type="radio" name="active" class="js-active" value="0"> ' +
+((__t = ( Lang.post_draft )) == null ? '' : __t) +
+'</label>\n        </div>\n      </div>\n    </div>\n    <div class="content-area">\n      <textarea name="content" id="content" placeholder="' +
+((__t = ( Lang.post_content )) == null ? '' : __t) +
+'"></textarea>\n      <div class="tags-bar hide">\n        <input type="text" id="js-tags" name="tags" class="tags" style="width: 90%" value="" placeholder="' +
+((__t = ( Lang.post_tags )) == null ? '' : __t) +
+'">\n      </div>\n    </div>\n  </div>\n</form>\n\n<div id="date-form" style="display: none">\n  <form class="form-inline">\n    <label for="date">' +
+((__t = ( Lang.post_publish_date )) == null ? '' : __t) +
+'</label><br>\n    <input type="text" name="date" class="js-date" id="date" value="" placeholder="Next Thursday 10am">\n    <button class="btn js-setdate">' +
+((__t = ( Lang.post_publish_date_set )) == null ? '' : __t) +
+'</button>\n  </form>\n</div>\n';
 
 }
 return __p
@@ -84,7 +160,9 @@ this["JST"]["post/list/templates/empty.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<td colspan="4">No Posts</td>';
+__p += '<td colspan="4">' +
+((__t = ( Lang.posts_none )) == null ? '' : __t) +
+'</td>';
 
 }
 return __p
@@ -94,7 +172,13 @@ this["JST"]["post/list/templates/grid.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<table class="table center-col">\n\t<thead>\n\t\t<tr>\n\t\t\t<th>Title</th>\n\t\t\t<th>Status</th>\n\t\t\t<th>Published</th>\n\t\t\t<th></th>\n\t\t</tr>\n\t</thead>\n\t<tbody></tbody>\n</table>\n';
+__p += '<table class="table center-col">\n\t<thead>\n\t\t<tr>\n\t\t\t<th>' +
+((__t = ( Lang.post_title )) == null ? '' : __t) +
+'</th>\n\t\t\t<th>' +
+((__t = ( Lang.post_status )) == null ? '' : __t) +
+'</th>\n\t\t\t<th>' +
+((__t = ( Lang.post_published )) == null ? '' : __t) +
+'</th>\n\t\t\t<th></th>\n\t\t</tr>\n\t</thead>\n\t<tbody></tbody>\n</table>\n';
 
 }
 return __p
@@ -114,7 +198,9 @@ __p += '<td class="title">\n  <img src="" class="avatar img-polaroid" width="18"
 ((__t = ( publish_date )) == null ? '' : __t) +
 '</td>\n<td class="actions">\n  <a href="' +
 ((__t = ( previewUrl() )) == null ? '' : __t) +
-'" target="_blank" title="Preview"><i class="icon-zoom-in"></i></a>\n  <a href="#" class="delete" title="Delete Post"><i class="icon-trash"></i></a>\n</td>\n';
+'" target="_blank" title="Preview"><i class="icon-zoom-in"></i></a>\n  <a href="#" class="delete" title="' +
+((__t = ( Lang.post_delete )) == null ? '' : __t) +
+'"><i class="icon-trash"></i></a>\n</td>\n';
 
 }
 return __p
@@ -1037,9 +1123,10 @@ this.Wardrobe.module("AccountApp.List", function(List, App, Backbone, Marionette
       view = this.getListView(users);
       this.show(view);
       return this.listenTo(view, "childview:account:delete:clicked", function(child, args) {
-        var model;
+        var confirmMsg, model;
         model = args.model;
-        if (confirm("Are you sure you want to delete " + (_.escape(model.get("first_name"))) + " " + (_.escape(model.get("last_name"))) + "?")) {
+        confirmMsg = Lang.account_delete_confirm.replace("##first_name##", _.escape(model.get("first_name"))).replace("##last_name##", _.escape(model.get("last_name")));
+        if (confirm(confirmMsg)) {
           return model.destroy();
         } else {
           return false;
@@ -1604,7 +1691,7 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
       if (errors == null) {
         errors = {};
       }
-      this.$("#js-errors").show().find("span").html("<strong>Error</strong> Please fix the following errors");
+      this.$("#js-errors").show().find("span").html(Lang.post_errors);
       _results = [];
       for (name in errors) {
         error = errors[name];
@@ -1737,10 +1824,10 @@ this.Wardrobe.module("PostApp.Edit", function(Edit, App, Backbone, Marionette, $
 
     Post.prototype._setActive = function() {
       if (parseInt(this.model.get("active")) === 1) {
-        this.$(".publish").text("Publish Post");
+        this.$(".publish").text(Lang.post_publish);
         return this.$('input:radio[name="active"]').filter('[value="1"]').attr('checked', true);
       } else {
-        this.$(".publish").text("Save Post");
+        this.$(".publish").text(Lang.post_save);
         this.$('input:radio[name="active"]').filter('[value="0"]').attr('checked', true);
         return this.$('.js-toggle').trigger("click");
       }
@@ -1780,7 +1867,7 @@ this.Wardrobe.module("PostApp.List", function(List, App, Backbone, Marionette, $
         return _this.listenTo(view, "childview:post:delete:clicked", function(child, args) {
           var model;
           model = args.model;
-          if (confirm("Are you sure you want to delete " + (model.get("title")) + "?")) {
+          if (confirm(Lang.post_delete_confirm.replace("##post##", _.escape(model.get("title"))))) {
             return model.destroy();
           } else {
             return false;
@@ -2033,7 +2120,7 @@ this.Wardrobe.module("PostApp", function(PostApp, App, Backbone, Marionette, $, 
     return API.list();
   });
   App.vent.on("post:created post:updated", function() {
-    $("#js-alert").showAlert("Success!", "Post was successfully saved.", "alert-success");
+    $("#js-alert").showAlert(Lang.post_success, Lang.post_saved, "alert-success");
     App.navigate("post");
     return API.list();
   });
