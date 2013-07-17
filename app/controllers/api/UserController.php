@@ -26,6 +26,7 @@ class ApiUserController extends BaseController {
     $this->users = $users;
 
     $this->beforeFilter('auth');
+    $this->beforeFilter('csrf_header', array('only' => array('store', 'update', 'destroy')));
   }
 
   /**
@@ -54,7 +55,7 @@ class ApiUserController extends BaseController {
 
     if (count($messages) > 0)
     {
-      return Response::json($messages->all(), 500);
+      return Response::json($messages->all(), 400);
     }
 
     return $this->users->create(
@@ -106,7 +107,7 @@ class ApiUserController extends BaseController {
 
     if (count($messages) > 0)
     {
-      return Response::json($messages->all(), 500);
+      return Response::json($messages->all(), 400);
     }
 
     return $this->users->update(

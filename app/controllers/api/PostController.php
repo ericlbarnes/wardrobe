@@ -49,7 +49,7 @@ class ApiPostController extends BaseController {
 
 		if (count($messages) > 0)
 		{
-			return Response::json($messages->all(), 500);
+			return Response::json($messages->all(), 400);
 		}
 
 		$date = (Input::get('publish_date') == "") ? "Now" : Input::get('publish_date');
@@ -99,7 +99,7 @@ class ApiPostController extends BaseController {
 
 		if (count($messages) > 0)
 		{
-			return Response::json($messages->all(), 500);
+			return Response::json($messages->all(), 400);
 		}
 
 		return $this->posts->update(

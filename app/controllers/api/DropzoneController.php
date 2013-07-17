@@ -27,7 +27,7 @@ class ApiDropzoneController extends BaseController {
 	{
 		if ( ! Input::hasFile('file'))
 		{
-			return Response::json(array('error' => 'File is required'), 500);
+			return Response::json(array('error' => 'File is required'), 400);
 		}
 
 		$contents = trim(File::get(Input::file('file')->getRealPath()));

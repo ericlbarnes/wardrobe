@@ -5,6 +5,7 @@
   # Basic pre-seed of common data.
   App.on "initialize:before", (options) ->
     App.environment = $('meta[name=env]').attr("content")
+    App.csrfToken = $("meta[name='token']").attr('content')
     @currentUser = App.request "set:current:user", options.user
     @allUsers = App.request "set:all:users", options.users
     @baseUrl = options.base_url

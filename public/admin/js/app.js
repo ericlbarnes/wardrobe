@@ -403,6 +403,7 @@ this.Wardrobe = (function(Backbone, Marionette) {
   App = new Backbone.Marionette.Application();
   App.on("initialize:before", function(options) {
     App.environment = $('meta[name=env]').attr("content");
+    App.csrfToken = $("meta[name='token']").attr('content');
     this.currentUser = App.request("set:current:user", options.user);
     this.allUsers = App.request("set:all:users", options.users);
     return this.baseUrl = options.base_url;
@@ -480,6 +481,13 @@ this.Wardrobe.module("Entities", function(Entities, App, Backbone, Marionette, $
       }
     };
 
+    Collection.prototype.sync = function(method, model, options) {
+      options.headers = _.extend({
+        "X-CSRF-Token": App.csrfToken
+      }, options.headers);
+      return Backbone.sync(method, model, options);
+    };
+
     return Collection;
 
   })(Backbone.Collection);
@@ -507,8 +515,10 @@ this.Wardrobe.module("Entities", function(Entities, App, Backbone, Marionette, $
       return this.init && this.init(attributes, options);
     };
 
-    Model.prototype.defaultErrorHandler = function(model, error) {
+    Model.prototype.defaultErrorHandler = function(model, error, test) {
       switch (error.status) {
+        case 500:
+          return $("#js-alert").showAlert(Lang.error, Lang.error_fivehundred, "alert-error");
         case 401:
           return document.location.href = "/wardrobe/login";
       }
@@ -564,11 +574,18 @@ this.Wardrobe.module("Entities", function(Entities, App, Backbone, Marionette, $
     };
 
     Model.prototype.saveError = function(model, xhr, options) {
-      if (xhr.status !== 404) {
+      if (!(xhr.status === 404 || 500)) {
         return this.set({
           _errors: $.parseJSON(xhr.responseText)
         });
       }
+    };
+
+    Model.prototype.sync = function(method, model, options) {
+      options.headers = _.extend({
+        "X-CSRF-Token": App.csrfToken
+      }, options.headers);
+      return Backbone.sync(method, model, options);
     };
 
     return Model;

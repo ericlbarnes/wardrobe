@@ -86,3 +86,14 @@ Route::filter('csrf', function()
 		throw new Illuminate\Session\TokenMismatchException;
 	}
 });
+
+/**
+ * Filter to check for CSRF attacks from the ajax requests.
+ */
+Route::filter('csrf_header', function()
+{
+  if (Session::token() != Request::header('x-csrf-token'))
+	{
+		throw new Illuminate\Session\TokenMismatchException;
+	}
+});

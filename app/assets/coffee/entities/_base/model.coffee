@@ -7,8 +7,9 @@
       @bind "error", @defaultErrorHandler
       @init and @init(attributes, options)
 
-    defaultErrorHandler: (model, error) ->
+    defaultErrorHandler: (model, error, test) ->
       switch error.status
+        when 500 then $("#js-alert").showAlert(Lang.error, Lang.error_fivehundred, "alert-error")
         when 401 then document.location.href = "/wardrobe/login"
 
     destroy: (options = {}) ->
@@ -42,4 +43,11 @@
 
     saveError: (model, xhr, options) =>
       ## set errors directly on the model unless status returned was a 404
-      @set _errors: $.parseJSON(xhr.responseText) unless xhr.status is 404
+      @set _errors: $.parseJSON(xhr.responseText) unless xhr.status is 404 or 500
+
+    # Over ride sync so we include the CSRF Token
+    sync: (method, model, options) ->
+      options.headers = _.extend(
+        "X-CSRF-Token": App.csrfToken
+      , options.headers)
+      Backbone.sync method, model, options
