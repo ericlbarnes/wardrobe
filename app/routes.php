@@ -36,7 +36,7 @@ Route::controller('api/dropzone', 'ApiDropzoneController');
  */
 if (file_exists($theme_routes = base_path().'/public/themes/'.Config::get('wardrobe.theme').'/routes.php'))
 {
-  include $theme_routes;
+	include $theme_routes;
 }
 
 /**
@@ -44,7 +44,7 @@ if (file_exists($theme_routes = base_path().'/public/themes/'.Config::get('wardr
  */
 Route::get('password/reset/{token}', function($token)
 {
-    return View::make('admin.auth.reset')->with('token', $token);
+		return View::make('admin.auth.reset')->with('token', $token);
 });
 
 /**
@@ -52,14 +52,14 @@ Route::get('password/reset/{token}', function($token)
  */
 Route::post('password/reset/{token}', function()
 {
-    $credentials = array('email' => Input::get('email'));
+		$credentials = array('email' => Input::get('email'));
 
-    return Password::reset($credentials, function($user, $password)
-    {
-        $user->password = Hash::make($password);
+		return Password::reset($credentials, function($user, $password)
+		{
+				$user->password = Hash::make($password);
 
-        $user->save();
+				$user->save();
 
-        return Redirect::to('wardrobe');
-    });
+				return Redirect::to('wardrobe');
+		});
 });

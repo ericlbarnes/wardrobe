@@ -48,8 +48,8 @@ class LoginController extends BaseController {
 		}
 
 		return Redirect::back()
-                          ->withInput()
-                          ->with('login_errors', true);
+													->withInput()
+													->with('login_errors', true);
 	}
 
 	/**

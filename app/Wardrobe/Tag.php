@@ -29,7 +29,7 @@ class Tag extends \Eloquent {
 	 * @return Relationship
 	 */
 	public function posts()
-  {
+	{
 		return $this->belongsTo('Wardrobe\Post');
 	}
 

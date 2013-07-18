@@ -9,7 +9,7 @@
  */
 function site_title()
 {
-  return Config::get('wardrobe.title');
+	return Config::get('wardrobe.title');
 }
 
 /**
@@ -23,5 +23,5 @@ function site_title()
  */
 function theme_path($file = null)
 {
-  return 'themes/'.Config::get('wardrobe.theme').'/'.$file;
+	return 'themes/'.Config::get('wardrobe.theme').'/'.$file;
 }

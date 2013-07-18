@@ -92,7 +92,7 @@ Route::filter('csrf', function()
  */
 Route::filter('csrf_header', function()
 {
-  if (Session::token() != Request::header('x-csrf-token'))
+	if (Session::token() != Request::header('x-csrf-token'))
 	{
 		throw new Illuminate\Session\TokenMismatchException;
 	}

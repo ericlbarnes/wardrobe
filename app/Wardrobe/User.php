@@ -32,7 +32,7 @@ class User extends \Eloquent implements UserInterface, RemindableInterface {
 	 * @return Relationship
 	 */
 	public function posts()
-  {
+	{
 		return $this->hasMany('Wardrobe\Post');
 	}
 

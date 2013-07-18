@@ -20,10 +20,10 @@ class BaseController extends Controller {
 
 		// Redirect to /install if the db isn't setup.
 		if (Config::get("wardrobe.installed") !== true)
-    {
-    	header('Location: install');
-    	exit;
-    }
+		{
+			header('Location: install');
+			exit;
+		}
 	}
 
 	/**

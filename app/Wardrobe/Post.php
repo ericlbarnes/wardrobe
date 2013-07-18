@@ -51,7 +51,7 @@ class Post extends \Eloquent {
 			$content = $this->attributes['content'];
 			return Cache::rememberForever('post-'.$this->attributes['id'], function() use ($content)
 			{
-    				return md($content);
+				return md($content);
 			});
 		}
 		return md($this->attributes['content']);

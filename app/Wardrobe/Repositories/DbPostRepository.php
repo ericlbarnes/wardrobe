@@ -28,10 +28,10 @@ class DbPostRepository implements PostRepositoryInterface {
 		$per_page = is_numeric($per_page) ? $per_page : 5;
 
 		return Post::with(array('tags', 'user'))
-                        ->where('active', 1)
-                        ->where('publish_date', '<=', new DateTime)
-                        ->orderBy('publish_date', 'desc')
-                        ->paginate($per_page);
+												->where('active', 1)
+												->where('publish_date', '<=', new DateTime)
+												->orderBy('publish_date', 'desc')
+												->paginate($per_page);
 	}
 
 	/**
@@ -54,9 +54,9 @@ class DbPostRepository implements PostRepositoryInterface {
 	public function findBySlug($slug)
 	{
 		return Post::with(array('tags', 'user'))
-                        ->where('active', 1)
-                        ->where('publish_date', '<=', new DateTime)
-                        ->where('slug', $slug)->first();
+												->where('active', 1)
+												->where('publish_date', '<=', new DateTime)
+												->where('slug', $slug)->first();
 	}
 
 	/**
@@ -71,14 +71,14 @@ class DbPostRepository implements PostRepositoryInterface {
 		$per_page = is_numeric($per_page) ? $per_page : 5;
 
 		return Post::with(array('tags', 'user'))
-                       ->select('posts.*')
-                       ->join('tags', 'posts.id', '=', 'tags.post_id')
-                       ->where('tags.tag', '=', $tag)
-                       ->orderBy('posts.publish_date', 'desc')
-                       ->where('posts.active', 1)
-                       ->where('posts.publish_date', '<=', new DateTime)
-                       ->distinct()
-                       ->paginate($per_page);
+											 ->select('posts.*')
+											 ->join('tags', 'posts.id', '=', 'tags.post_id')
+											 ->where('tags.tag', '=', $tag)
+											 ->orderBy('posts.publish_date', 'desc')
+											 ->where('posts.active', 1)
+											 ->where('posts.publish_date', '<=', new DateTime)
+											 ->distinct()
+											 ->paginate($per_page);
 	}
 
 	/**
@@ -93,18 +93,18 @@ class DbPostRepository implements PostRepositoryInterface {
 		$per_page = is_numeric($per_page) ? $per_page : 5;
 
 		return Post::with(array('tags', 'user'))
-                       ->select('posts.*')
-                       ->join('tags', 'posts.id', '=', 'tags.post_id')
-                       ->orWhere(function($query) use ($search)
-                       {
-                         $query->orWhere('title', 'like', '%'.$search.'%')
-                         ->orWhere('content', 'like', '%'.$search.'%');
-                       })
-                       ->orderBy('posts.publish_date', 'desc')
-                       ->where('posts.active', 1)
-                       ->where('posts.publish_date', '<=', new DateTime)
-                       ->distinct()
-                       ->paginate($per_page);
+											 ->select('posts.*')
+											 ->join('tags', 'posts.id', '=', 'tags.post_id')
+											 ->orWhere(function($query) use ($search)
+											 {
+												 $query->orWhere('title', 'like', '%'.$search.'%')
+												 ->orWhere('content', 'like', '%'.$search.'%');
+											 })
+											 ->orderBy('posts.publish_date', 'desc')
+											 ->where('posts.active', 1)
+											 ->where('posts.publish_date', '<=', new DateTime)
+											 ->distinct()
+											 ->paginate($per_page);
 	}
 
 	/**
