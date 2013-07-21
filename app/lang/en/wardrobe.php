@@ -12,10 +12,9 @@ return array(
   'post_title' => 'Title',
   'post_slug' => 'URI Slug',
   'post_author' => 'Author',
-  'post_published' => 'Published',
-  'post_draft' => 'Draft',
   'post_content' => 'Content Goes Here...',
   'post_tags' => 'Tags',
+  'post_scheduled' => 'Scheduled',
   'post_publish_date' => 'Publish Date',
   'post_publish_date_set' => 'Set',
   'post_publish' => 'Publish Post',
@@ -29,7 +28,9 @@ return array(
   // Post List
   'posts_none' => 'No Posts',
   'post_status' => 'Status',
+  'post_active' => 'Active',
   'post_published' => 'Published',
+  'post_draft' => 'Draft',
   'post_delete' => 'Delete Post',
   'post_delete_confirm' => 'Are you sure you want to delete ##post##?',
 

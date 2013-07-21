@@ -1960,12 +1960,12 @@ this.Wardrobe.module("PostApp.List", function(List, App, Backbone, Marionette, $
         return "" + (App.request("get:base:url")) + "/post/preview/" + this.id;
       },
       status: function() {
-        if (this.active === "1" && this.publish_date > moment().format('YYYY-MM-DD HH:mm:ss')) {
-          return "Scheduled";
-        } else if (this.active === "1") {
-          return "Active";
+        if (parseInt(this.active) === 1 && this.publish_date > moment().format('YYYY-MM-DD HH:mm:ss')) {
+          return Lang.post_scheduled;
+        } else if (parseInt(this.active) === 1) {
+          return Lang.post_active;
         } else {
-          return "Draft";
+          return Lang.post_draft;
         }
       }
     };

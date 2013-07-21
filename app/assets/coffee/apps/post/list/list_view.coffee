@@ -31,12 +31,12 @@
         "#{App.request("get:base:url")}/post/preview/#{@id}"
 
       status: ->
-        if @active is "1" and @publish_date > moment().format('YYYY-MM-DD HH:mm:ss')
-          "Scheduled"
-        else if @active is "1"
-          "Active"
+        if parseInt(@active) is 1 and @publish_date > moment().format('YYYY-MM-DD HH:mm:ss')
+          Lang.post_scheduled
+        else if parseInt(@active) is 1
+          Lang.post_active
         else
-          "Draft"
+          Lang.post_draft
 
     edit: (e) ->
       e.preventDefault()
