@@ -41,6 +41,20 @@
         <input type="text" id="js-tags" name="tags" class="tags" style="width: 90%" value="" placeholder="<%= Lang.post_tags %>">
       </div>
     </div>
+    <div class="extra-fields">
+      <h3>Extra Fields</h3>
+      <div class="field">
+        <div class="col">
+          <input type="text" name="key[]" value="" placeholder="Key">
+        </div>
+        <div class="col">
+          <textarea name="value[]" placeholder="Value"></textarea>
+        </div>
+        <div class="col">
+          <a href="#" class="js-remove"><i class="icon-remove-sign"></i></a>
+        </div>
+      </div>
+    </div>
   </div>
 </form>
 

@@ -146,7 +146,7 @@ __p += '\n\n        <button class="btn btn-mini btn-success publish pull-right">
 ((__t = ( Lang.post_content )) == null ? '' : __t) +
 '"></textarea>\n      <div class="tags-bar hide">\n        <input type="text" id="js-tags" name="tags" class="tags" style="width: 90%" value="" placeholder="' +
 ((__t = ( Lang.post_tags )) == null ? '' : __t) +
-'">\n      </div>\n    </div>\n  </div>\n</form>\n\n<div id="date-form" style="display: none">\n  <form class="form-inline">\n    <label for="date">' +
+'">\n      </div>\n    </div>\n    <div class="extra-fields">\n      <h3>Extra Fields</h3>\n      <div class="field">\n        <div class="col">\n          <input type="text" name="key[]" value="" placeholder="Key">\n        </div>\n        <div class="col">\n          <textarea name="value[]" placeholder="Value"></textarea>\n        </div>\n        <div class="col">\n          <a href="#" class="js-remove"><i class="icon-remove-sign"></i></a>\n        </div>\n      </div>\n    </div>\n  </div>\n</form>\n\n<div id="date-form" style="display: none">\n  <form class="form-inline">\n    <label for="date">' +
 ((__t = ( Lang.post_publish_date )) == null ? '' : __t) +
 '</label><br>\n    <input type="text" name="date" class="js-date" id="date" value="" placeholder="Next Thursday 10am">\n    <button class="btn js-setdate">' +
 ((__t = ( Lang.post_publish_date_set )) == null ? '' : __t) +
