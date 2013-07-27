@@ -30,6 +30,16 @@ class Post extends \Eloquent {
 	}
 
 	/**
+	 * Meta Relationship
+	 *
+	 * @return Relationship
+	 */
+	public function meta()
+	{
+		return $this->hasMany('\Wardrobe\Meta', 'post_id');
+	}
+
+	/**
 	 * User relationship
 	 *
 	 * @return Relationship

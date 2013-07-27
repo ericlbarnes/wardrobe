@@ -13,7 +13,7 @@ class DbPostRepository implements PostRepositoryInterface {
 	 */
 	public function all()
 	{
-		return Post::with(array('tags', 'user'))->orderBy('publish_date', 'desc')->get();
+		return Post::with(array('tags', 'user', 'meta'))->orderBy('publish_date', 'desc')->get();
 	}
 
 	/**
@@ -27,7 +27,7 @@ class DbPostRepository implements PostRepositoryInterface {
 	{
 		$per_page = is_numeric($per_page) ? $per_page : 5;
 
-		return Post::with(array('tags', 'user'))
+		return Post::with(array('tags', 'user', 'meta'))
 												->where('active', 1)
 												->where('publish_date', '<=', new DateTime)
 												->orderBy('publish_date', 'desc')
@@ -42,7 +42,7 @@ class DbPostRepository implements PostRepositoryInterface {
 	 */
 	public function find($id)
 	{
-		return Post::with(array('tags', 'user'))->findOrFail($id);
+		return Post::with(array('tags', 'user', 'meta'))->findOrFail($id);
 	}
 
 	/**
@@ -53,7 +53,7 @@ class DbPostRepository implements PostRepositoryInterface {
 	 */
 	public function findBySlug($slug)
 	{
-		return Post::with(array('tags', 'user'))
+		return Post::with(array('tags', 'user', 'meta'))
 												->where('active', 1)
 												->where('publish_date', '<=', new DateTime)
 												->where('slug', $slug)->first();
@@ -70,7 +70,7 @@ class DbPostRepository implements PostRepositoryInterface {
 	{
 		$per_page = is_numeric($per_page) ? $per_page : 5;
 
-		return Post::with(array('tags', 'user'))
+		return Post::with(array('tags', 'user', 'meta'))
 											 ->select('posts.*')
 											 ->join('tags', 'posts.id', '=', 'tags.post_id')
 											 ->where('tags.tag', '=', $tag)
@@ -92,7 +92,7 @@ class DbPostRepository implements PostRepositoryInterface {
 	{
 		$per_page = is_numeric($per_page) ? $per_page : 5;
 
-		return Post::with(array('tags', 'user'))
+		return Post::with(array('tags', 'user', 'meta'))
 											 ->select('posts.*')
 											 ->join('tags', 'posts.id', '=', 'tags.post_id')
 											 ->orWhere(function($query) use ($search)
@@ -114,12 +114,13 @@ class DbPostRepository implements PostRepositoryInterface {
 	 * @param  string  $content
 	 * @param  string  $slug
 	 * @param  array  $tags
+	 * @param  array  $meta
 	 * @param  bool  $active
 	 * @param  int  $user_id
 	 * @param  DateTime  $publish_date
 	 * @return Post
 	 */
-	public function create($title, $content, $slug, array $tags, $active, $user_id, DateTime $publish_date)
+	public function create($title, $content, $slug, array $tags, array $meta, $active, $user_id, DateTime $publish_date)
 	{
 		$post = Post::create(compact('title', 'content', 'slug', 'active', 'user_id', 'publish_date'));
 
