@@ -72,7 +72,7 @@
       users.each (item) ->
         $userSelect.append $("<option></option>").val(item.id).html(item.get("first_name") + " " + item.get("last_name"))
 
-      if not @model.isNew() # Set the default to yourself.
+      if @model.isNew() # Set the default to yourself.
         user = App.request "get:current:user"
         $userSelect.val user.id
       else

@@ -1564,7 +1564,7 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
       users.each(function(item) {
         return $userSelect.append($("<option></option>").val(item.id).html(item.get("first_name") + " " + item.get("last_name")));
       });
-      if (!this.model.isNew()) {
+      if (this.model.isNew()) {
         user = App.request("get:current:user");
         return $userSelect.val(user.id);
       } else {
