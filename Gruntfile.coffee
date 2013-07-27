@@ -62,6 +62,7 @@ module.exports = (grunt) ->
           'app/assets/vendor/plugins/qtip.js'
           'app/assets/vendor/plugins/bootstrap/*.js'
           'app/assets/vendor/plugins/*.js'
+          'app/assets/vendor/backbone-plugins/backbone.syphon.js'
         ]
         dest: 'public/admin/js/structure.js'
 
