@@ -29,6 +29,7 @@ $app->redirectIfTrailingSlash();
 $env = $app->detectEnvironment(array(
 
 	'local' => array('localhost', '127.0.0.1'),
+  'dev' => array('wardrobe.dev'),
 
 ));
 

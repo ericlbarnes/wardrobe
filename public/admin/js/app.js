@@ -430,12 +430,12 @@ this.Wardrobe = (function(Backbone, Marionette) {
     return App.mainRegion;
   });
   App.commands.setHandler("register:instance", function(instance, id) {
-    if (App.environment === "local") {
+    if (App.environment === "dev") {
       return App.register(instance, id);
     }
   });
   App.commands.setHandler("unregister:instance", function(instance, id) {
-    if (App.environment === "local") {
+    if (App.environment === "dev") {
       return App.unregister(instance, id);
     }
   });
@@ -929,7 +929,7 @@ this.Wardrobe.module("Views", function(Views, App, Backbone, Marionette, $, _) {
       var args, _ref,
         _this = this;
       args = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-      if (App.environment === "local") {
+      if (App.environment === "dev") {
         console.log("removing", this);
       }
       if ((_ref = this.model) != null ? typeof _ref.isDestroyed === "function" ? _ref.isDestroyed() : void 0 : void 0) {

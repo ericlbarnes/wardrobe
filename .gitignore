@@ -1,7 +1,7 @@
 /bootstrap/compiled.php
 /vendor
 /app/assets/src
-/app/config/local
+/app/config/dev
 /app/database/local.sqlite
 /node_modules
 composer.phar

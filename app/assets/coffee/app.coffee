@@ -36,10 +36,10 @@
     App.mainRegion
 
   App.commands.setHandler "register:instance", (instance, id) ->
-    App.register instance, id if App.environment is "local"
+    App.register instance, id if App.environment is "dev"
 
   App.commands.setHandler "unregister:instance", (instance, id) ->
-    App.unregister instance, id if App.environment is "local"
+    App.unregister instance, id if App.environment is "dev"
 
   # Finally start up backbone history.
   App.on "initialize:after", ->
