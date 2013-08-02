@@ -28,7 +28,7 @@ $app->redirectIfTrailingSlash();
 
 $env = $app->detectEnvironment(array(
 
-	'local' => array('Erics-MacBook-Pro-2.local', 'ubuntu'),
+	'local' => array('localhost', '127.0.0.1'),
 
 ));
 
