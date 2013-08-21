@@ -49,7 +49,7 @@ class ApiUserController extends BaseController {
 		$messages = $this->users->validForCreation(
 			Input::get('first_name'),
 			Input::get('last_name'),
-			Str::lower(Input::get('email')),
+			Input::get('email'),
 			Input::get('password')
 		);
 
@@ -61,7 +61,7 @@ class ApiUserController extends BaseController {
 		return $this->users->create(
 			Input::get('first_name'),
 			Input::get('last_name'),
-			Str::lower(Input::get('email')),
+			Input::get('email'),
 			(bool) Input::get('active'),
 			Input::get('password')
 		);
@@ -101,7 +101,7 @@ class ApiUserController extends BaseController {
 			$id,
 			Input::get('first_name'),
 			Input::get('last_name'),
-			Str::lower(Input::get('email')),
+			Input::get('email'),
 			Input::get('password')
 		);
 
@@ -114,7 +114,7 @@ class ApiUserController extends BaseController {
 			$id,
 			Input::get('first_name'),
 			Input::get('last_name'),
-			Str::lower(Input::get('email')),
+			Input::get('email'),
 			(bool) Input::get('active'),
 			Input::get('password')
 		);
