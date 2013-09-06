@@ -317,3 +317,53 @@ pre .chunk {
 pre .tex .formula {
   opacity: 0.5;
 }
+
+.content img{
+  width: 100%;
+}
+
+
+@media (max-width : 961px) and (min-width: 600px) {
+  .container{
+    width: 100%;
+  }
+  .post{
+    padding: 0px 30px;
+  }
+  .post p{
+    text-align: left;
+  }
+  nav{
+    width: 100%;
+  }
+}
+
+@media (max-width : 600px) and (min-width: 480px) {
+  .container{
+    width: 100%;
+  }
+  .post{
+    padding: 0 20px;
+  }
+  .post p{
+    text-align: justify;
+  }
+  nav{
+    width: 100%;
+  }
+}
+
+@media (max-width : 480px) {
+  .container{
+    width: 100%;
+  }
+  .post{
+    padding: 0 20px;
+  }
+  .post p{
+    text-align: justify;
+  }
+  nav{
+    width: 100%;
+  }
+}
